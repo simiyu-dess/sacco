@@ -24,7 +24,21 @@ error_reporting(E_ALL);
 		$share_value = $_SESSION['share_value'] * $share_amount;
 
 		//Insert into SHARES
-		$sql_insert_sh = "INSERT INTO shares (cust_id, share_date, share_amount, share_value, share_receipt, share_created, user_id) VALUES ('$_SESSION[cust_id]', '$share_date', '$share_amount', '$share_value', '$share_receipt', $timestamp, '$_SESSION[log_id]')";
+		$sql_insert_sh = "INSERT INTO shares (
+						 cust_id, 
+						 share_date, 
+						 share_amount, 
+						 share_value, 
+						 share_receipt, 
+						 share_created, 
+						 user_id) VALUES (
+						 '$_SESSION[cust_id]', 
+						 '$share_date',
+						  '$share_amount', 
+						  '$share_value', 
+						  '$share_receipt', 
+						   $timestamp, 
+						  '$_SESSION[log_id]')";
 		$query_insert_sh = mysqli_query($db_link, $sql_insert_sh);
 		checkSQL($db_link, $query_insert_sh);
 

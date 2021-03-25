@@ -36,6 +36,7 @@ error_reporting(E_ALL);
 		$loan_guarant2 = sanitize($db_link, $_POST['loan_guarant2']);
 		$loan_guarant3 = sanitize($db_link, $_POST['loan_guarant3']);
 		$loan_appfee_receipt = sanitize($db_link, $_POST['loan_appfee_receipt']);
+		$loan_null = "NULL";
 		if($_SESSION['set_xl1'] != "") $loan_xtra1 = sanitize($db_link, $_POST['loan_xtra1']);
 		else $loan_xtra1 = NULL;
 		if($_SESSION['fee_xl1'] != 0) $loan_xtraFee1 = $_SESSION['fee_xl1'];
@@ -51,7 +52,52 @@ error_reporting(E_ALL);
 		$loan_insurance = $loan_principal / 100 * $_SESSION['fee_loaninsurance'];
 
 		//Insert Loan into LOANS
-		$sql_insert_loan = "INSERT INTO loans (cust_id, loanstatus_id, loan_no, loan_date, loan_issued, loan_principal, loan_interest, loan_appfee_receipt, loan_fee, loan_insurance, loan_rate, loan_period, loan_repaytotal, loan_purpose, loan_guarant1, loan_guarant2, loan_guarant3, loan_created, loan_xtra1, loan_xtraFee1, user_id) VALUES ('$_SESSION[cust_id]', '1', '$loan_no', '$loan_date', '0', '$loan_principal', '$loan_interest', '$loan_appfee_receipt', '$loan_fee', '$loan_insurance', '$loan_rate', '$loan_period', $loan_repaytotal, '$loan_purpose', '$loan_guarant1', '$loan_guarant2', '$loan_guarant3', $timestamp, '$loan_xtra1', '$loan_xtraFee1', '$_SESSION[log_id]')";
+		$sql_insert_loan = "INSERT INTO loans (
+							   cust_id,
+							   loanstatus_id, 
+							   loan_no, 
+							   loan_date, 
+							   loan_issued, 
+							   loan_principal, 
+							   loan_interest,
+								loan_appfee_receipt,
+								 loan_fee, 
+								loan_insurance,
+								 loan_rate,
+								  loan_period, 
+								loan_repaytotal, 
+								loan_purpose,
+								
+								loan_guarant1,
+								 loan_guarant2, 
+								 loan_guarant3, 
+								 loan_created, 
+								 loan_xtra1, 
+								 loan_xtraFee1,
+								  user_id)
+								   VALUES (
+									 '$_SESSION[cust_id]', 
+									 '1', 
+									 '$loan_no',
+									  '$loan_date', 
+									  '0', 
+									  '$loan_principal', 
+									  '$loan_interest', 
+									   '$loan_appfee_receipt',
+										'$loan_fee', 
+										'$loan_insurance', 
+										'$loan_rate', 
+										'$loan_period',
+										 $loan_repaytotal, 
+										 '$loan_purpose', 
+										 '$loan_guarant1', 
+
+										 '$loan_guarant2', 
+										 '$loan_guarant3', 
+										  $timestamp, 
+										 '$loan_xtra1', 
+										 '$loan_xtraFee1', 
+										 '$_SESSION[log_id]')";
 		$query_insert_loan = mysqli_query($db_link, $sql_insert_loan);
 		checkSQL($db_link, $query_insert_loan);
 

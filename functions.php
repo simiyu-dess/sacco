@@ -416,15 +416,19 @@ error_reporting(E_ALL);
 											 
 
 		$sql_savbal_upd = " UPDATE savbalance
-		                 SET savbalance.savbal_balance = 
-			              (SELECT sum(savings.sav_amount)
+						 SET 
+						  savbalance.cust_id = $_SESSION[cust_id],
+						  savbalance.savbal_balance =(
+			              SELECT sum(savings.sav_amount)
 			                FROM savings
 							WHERE savings.cust_id = savbalance.cust_id),
-							savbalance.savbal_fixed =
-							(SELECT SUM(savings.sav_amount)
+							savbalance.savbal_fixed =(
+							SELECT SUM(savings.sav_amount)
 							  FROM savings 
-							  WHERE savings.cust_id = savbalance.cust_id 
-							  AND savings.sav_fixed > $timestamp) 
+							  WHERE savings.cust_id = savbalance.cust_id),
+							  savbalance.savbal_date = $timestamp,
+							  savbalance.savbal_created = $timestamp,
+							  savbalance.user_id = $_SESSION[log_id]
 		                                                 ";
 		                          
 		                                        
