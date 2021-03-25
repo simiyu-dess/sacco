@@ -1,0 +1,8 @@
+Error performing query <strong>INSERT INTO `custsick` (`custsick_id`, `custsick_name`, `custsick_risk`) VALUES
+(0, 'None', 0),
+(1, 'Heart Attack', 1),
+(2, 'Stroke', 1),
+(3, 'Cancer', 3),
+(4, 'HIV/AIDS', 3),
+(5, 'Ulcer', 1);
+ : Table 'mangoo.custsick' doesn't exist

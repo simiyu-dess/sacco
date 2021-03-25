@@ -1,0 +1,6 @@
+Error performing query <strong>INSERT INTO `emplmarried` (`emplmarried_id`, `emplmarried_status`) VALUES
+(1, 'Single'),
+(2, 'Married'),
+(3, 'Widowed'),
+(4, 'Divorced');
+ : Table 'flick.emplmarried' doesn't exist
