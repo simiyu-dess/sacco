@@ -173,14 +173,16 @@ error_reporting(E_ALL);
 						<td>Receipt No:</td>
 						<td><input type="number" name="sav_receipt" placeholder="for Deposit Transaction" class="defaultnumber" tabindex="4" required="required" /></td>
 					</tr>
+					<!--
 					<tr>
 						<td>Depositor:</td>
-						<td><input type="text" name="sav_payer" placeholder="if not account holder" tabindex="5" /></td>
+						<td><input type="hidden" name="sav_payer" placeholder="if not account holder" tabindex="5" /></td>
 					</tr>
 					<tr>
 						<td>Deposit Slip:</td>
-						<td><input type="number" name="sav_slip" placeholder="Slip No." class="defaultnumber" tabindex="3" required="required" /></td>
+						<td><input type="hidden" name="sav_slip" placeholder="Slip" class="defaultnumber" tabindex="3" required="false" /></td>
 					</tr>
+					-->
 					<tr>
 						<td colspan="2" class="center"><input type="submit" name="deposit" value="Deposit" tabindex="6" /></td>
 					</tr>

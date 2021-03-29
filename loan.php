@@ -12,7 +12,9 @@ error_reporting(E_ALL);
 	$timestamp = time();
 
 	// Select details of current loan from LOANS, LOANSTATUS, CUSTOMER
-	$sql_loan = "SELECT * FROM loans JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id JOIN customer ON loans.cust_id = customer.cust_id WHERE loans.loan_id = $_SESSION[loan_id]";
+	$sql_loan = "SELECT * FROM loans JOIN loanstatus ON 
+													loans.loanstatus_id = loanstatus.loanstatus_id JOIN customer
+												    ON loans.cust_id = customer.cust_id WHERE loans.loan_id = $_SESSION[loan_id]";
 	$query_loan = mysqli_query($db_link, $sql_loan);
 	checkSQL($db_link, $query_loan);
 	$result_loan = mysqli_fetch_assoc($query_loan);
@@ -29,48 +31,100 @@ error_reporting(E_ALL);
 		$loan_interest = $_SESSION['loan_interest'];
 		$loan_period = $_SESSION['loan_period'];
 		$loan_issued = $_SESSION['loan_issued'];
+		
 
 		$loan_fee_receipt = sanitize($db_link, $_POST['loan_fee_receipt']);
 		$loan_status = sanitize($db_link, $_POST['loan_status']);
 		$loan_dateout = strtotime(sanitize($db_link, $_POST['loan_dateout']));
 		$loan_princp_approved = sanitize($db_link, $_POST['loan_principalapproved']);
 
-		if($loan_status == 2 AND $loan_issued == 0){
+		if ($loan_status == 2 AND $loan_issued == 0) {
 
 			//Include module for interest calculation method according to system settings
 			include ($_SESSION['set_intcalc']);
 
 			//Insert Loan Fee into INCOMES
 			$loan_fee = $loan_princp_approved / 100 * $_SESSION['fee_loan'];
-			$sql_inc_lf = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_created, user_id) VALUES ('$_SESSION[cust_id]', '$_SESSION[loan_id]', '3', '$loan_fee', '$loan_dateout', '$loan_fee_receipt', '$timestamp', '$_SESSION[log_id]')";
+			$sql_inc_lf = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_created, user_id) VALUES 
+			('$_SESSION[cust_id]', '$_SESSION[loan_id]', '3', '$loan_fee', '$loan_dateout', '$loan_fee_receipt', '$timestamp', '$_SESSION[log_id]')";
+
+
+			
+
 			$query_inc_lf = mysqli_query($db_link, $sql_inc_lf);
 			checkSQL($db_link, $query_inc_lf);
 
 			//Insert Loan Insurance into INCOMES
 			$loan_insurance = $loan_princp_approved / 100 * $_SESSION['fee_loaninsurance'];
-			$sql_inc_ins = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_created, user_id) VALUES ('$_SESSION[cust_id]', '$_SESSION[loan_id]', '10', '$loan_insurance', '$loan_dateout', '$loan_fee_receipt', '$timestamp', '$_SESSION[log_id]')";
+			$sql_inc_ins = "INSERT INTO incomes (
+											   cust_id, 
+											   loan_id, 
+											   inctype_id, 
+											   inc_amount, 
+											   inc_date, 
+											   inc_receipt, 
+											   inc_created,
+												user_id)
+												 VALUES (
+													 '$_SESSION[cust_id]',
+													  '$_SESSION[loan_id]', 
+													  '10',
+													   '$loan_insurance',
+														'$loan_dateout', 
+														'$loan_fee_receipt', 
+														'$timestamp', 
+														'$_SESSION[log_id]')";
+
 			$query_inc_ins = mysqli_query($db_link, $sql_inc_ins);
 			checkSQL($db_link, $query_inc_ins);
 
 			//Insert Additional Loan Fee into INCOMES
-			if($_SESSION['fee_xl1'] != 0){
+			if($_SESSION['fee_xl1'] != NULL){
 				$loan_xtraFee1 = $_SESSION['fee_xl1'];
-				$sql_inc_xtraFee1 = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_created, user_id) VALUES ('$_SESSION[cust_id]', '$_SESSION[loan_id]', '11', '$loan_xtraFee1', '$loan_dateout', '$loan_fee_receipt', '$timestamp', '$_SESSION[log_id]')";
+				$sql_inc_xtraFee1 = "INSERT INTO incomes (
+														 cust_id, 
+														 loan_id, 
+														 inctype_id, 
+														 inc_amount, 
+														 inc_date, 
+														 inc_receipt, 
+														 inc_created, 
+														 user_id) 
+														 VALUES (
+															 '$_SESSION[cust_id]',
+															  '$_SESSION[loan_id]',
+															   '11', 
+															   '$loan_xtraFee1',
+																'$loan_dateout', 
+																'$loan_fee_receipt',
+																 '$timestamp', 
+																 '$_SESSION[log_id]')";
 				$query_inc_xtraFee1 = mysqli_query($db_link, $sql_inc_xtraFee1);
 				checkSQL($db_link, $query_inc_xtraFee1);
 			}
 
 			//Update loan information. Set loan to "Approved" and "Issued".
-			$sql_issue = "UPDATE loans SET loanstatus_id = '$loan_status', loan_issued = '1', loan_dateout = '$loan_dateout', loan_principalapproved = '$loan_princp_approved', loan_fee = '$loan_fee', loan_fee_receipt = '$loan_fee_receipt', loan_insurance = '$loan_insurance', loan_insurance_receipt = '$loan_fee_receipt' WHERE loan_id = '$_SESSION[loan_id]'";
+			$sql_issue = "UPDATE loans SET loanstatus_id = 
+											 '$loan_status', 
+											 loan_issued = '1', 
+											 loan_dateout = '$loan_dateout', 
+											 loan_principalapproved = '$loan_princp_approved', 
+											 loan_fee = '$loan_fee', 
+											 loan_fee_receipt = '$loan_fee_receipt', 
+											 loan_insurance = '$loan_insurance', 
+											 loan_insurance_receipt = '$loan_fee_receipt' 
+											 WHERE loan_id = '$_SESSION[loan_id]'";
 			$query_issue = mysqli_query($db_link, $sql_issue);
 			checkSQL($db_link, $query_issue);
 		}
+		
 
 		else {
 			$sql_update = "UPDATE loans SET loanstatus_id = '$_POST[loan_status]' WHERE loan_id = $_SESSION[loan_id]";
 			$query_update = mysqli_query($db_link, $sql_update);
 			checkSQL($db_link, $query_update);
 		}
+		
 		header('Location: loan.php?lid='.$_SESSION['loan_id']);
 	}
 
@@ -379,7 +433,7 @@ error_reporting(E_ALL);
 						<td><input type="text" name="loan_insurance" disabled="disabled" value="<?PHP echo number_format($result_loan['loan_insurance']).' '.$_SESSION['set_cur'] ?>" /></td>
 						<?PHP
 						// Additional Fee
-						if($_SESSION['fee_xl1'] != 0)
+						if($_SESSION['fee_xl1'] != NULL)
 							echo '<td>'.$_SESSION['fee_xl1_name'].':</td>
 										<td><input type="text" name="loan_xtraFee1" disabled="disabled" value="'.number_format($result_loan['loan_xtraFee1']).' '.$_SESSION['set_cur'].'" /></td>';
 						else echo '<td></td><td></td>';
@@ -445,7 +499,7 @@ error_reporting(E_ALL);
 						?>
 						<?PHP
 						// Additional Field 1
-						if($_SESSION['set_xl1'] != "")
+						if($_SESSION['set_xl1'] != NULL)
 							echo '<td>'.$_SESSION['set_xl1'].':</td>
 										<td><input type="text" disabled="disabled" value="'.$result_loan['loan_xtra1'].'" /></td>';
 						else echo '<td></td><td></td>';

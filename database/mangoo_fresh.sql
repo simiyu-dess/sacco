@@ -300,8 +300,8 @@ CREATE TABLE IF NOT EXISTS `incomes` (
   `sav_id` int(11) DEFAULT NULL,
   `inc_amount` int(11) NOT NULL,
   `inc_date` int(15) NOT NULL,
-  `inc_receipt` int(11) NOT NULL,
-  `inc_text` varchar(200) NOT NULL,
+  `inc_receipt` int(11) DEFAULT  NULL,
+  `inc_text` varchar(200) DEFAULT  NULL,
   `inc_created` int(11) NOT NULL,
   `user_id` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;;
@@ -347,10 +347,10 @@ CREATE TABLE IF NOT EXISTS `loans` (
   `loanstatus_id` int(11) NOT NULL,
   `loan_no` varchar(20) NOT NULL,
   `loan_date` int(15) NOT NULL,
-  `loan_dateout` int(11) NOT NULL,
-  `loan_issued` int(2) NOT NULL,
+  `loan_dateout` int(11) DEFAULT  NULL,
+  `loan_issued` int(2) DEFAULT  0,
   `loan_principal` int(11) NOT NULL,
-  `loan_principalapproved` int(11) NOT NULL,
+  `loan_principalapproved` int(11) DEFAULT 0,
   `loan_interest` float NOT NULL,
   `loan_appfee_receipt` int(11) NOT NULL,
   `loan_fee` int(11) NOT NULL,
@@ -509,10 +509,10 @@ CREATE TABLE IF NOT EXISTS `securities` (
   `sec_value` int(11) NOT NULL,
   `sec_path` varchar(200) NOT NULL,
   `sec_returned` int(1) NOT NULL DEFAULT '0',
-  `sec_date` int(11) NOT NULL,
-  `sec_returned_date` int(11) NOT NULL,
-  `sec_lastupd` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `sec_date` int(11) DEFAULT  NULL,
+  `sec_returned_date` int(11) DEFAULT  NULL,
+  `sec_lastupd` int(11) DEFAULT  NULL,
+  `user_id` int(11) DEFAULT  NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;;
 
 -- --------------------------------------------------------
@@ -536,7 +536,7 @@ INSERT INTO `settings` (`set_id`, `set_name`, `set_short`, `set_value`) VALUES
 (1, 'Minimum Savings Balance', 'SET_MSB', '10000'),
 (2, 'Minimum Loan Principal', 'SET_MLP', '500000'),
 (3, 'Maximum Loan Principal', 'SET_XLP', '10000000'),
-(4, 'Currency Abbreviation', 'SET_CUR', 'UGX'),
+(4, 'Currency Abbreviation', 'SET_CUR', 'KSH'),
 (5, 'Auto-fine Defaulters', 'SET_AUF', ''),
 (6, 'Account Deactivation', 'SET_DEA', ''),
 (7, 'Dashboard Left', 'SET_DBL', 'dashboard/dash_subscr.php'),
@@ -564,7 +564,7 @@ CREATE TABLE IF NOT EXISTS `shares` (
   `share_amount` int(11) NOT NULL,
   `share_value` int(11) NOT NULL,
   `share_receipt` int(11) NOT NULL,
-  `share_trans` int(2) NOT NULL,
+  `share_trans` int(2) DEFAULT  NULL,
   `share_transfrom` int(11) DEFAULT NULL,
   `share_created` int(15) DEFAULT NULL,
   `user_id` int(11) NOT NULL

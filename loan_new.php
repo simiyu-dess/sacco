@@ -60,11 +60,11 @@ error_reporting(E_ALL);
 							   loan_issued, 
 							   loan_principal, 
 							   loan_interest,
-								loan_appfee_receipt,
-								 loan_fee, 
-								loan_insurance,
-								 loan_rate,
-								  loan_period, 
+							   loan_appfee_receipt,
+							   loan_fee, 
+							   loan_insurance,
+							   loan_rate,
+							    loan_period, 
 								loan_repaytotal, 
 								loan_purpose,
 								
@@ -110,21 +110,72 @@ error_reporting(E_ALL);
 
 		//Insert loan securities into SECURITIES
 		if($loan_sec1 != ""){
-			$sql_insert_sec1 = "INSERT INTO securities (cust_id, loan_id, sec_no, sec_name, sec_value, sec_path, sec_returned) VALUES ($_SESSION[cust_id], $_SESSION[loan_id], '1', '$loan_sec1', 0, '', 0)";
+			$sql_insert_sec1 = "INSERT INTO securities (
+								 cust_id, 
+								 loan_id, 
+								 sec_no, 
+								 sec_name,
+								 sec_value,
+								 sec_path, 
+								 sec_returned) 
+								 VALUES (
+									 $_SESSION[cust_id],
+									  $_SESSION[loan_id], 
+									  '1', 
+									  '$loan_sec1',
+									   0, 
+									   '',
+									    0)";
 			$query_insert_sec1 = mysqli_query($db_link, $sql_insert_sec1);
 			checkSQL($db_link, $query_insert_sec1);
 		}
 		if($loan_sec2 != ""){
-			$sql_insert_sec2 = "INSERT INTO securities (cust_id, loan_id, sec_no, sec_name, sec_value, sec_path, sec_returned) VALUES ($_SESSION[cust_id], $_SESSION[loan_id], '2', '$loan_sec2', 0, '', 0)";
+			$sql_insert_sec2 = "INSERT INTO securities (
+												cust_id, 
+												loan_id, 
+												sec_no, 
+												
+												sec_name, 
+												sec_value, 
+												sec_path,
+												
+												sec_returned) 
+												VALUES (
+													
+													$_SESSION[cust_id], 
+													$_SESSION[loan_id], 
+													'2', 
+													'$loan_sec2',
+													 0, 
+													 '', 
+													 0)";
 			$query_insert_sec2 = mysqli_query($db_link, $sql_insert_sec2);
 			checkSQL($db_link, $query_insert_sec2);
 		}
 
 		//Insert Loan Application Fee into INCOMES
-		$sql_inc_laf = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_created, user_id) VALUES ('$_SESSION[cust_id]', '$_SESSION[loan_id]', '7', '$_SESSION[fee_loanappl]', '$loan_date', '$loan_appfee_receipt', $timestamp, '$_SESSION[log_id]')";
+		$sql_inc_laf = "INSERT INTO incomes (
+								 cust_id, 
+								 loan_id, 
+								 inctype_id,
+								 inc_amount, 
+								 inc_date, 
+								 inc_receipt, 
+								 inc_created,
+								  user_id)
+								   VALUES (
+									   '$_SESSION[cust_id]', 
+									   '$_SESSION[loan_id]', 
+									   '7', 
+									   '$_SESSION[fee_loanappl]',
+										'$loan_date', 
+									    '$loan_appfee_receipt',
+										$timestamp, 
+										'$_SESSION[log_id]')";
+										
 		$query_inc_laf = mysqli_query($db_link, $sql_inc_laf);
 		checkSQL($db_link, $query_inc_laf);
-
+ 
 		//Refer to LOAN_SEC.PHP
 		header('Location: loan_sec.php?lid='.$_SESSION['loan_id']);
 	}

@@ -30,7 +30,9 @@ error_reporting(E_ALL);
 		$_SESSION['receipt_no'] = sanitize($db_link, $_POST['receipt_no']);
 
 		//Insert new Customer into CUSTOMER
-		$sql_insert = "INSERT INTO customer (cust_no, cust_name, cust_dob, custsex_id, cust_address, cust_phone, cust_email, cust_occup, custmarried_id, cust_heir, cust_heirrel, cust_since, custsick_id, cust_lastsub, cust_active, cust_lastupd, user_id) VALUES ('$cust_no', '$cust_name', '$cust_dob', '$custsex_id', '$cust_address', '$cust_phone', '$cust_email', '$cust_occup', $custmarried_id, '$cust_heir', '$cust_heirrel', $cust_since, $custsick_id, $cust_since, '1', $timestamp, $_SESSION[log_id])";
+		$sql_insert = "INSERT INTO customer (cust_no, cust_name, cust_phone, cust_email, cust_since, cust_active, user_id) VALUES 
+		                   ('$cust_no', '$cust_name', '$cust_phone', '$cust_email', '$cust_since', '1', '$_SESSION[logid]')";
+		//$sql_insert = "INSERT INTO customer (cust_no, cust_name, cust_dob, custsex_id, cust_address, cust_phone, cust_email, cust_occup, custmarried_id, cust_heir, cust_heirrel, cust_since, custsick_id, cust_lastsub, cust_active, cust_lastupd, user_id) VALUES ('$cust_no', '$cust_name', '$timestamp', '$custsex_id', '$cust_address', '$cust_phone', '$cust_email', '$cust_occup', $custmarried_id, '$cust_heir', '$cust_heirrel', $cust_since, $custsick_id, $cust_since, '1', $timestamp, $_SESSION[log_id])";
 		$query_insert = mysqli_query($db_link, $sql_insert);
 		checkSQL($db_link, $query_insert);
 
@@ -42,9 +44,11 @@ error_reporting(E_ALL);
 		$_SESSION['cust_id'] = $maxid['MAX(cust_id)'];
 
 		//Insert Entrance Fee and Stationary Sales into INCOMES
+		/*
 		$sql_insert_fee = "INSERT INTO incomes (cust_id, inctype_id, 	inc_amount, inc_date, inc_receipt, inc_created, user_id) VALUES ($_SESSION[cust_id], '1', $_SESSION[fee_entry], $cust_since, '$_SESSION[receipt_no]', $timestamp, $_SESSION[log_id]), ($_SESSION[cust_id], '6', $_SESSION[fee_stationary], $cust_since, '$_SESSION[receipt_no]', '$timestamp', '$_SESSION[log_id]')";
 		$query_insert_fee = mysqli_query($db_link, $sql_insert_fee);
 		checkSQL($db_link, $query_insert_fee);
+		*/
 
 		//Create a new empty SAVBALANCE entry for the new customer
 		$sql_insert_savbal = "INSERT INTO savbalance (cust_id, savbal_balance, savbal_date, savbal_created, user_id) VALUES ('$_SESSION[cust_id]', '0', '$timestamp', '$timestamp', '$_SESSION[log_id]')";

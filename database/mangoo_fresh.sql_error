@@ -3,4 +3,4 @@ Error performing query <strong>INSERT INTO `emplmarried` (`emplmarried_id`, `emp
 (2, 'Married'),
 (3, 'Widowed'),
 (4, 'Divorced');
- : Table 'flick.emplmarried' doesn't exist
+ : Duplicate entry '1' for key 'PRIMARY'

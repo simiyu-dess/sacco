@@ -253,7 +253,7 @@ error_reporting(E_ALL);
 	* @return int seconds : Lenght of number of days in seconds
 	*/
 	function convertMonths($months){
-		return $seconds = $months * 2635200; // Seconds for 30.5 days
+		return $seconds = (int) $months * 2635200; // Seconds for 30.5 days
 	}
 
 /**
@@ -405,16 +405,11 @@ error_reporting(E_ALL);
 	*/
 	function updateSavingsBalance($db_link, $cust_id){
 		$timestamp = time();
-		/*
-		$sql_savbal_upd = "UPDATE savbalance SET savbal_balance =
-		                                       (SELECT SUM(sav_amount)
-											   FROM savings WHERE cust_id =
-											 $cust_id), savbal_fixed = 
-											 (SELECT SUM(savings.sav_amount) FROM savings WHERE cust_id = $cust_id and 
-											 sav_fixed > $timestamp) WHERE cust_id = $cust_id";
-											 */
+		
+		$sql_savbal_upd = "UPDATE savbalance SET savbal_balance = (SELECT SUM(sav_amount) FROM savings WHERE cust_id = $cust_id), savbal_fixed = (SELECT SUM(sav_amount) FROM savings WHERE cust_id = $cust_id and sav_fixed > $timestamp) WHERE cust_id = $cust_id";
 											 
-
+											 
+/*
 		$sql_savbal_upd = " UPDATE savbalance
 						 SET 
 						  savbalance.cust_id = $_SESSION[cust_id],
@@ -429,7 +424,8 @@ error_reporting(E_ALL);
 							  savbalance.savbal_date = $timestamp,
 							  savbalance.savbal_created = $timestamp,
 							  savbalance.user_id = $_SESSION[log_id]
-		                                                 ";
+														 ";
+														 */
 		                          
 		                                        
 		$query_savbal_upd = mysqli_query($db_link, $sql_savbal_upd);
@@ -440,9 +436,7 @@ error_reporting(E_ALL);
 	* Update savings account balance for ALL customers
 	*/
 	function updateSavingsBalanceAll($db_link){
-		$sql_savbal_upd_all = "UPDATE savbalance SET savbalance.savbal_balance =
-								  (SELECT SUM(savings.sav_amount) FROM savings WHERE 
-								  savings.cust_id = savbalance.cust_id)";
+		$sql_savbal_upd_all = "UPDATE savbalance SET savbalance.savbal_balance = (SELECT SUM(savings.sav_amount) FROM savings WHERE savings.cust_id = savbalance.cust_id)";
 		$query_savbal_upd_all = mysqli_query($db_link, $sql_savbal_upd_all);
 		checkSQL($db_link, $query_savbal_upd_all, $db_link);
 	}
