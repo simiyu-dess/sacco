@@ -24,7 +24,8 @@ error_reporting(E_ALL);
 		if($inc_loan == 0) $inc_loan = $Default;
 		
 		//Insert into INCOMES
-		$sql_incnew = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_text, inc_created, user_id) VALUES ($inc_recipient, $inc_loan, '$inctype_id', '$inc_amount', '$inc_date', '$inc_receipt', '$inc_text', '$timestamp', '$_SESSION[log_id]')";
+		$sql_incnew = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_text, inc_created, user_id)
+		 VALUES ($inc_recipient, $inc_loan, '$inctype_id', '$inc_amount', '$inc_date', '$inc_receipt', '$inc_text', '$timestamp', '$_SESSION[log_id]')";
 		$query_incnew = mysqli_query($db_link, $sql_incnew);
 		checkSQL($db_link, $query_incnew);
 	}

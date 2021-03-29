@@ -23,6 +23,7 @@ error_reporting(E_ALL);
 			<a href="rep_expenses.php">Expense Report</a>
 			<a href="rep_loans.php">Loans Report</a>
 			<a href="rep_capital.php" id="item_selected">Capital Report</a>
+			<a href = "revenue.php"> Revenue Report</a>
 			<a href="rep_monthly.php">Monthly Report</a>
 			<a href="rep_annual.php">Annual Report</a>
 		</div>
