@@ -20,7 +20,10 @@ error_reporting(E_ALL);
 	if (isset($_POST['deposit'])){
 
 		// Sanitize user input
+		$date = strtotime($_POST['sav_date']);
 		$sav_date = strtotime(sanitize($db_link, $_POST['sav_date']));
+		$sav_month = (int)date("m", $date);
+		$sav_year = (int)date("Y", $date);
 		$sav_amount = sanitize($db_link, $_POST['sav_amount']);
 		$sav_receipt = sanitize($db_link, $_POST['sav_receipt']);
 		$sav_slip = sanitize($db_link, $_POST['sav_slip']);
@@ -65,17 +68,19 @@ error_reporting(E_ALL);
 		$sql_insert = "INSERT INTO savings (
 											cust_id, 
 											sav_date,
+											sav_month,
+											sav_year,
 											sav_amount, 
 											savtype_id,
 											 sav_receipt, 
-											 
-											 
 											 sav_fixed,
 											 sav_created,
 											  user_id)
 											   VALUES (
 												  '$_SESSION[cust_id]',
-												   '$sav_date', 
+												   '$sav_date',
+													$sav_month,
+													$sav_year,
 													$sav_amount,
 													$savtype_id, 
 													'$sav_receipt',

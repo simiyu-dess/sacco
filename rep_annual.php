@@ -10,6 +10,7 @@ error_reporting(E_ALL);
 	
 	//Variable $year provides the pre-set values for input fields
 	$year = (date("Y",time()))-1; 
+	$reps_year="";
 ?>
 <html>
 	<?PHP includeHead('Annual Report',1) ?>	
@@ -26,7 +27,7 @@ error_reporting(E_ALL);
 			<a href="rep_expenses.php">Expense Report</a>
 			<a href="rep_loans.php">Loans Report</a>
 			<a href="rep_capital.php">Capital Report</a>
-			<a href = "revenue.php"> Revenue report </a>
+			<a href = "rep_revenue.php"> Revenue report </a>
 			<a href="revenue.php">Revenue Report</a>
 			<a href="rep_monthly.php">Monthly Report</a>
 			<a href="rep_annual.php" id="item_selected">Annual Report</a>
@@ -45,6 +46,7 @@ error_reporting(E_ALL);
 			
 			//Sanitize user input
 			$rep_year = sanitize($db_link, $_POST['rep_year']);
+			$reps_year = $rep_year;
 			
 			//Calculate UNIX TIMESTAMP for first and last day of selected month
 			$firstDay = mktime(0, 0, 0, 1, 1, $rep_year);
