@@ -75,7 +75,7 @@ error_reporting(E_ALL);
 				$sql_incomes = "SELECT * FROM incomes WHERE inc_date BETWEEN $firstDay AND $lastDay";
 				$query_incomes = mysqli_query($db_link, $sql_incomes);
 				checkSQL($db_link, $query_incomes);
-
+               
 				$sql_inctype = "SELECT * FROM inctype";
 				$query_inctype = mysqli_query($db_link, $sql_inctype);
 				checkSQL($db_link, $query_inctype);
