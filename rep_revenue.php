@@ -126,6 +126,7 @@ error_reporting(E_ALL);
 			$data=array();
 			$output = array();
 			$outputs=[];
+			$savings = array();
 			$customers = array();
 			while($row_revenue = mysqli_fetch_assoc($query_revenues))
 			{
@@ -135,8 +136,9 @@ error_reporting(E_ALL);
 					"id" => $row_revenue['cust_id'],
 					"name"=>$row_revenue['cust_name'],
 					"email"=>$row_revenue['cust_email'],
-					"amount"=>[$row_revenue['sav_amount']],
-					"month"=>[$row_revenue['sav_month']]
+					"amount"=>$row_revenue['sav_amount'],
+					"month"=>$row_revenue['sav_month']
+				
 					
 
 				);
@@ -144,26 +146,36 @@ error_reporting(E_ALL);
 				array_push($customers,$customer);
 			}
 			   $data = array();
+			  
+			   $amount = [];
 			   foreach($customers as $value){
 
-			   $key = $value['id'].$value['name'].$value['email'];
+			   $key =$value['name'].$value['email'];
 			   if(!isset($data[$key]))
 			   {
-				   $data[$key] = array("id" => $value['id'],"name"=>$value['name'],"email"=>$value['email'],
-				   "amount"=>$value['amount'],"month"=>$value['month']);
+				   $data[$key] = array("name"=>$value['name'],"email"=>$value['email'],
+				   "amount"=>array($value['month'] => $value['amount']));
 			   }
-			   $data[$key]['amount'][]=$value['amount'];
-			   $data[$key]['month'][]=$value['month'];
-			} 
-			$months = [];
-			$amount = [];
+			   $data[$key]['amount'] += [$value['month'] => $value['amount']];
+			   
+
+			   
+			   
+			}
+
 			
 			
-			$sav_amount = array_combine($months,$amount);
+		
+			
+			
+			
+			
+			
 				foreach($data as $row)
 				{
-				$months .= implode(',', $row['month']);
-			    $amount .=implode(',', $row['amount']);
+				
+					
+				
 				
 				echo
 				"<tr>
@@ -171,67 +183,74 @@ error_reporting(E_ALL);
 				<td>".$row['name']. "</td>
 				<td>".$row['email']. "</td>
 
-		<td>"; foreach($sav_amount as $key => $value){
-					if($key == 'January')
+		<td>"; 
+					foreach($row['amount'] as $key => $value)
 					 {
+						 if($key =='January')
+						 {
 					   echo $value;
-					 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+						 }
+					 }echo "</td>
+		<td>"; foreach($row['amount'] as $key => $value){
 					if($key == 'February')
 						{
 					   echo $value;
 					 }}echo "</td>
 
-		<td>"; foreach($sav_amount as $key => $value){
+		<td>"; foreach($row['amount'] as $key => $value){
 					if($key == 'March')
 						{
 						 echo $value;
 					 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+		<td>"; foreach($row['amount'] as $key => $value){
 					if($key == 'April')
 					 {
 					   echo $value;
 					 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+		<td>"; foreach($row['amount'] as $key => $value){
 				 if($key == 'May')
-				     {
+				 {
 					 echo $value;
-				}}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+		        }
+				}echo "</td>
+		<td>"; foreach($row['amount'] as $key => $value){
 			if($key == 'June')
 				{
 			   echo $value;
-				 }}echo "</td>
-		 <td>"; foreach($sav_amount as $key => $value){
+		}}echo "</td>
+		 <td>"; foreach($row['amount'] as $key => $value){
 				if($key == 'July')
 				 {
 					 echo $value;
 				 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+		<td>"; foreach($row['amount'] as $key => $value){
 				if($key == 'August')
 				 {
 				   echo $value;
-				 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+				 }
+				 }echo "</td>
+		<td>"; foreach($row['amount'] as $key => $value){
 				if($key == 'September')
 						{
 					 echo $value;
 				 }}echo "</td>
-	    <td>"; foreach($sav_amount as $key => $value){
+	    <td>"; foreach($row['amount'] as $key => $value){
 					if($key == 'October')
 						 {
 				  echo $value;
 					 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
+		<td>"; foreach($row['amount'] as $key => $value){
 					if($key == 'November')
 						{
 					 echo $value;
 					 }}echo "</td>
-		<td>"; foreach($sav_amount as $key => $value){
-								if($key == 'December')
-									{
-								 echo $value;
-							 }}echo "</td>
+		<td>"; foreach($row['amount'] as $key => $value){
+								
+								 if($key == 'December')
+								 {
+									 echo $value;
+								 }
+							 }echo "</td>
 				
 				
 				
@@ -240,22 +259,13 @@ error_reporting(E_ALL);
 
 				
 				}
+			
+				
 				//foreach($cities as $key => $value){
 				//	echo $key . " : " . $value . "<br>"
 
 			
-				
-				
-			
-			
-			
-			
-		
-			
-			
-			
-		
-			?>
+				?>
 			
 			  
 		
