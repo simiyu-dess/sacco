@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -85,7 +84,7 @@ error_reporting(E_ALL);
 		header('Location:set_user.php');
 	}
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Settings | Users', 0) ?>
 		<script>

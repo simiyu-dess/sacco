@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -24,7 +23,7 @@ error_reporting(E_ALL);
 		$infoText = "Backup created successfully: ".$dumpfile;
 	}
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Settings | Database Backup',1) ?>
 

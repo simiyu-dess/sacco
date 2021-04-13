@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -71,7 +70,7 @@ error_reporting(E_ALL);
 		header('Location:set_ugroup.php');
 	}
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Settings | Usergroups',0) ?>
 	<script>

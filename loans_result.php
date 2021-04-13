@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -22,7 +21,7 @@ error_reporting(E_ALL);
 	}
 	else header('Location: start.php');
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Loans Search Result',1) ?>
 	<body>

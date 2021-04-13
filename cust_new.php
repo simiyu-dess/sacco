@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -78,6 +77,7 @@ error_reporting(E_ALL);
 	$newCustNo = buildCustNo($db_link);
 ?>
 
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('New Customer',0) ?>
 		<script>

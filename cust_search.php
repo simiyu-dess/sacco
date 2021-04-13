@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -6,8 +5,8 @@ error_reporting(E_ALL);
 	require 'functions.php';
 	checkLogin();
 	$db_link = connect();
-?>
-
+	?>
+<!DOCTYPE HTML>
 <html>
 	<!-- HTML HEAD -->
 	<?PHP includeHead('Customer Search',1); ?>

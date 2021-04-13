@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -69,7 +68,7 @@ else{
 	$percentage = (round(ftell($fp)/filesize($fileSQL), 2)*100);
 }
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Microfinance Management', 0) ?>
 		<meta http-equiv="refresh" content="<?PHP echo ($maxRuntime+1); ?>">

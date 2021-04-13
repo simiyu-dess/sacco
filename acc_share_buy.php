@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -85,7 +84,7 @@ error_reporting(E_ALL);
 	//Get all other customers
 	$query_custother = getCustOther($db_link);
 ?>
-
+<!DOCTYPE HTML>
 <html>
 <?PHP includeHead('Buying Shares',0) ?>
 	<script>

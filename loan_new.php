@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -232,7 +231,7 @@ error_reporting(E_ALL);
 	if ($_SESSION['set_minlp'] != "") $minlp = $_SESSION['set_minlp'];
 	else $minlp = 1;
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('New Loan',0) ?>
 		<script type="text/javascript">

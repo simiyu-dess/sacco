@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -165,8 +164,7 @@ error_reporting(E_ALL);
 		$suc_div = 1;
 	}
 ?>
-
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Annual Accounts',1) ?>
 	<body>

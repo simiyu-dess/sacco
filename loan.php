@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -324,7 +323,7 @@ error_reporting(E_ALL);
 	$_SESSION['ltrans_export'] = array();
 	$_SESSION['ltrans_exp_title'] = $_SESSION['cust_id'].'_loan_'.$ltrans_exp_date;
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Loan Details',0) ?>
 		<script type="text/javascript">

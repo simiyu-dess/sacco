@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -80,7 +79,7 @@ error_reporting(E_ALL);
 		header('Location: loan.php?lid='.$_SESSION['loan_id']);
 	}
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('New Loan',1) ?>
 	<body>

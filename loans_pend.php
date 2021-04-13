@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -19,6 +18,7 @@ error_reporting(E_ALL);
 	$query_loanpend = mysqli_query($db_link, $sql_loanpend);
 	checkSQL($db_link, $query_loanpend);
 ?>
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Pending Loans',1) ?>
 

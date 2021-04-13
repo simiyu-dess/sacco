@@ -2,6 +2,22 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+
+
+/**
+	* Check if current user is logged in
+	*/
+	function checkLogin() {
+		$fingerprint = fingerprint();
+		if(!session_id())
+		{
+		session_start();
+		}
+
+		if (!isset($_SESSION['log_user']) || $_SESSION['log_fingerprint'] != $fingerprint) logout();
+		session_regenerate_id();
+	}
 /**
 	* Establish Database Connection
 	*/
@@ -22,15 +38,6 @@ error_reporting(E_ALL);
 		return $fingerprint = md5($_SERVER['REMOTE_ADDR'].'jikI/20Y,!'.$_SERVER['HTTP_USER_AGENT']);
 	}
 
-/**
-	* Check if current user is logged in
-	*/
-	function checkLogin() {
-		$fingerprint = fingerprint();
-		session_start();
-		if (!isset($_SESSION['log_user']) || $_SESSION['log_fingerprint'] != $fingerprint) logout();
-		session_regenerate_id();
-	}
 
 /**
 	* Check if current user logged out properly last time
@@ -41,6 +48,7 @@ error_reporting(E_ALL);
 			$_SESSION['logrec_logout'] = 1;
 		}
 	}
+
 
 /**
 	* Check if current user has Admin permission
@@ -718,4 +726,4 @@ error_reporting(E_ALL);
 		return $result_sec;
 	}
 
-?>
+

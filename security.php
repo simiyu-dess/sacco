@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -35,7 +34,7 @@ error_reporting(E_ALL);
 	//Select security from SECURITIES
 	$result_sec = getSecurity($db_link, $_SESSION['sec_id']);
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Security',0) ?>
 		<script>

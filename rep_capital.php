@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -12,6 +11,7 @@ error_reporting(E_ALL);
 	$year = date("Y",time());
 	$month = date("m",time());
 ?>
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Capital Report') ?>
 	<body>

@@ -19,13 +19,7 @@ $_SESSION['sav_exp_title'] = $_SESSION['cust_id'].'_savings_'.$sav_exp_date;
 		<?PHP
 		if ($_SESSION['set_sfx'] == 1) echo '<col width="8%">';
 		?>
-		<col width="16%">
-		<col width="16%">
-		<col width="8%">
-		<col width="8%">
-		<col width="16%">
-		<col width="16%">
-		<col width="4%">
+		
 	</colgroup>
 	<tr>
 		<form class="export" action="acc_sav_export.php" method="post">
@@ -52,9 +46,6 @@ $_SESSION['sav_exp_title'] = $_SESSION['cust_id'].'_savings_'.$sav_exp_date;
 		?>
 		<th>Transaction</th>
 		<th>Amount</th>
-		<th>Receipt</th>
-		<th>W/Slip</th>
-		<th>Depositor</th>
 		<th>Authorised by</th>
 		<th>Delete</th>
 	</tr>
@@ -68,9 +59,6 @@ $_SESSION['sav_exp_title'] = $_SESSION['cust_id'].'_savings_'.$sav_exp_date;
 			}
 			echo '<td>'.$row_sav['savtype_type'].'</td>
 						<td>'.number_format($row_sav['sav_amount']).' '.$_SESSION['set_cur'].'</td>
-						<td>'.$row_sav['sav_receipt'].'</td>
-						<td>'.$row_sav['sav_slip'].'</td>
-						<td>'.$row_sav['sav_payer'].'</td>
 						<td>'.$row_sav['user_name'].'</td>';
 						if ($_SESSION['log_delete'] == 1 and ($row_sav['savtype_id'] == 1 or $row_sav['savtype_id'] == 2)) echo '<td><a href="acc_sav_del.php?sav_id='.$row_sav['sav_id'].'" onClick="return randCheck();"><i class="fa fa-remove fa-lg"></i></a></td>';
 						else echo '<td></td>';

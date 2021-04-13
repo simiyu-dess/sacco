@@ -1,17 +1,17 @@
-<!DOCTYPE HTML>
-<?PHP
+<?php 
+require 'functions.php';
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-	session_start();
-	require 'functions.php';
+	//session_start();
 	$fingerprint = fingerprint();
 	$db_link = connect();
 
 	if(isset($_POST['login'])){
 
 		// Include passwort pepper
-		require 'config/pepper.php';
+		//require 'config/pepper.php';
 
 		// Sanitize user input
 		$log_user = sanitize($db_link, $_POST['log_user']);
@@ -24,7 +24,7 @@ error_reporting(E_ALL);
 		$result_log = mysqli_fetch_assoc($query_log);
 
 		// Verify Password
-		if(password_verify($log_pw.$pepper, $result_log['user_pw'])){
+		if(password_verify($log_pw.'g7NIiru!!8', $result_log['user_pw'])){
 
 			// Define Session Variables for this User
 			$_SESSION['log_user'] = $log_user;
@@ -66,6 +66,7 @@ error_reporting(E_ALL);
 		else showMessage('Authentification failed!\nWrong Username and/or Password!');
 	}
 ?>
+<!DOCTYPE html>
 <html>
 	<?PHP includeHead('Microfinance Management') ?>
 
@@ -105,4 +106,4 @@ error_reporting(E_ALL);
 		</div>
 
 	</body>
-</html>
+

@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -46,7 +45,7 @@ error_reporting(E_ALL);
 	// Get employee details
 	$result_empl = getEmployee($db_link, $_SESSION['empl_id']);
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('New Picture Upload',1) ?>
 

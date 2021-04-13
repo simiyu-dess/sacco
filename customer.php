@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -86,7 +85,7 @@ error_reporting(E_ALL);
 	$query_sav = mysqli_query($db_link, $sql_sav);
 	checkSQL($db_link, $query_sav);
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Customer',0) ?>
 		<script>
@@ -100,13 +99,19 @@ error_reporting(E_ALL);
 				else { alert(fail); return false }
 			}
 
-			function validateSubscr(form){
-				fail = validateDate(form.subscr_date.value)
-				fail += validateReceipt(form.subscr_receipt.value)
-				if (document.getElementById('subscr_from_sav').checked){
-					fail += validateOverdraft(<?PHP echo $_SESSION['fee_subscr']; ?>, <?PHP echo $sav_balance; ?>, 0, <?PHP echo $_SESSION['set_msb']; ?>, <?PHP echo $sav_fixed; ?>)}
-				if (fail == "") return true
-				else { alert(fail); return false }
+			//function validateSubscr(form){
+				//fail = validateDate(form.subscr_date.value)
+				//fail += validateReceipt(form.subscr_receipt.value)
+				//if (document.getElementById('subscr_from_sav').checked){
+				//	fail += validateOverdraft(
+					<?PHP echo $_SESSION['fee_subscr']; ?>, 
+					<?PHP
+						 echo $sav_balance; ?>, 0, 
+						 <?PHP //
+						 echo $_SESSION['set_msb']; ?>, <?PHP
+						 echo $sav_fixed; ?>)}
+				//if (fail == "") return true
+				//else { alert(fail); return false }
 			}
 
 			function setVisibility(id, visibility) {
@@ -254,7 +259,7 @@ error_reporting(E_ALL);
 			</form>
 
 			<!-- MIDDLE PART: Renew Subscription -->
-			<?PHP if($_SESSION['fee_subscr'] > 0) include 'modules/mod_subscr.php'; ?>
+			<?PHP //if($_SESSION['fee_subscr'] > 0) include 'modules/mod_subscr.php'; ?>
 
 		</div>
 
@@ -382,6 +387,6 @@ error_reporting(E_ALL);
 
 	</body>
 	<?PHP
-	if ($share_amount == 0 && $result_cust['cust_active'] == 1)	showMessage('This Customer owns no Shares!');
+	//if ($share_amount == 0 && $result_cust['cust_active'] == 1)	showMessage('This Customer owns no Shares!');
 	?>
 </html>

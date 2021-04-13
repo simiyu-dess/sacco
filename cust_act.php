@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -16,7 +15,8 @@ error_reporting(E_ALL);
 	//Select active customers from CUSTOMER
 	$query_custact = getCustAct($db_link);
 ?>
-	
+
+<!DOCTYPE HTML>	
 <html>
 	<?PHP includeHead('Active Customers',1) ?>
 
@@ -33,14 +33,7 @@ error_reporting(E_ALL);
 		<!-- TABLE: Active Customers -->
 		<table id="tb_table">
 			<colgroup>
-				<col width="8%" />
-				<col width="17%" />
-				<col width="8%" />
-				<col width="8%" />
-				<col width="17%" />
-				<col width="17%" />
-				<col width="17%" />
-				<col width="8%" />
+				
 			</colgroup>
 			<tr>
 				<form class="export" action="rep_export.php" method="post">
@@ -53,11 +46,8 @@ error_reporting(E_ALL);
 			<tr>
 				<th>Cust. No.</th>
 				<th>Name</th>
-				<th>Gender</th>
-				<th>DoB</th>
-				<th>Occupation</th>
-				<th>Address</th>
-				<th>Phone No.</th>
+				
+				<th>Email</th>
 				<th>Memb. since</th>
 			</tr>
 			<?PHP
@@ -68,15 +58,15 @@ error_reporting(E_ALL);
 									<a href="customer.php?cust='.$row_custact['cust_id'].'">'.$row_custact['cust_no'].'</a>
 								</td>
 								<td>'.$row_custact['cust_name'].'</td>
-								<td>'.$row_custact['custsex_name'].'</td>
-								<td>'.date("d.m.Y",$row_custact['cust_dob']).'</td>
-								<td>'.$row_custact['cust_occup'].'</td>
-								<td>'.$row_custact['cust_address'].'</td>
-								<td>'.$row_custact['cust_phone'].'</td>
+								
+								<td>'.$row_custact['cust_email'].'</td>
 								<td>'.date("d.m.Y",$row_custact['cust_since']).'</td>
 							</tr>';
 
-				array_push($_SESSION['rep_export'], array("Cust. No." => $row_custact['cust_no'], "Customer Name" => $row_custact['cust_name'], "DoB" => date("d.m.Y",$row_custact['cust_dob']), "Gender" => $row_custact['custsex_name'], "Occupation" => $row_custact['cust_occup'], "Address" => $row_custact['cust_address'], "Phone No." => $row_custact['cust_phone'], "Member since" => date("d.m.Y",$row_custact['cust_since'])));
+				array_push($_SESSION['rep_export'], array("Cust. No." => $row_custact['cust_no'],
+				 "Customer Name" => $row_custact['cust_name'],  "Gender" => $row_custact['custsex_name'], 
+				  "customer email." => $row_custact['cust_email'], 
+				  "Member since" => date("d.m.Y",$row_custact['cust_since'])));
 
 				$count++;
 			}

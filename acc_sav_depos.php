@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -111,7 +110,7 @@ error_reporting(E_ALL);
 	//Get current customer's details
 	$result_cust = getCustomer($db_link, $_SESSION['cust_id']);
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Savings Deposit',0) ?>
 		<script>

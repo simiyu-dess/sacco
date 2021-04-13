@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -12,7 +11,7 @@ error_reporting(E_ALL);
 	if(isset($_POST['expnew'])){
 		
 		//Sanitize user input
-		$exptype_id = sanitize($db_link, $_POST['exptype_id']);
+		$exptype = sanitize($db_link, $_POST['type']);
 		$exp_amount = sanitize($db_link, $_POST['exp_amount']);
 		$exp_date = strtotime(sanitize($db_link, $_POST['exp_date']));
 		$exp_text = sanitize($db_link, $_POST['exp_text']);
@@ -21,7 +20,7 @@ error_reporting(E_ALL);
 		$exp_voucher = sanitize($db_link, $_POST['exp_voucher']);
 		
 		//Insert into expenses
-		$sql_expnew = "INSERT INTO expenses (exptype_id, exp_amount, exp_date, exp_text, exp_recipient, exp_receipt, exp_voucher, exp_created, user_id) VALUES ('$exptype_id', '$exp_amount', '$exp_date','$exp_text', '$exp_recipient', '$exp_receipt', '$exp_voucher', '$timestamp', '$_SESSION[log_id]')";
+		$sql_expnew = "INSERT INTO expenses (exptype_id, exp_amount, exp_date, exp_text, exp_recipient, exp_created, user_id) VALUES ('$exptype', '$exp_amount', '$exp_date','$exp_text', '$exp_recipient','$timestamp', '$_SESSION[log_id]')";
 		$query_expnew = mysqli_query($db_link, $sql_expnew);
 		checkSQL($db_link, $query_expnew);
 	}
@@ -36,8 +35,8 @@ error_reporting(E_ALL);
 	$sql_exptype = "SELECT * FROM exptype ORDER BY exptype_type";
 	$query_exptype = mysqli_query($db_link, $sql_exptype);
 	checkSQL($db_link, $query_exptype);
-?>
-
+	?>
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Expenses',0) ?>	
 		<script>
@@ -78,15 +77,9 @@ error_reporting(E_ALL);
 						<td><input type="text" id="datepicker" name="exp_date" value="<?PHP echo date("d.m.Y", $timestamp); ?>"/></td>
 						<td>Type:</td>
 						<td>
-							<select name="exptype_id">
-								<?PHP
-								while ($row_exptype = mysqli_fetch_assoc($query_exptype)){
-									echo '<option value="'.$row_exptype['exptype_id'].'">'.$row_exptype['exptype_type'].'</option>';
-								}
-								?>
-							</select>
+							<input type="text" id="expense_type" name="type" placeholder="type" />
 						</td>
-					</tr>
+					</tr> 
 					<tr>
 						<td>Amount:</td>
 						<td><input type="number" name="exp_amount" placeholder="<?PHP echo $_SESSION['set_cur']; ?>" /></td>
@@ -94,10 +87,10 @@ error_reporting(E_ALL);
 						<td><input type="text" name="exp_recipient"/></td>
 					</tr>
 					<tr>
-						<td>Voucher No:</td>
-						<td><input type="text" name="exp_voucher"/></td>
-						<td>Receipt No:</td>
-						<td><input type="text" name="exp_receipt" placeholder="if any"/></td>
+						<td></td>
+						<td><input type="hidden" name="exp_voucher"/></td>
+						<td></td>
+						<td><input type="hidden" name="exp_receipt" placeholder="if any"/></td>
 					</tr>
 					<tr>
 						<td>Details:</td>
@@ -118,9 +111,6 @@ error_reporting(E_ALL);
 					<th>Date</th>
 					<th>Type</th>
 					<th>Amount</th>
-					<th>Payed to</th>
-					<th>Details</th>
-					<th>Voucher</th>
 					<th>Delete</th>
 				</tr>
 			<?PHP
@@ -134,9 +124,6 @@ error_reporting(E_ALL);
 								<td>'.date("d.m.Y",$row_expcur['exp_date']).'</td>
 								<td>'.$row_expcur['exptype_type'].'</td>
 								<td>'.number_format($row_expcur['exp_amount']).' '.$_SESSION['set_cur'].'</td>
-								<td>'.$exp_recipient.'</td>
-								<td>'.$row_expcur['exp_text'].'</td>
-								<td>'.$row_expcur['exp_voucher'].'</td>
 								<td>';
 								if ($_SESSION['log_delete'] == 1) echo '<a href="books_expense_del.php?exp_id='.$row_expcur['exp_id'].'" onClick="return randCheck();" ><i class="fa fa-remove fa-lg"></i></a>';
 				echo '	</td>

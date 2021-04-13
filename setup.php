@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -23,7 +22,7 @@ error_reporting(E_ALL);
 		header ('Location:setup_dbimport.php');
 	}
 ?>
-
+<!DOCTYPE HTML>
 <html>
 	<?PHP includeHead('Microfinance Management', 0) ?>
 		<link rel="stylesheet" type="text/css" href="css/setup.css" />
