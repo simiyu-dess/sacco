@@ -34,7 +34,7 @@ error_reporting(E_ALL);
 ?>
 <!DOCTYPE HTML>
 <html>
-	<?PHP includeHead('Microfinance Management', 0) ?>
+	<?PHP includeHead('Chenken Welfare Association', 0) ?>
 		<link rel="stylesheet" type="text/css" href="css/setup.css" />
 		<script>
 			function validate(form){

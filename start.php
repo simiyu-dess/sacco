@@ -12,7 +12,7 @@ error_reporting(E_ALL);
 <!DOCTYPE HTML>
 <html>
 	<!-- HTML HEAD -->
-	<?PHP includeHead('Microfinance Management',0); ?>
+	<?PHP includeHead('Chenken Welfare Association',0); ?>
 		<link rel="stylesheet" href="css/stats.css" />
 	</head>
 	<!-- HTML BODY -->

@@ -68,7 +68,7 @@ error_reporting(E_ALL);
 ?>
 <!DOCTYPE html>
 <html>
-	<?PHP includeHead('Microfinance Management') ?>
+	<?PHP includeHead('Chenken Welfare Association') ?>
 
 	<body>
 		<div class="content_center" style="width:100%; margin-top:15em">
