@@ -20,7 +20,7 @@ error_reporting(E_ALL);
 ?>
 <!DOCTYPE HTML>
 <html>
-	<?PHP includeHead('Microfinance Management', 0) ?>
+	<?PHP includeHead('Chenken Welfare Association', 0) ?>
 		<link rel="stylesheet" type="text/css" href="css/setup.css" />
 		<script>
 			function validate(form){
@@ -34,7 +34,7 @@ error_reporting(E_ALL);
 	<body>
 		<div class="content_center">
 			<img src="ico/mangoo_l.png" style="width:380px; margin-top:3em; margin-bottom:2em;"/>
-			<p class="heading">mangoO Setup Assistant</p>
+			<p class="heading">Chenken Setup Assistant</p>
 
 			<div class="setup">
 				<p>Generate Password Hash</p>

@@ -2,7 +2,7 @@
  ini_set('display_errors', 1);
  ini_set('display_startup_errors', 1);
  error_reporting(E_ALL);
-	session_start();
+ session_start();
 	 
   // File name for download
   $filename = $_SESSION['sav_exp_title'].'.xls';

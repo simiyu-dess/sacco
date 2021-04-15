@@ -70,7 +70,7 @@ else{
 ?>
 <!DOCTYPE HTML>
 <html>
-	<?PHP includeHead('Microfinance Management', 0) ?>
+	<?PHP includeHead('Chenken Welfare Association', 0) ?>
 		<meta http-equiv="refresh" content="<?PHP echo ($maxRuntime+1); ?>">
 		<link rel="stylesheet" type="text/css" href="css/setup.css" />
 	</head>

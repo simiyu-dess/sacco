@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 	require 'functions.php';
+	require 'TCPDF/tcpdf.php';
 	checkLogin();
 	checkPermissionReport();
 	$db_link = connect();
@@ -12,9 +13,55 @@ error_reporting(E_ALL);
 	$year = (date("Y",time()))-1; 
 	$reps_year = NULL;
 ?>
+<?php
+			if(isset($_POST['export_rep']))
+			{// create new PDF document
+				$obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
+				$obj_pdf->SetCreator(PDF_CREATOR);  
+				$obj_pdf->SetTitle("Export HTML Table data to PDF using TCPDF in PHP");  
+				$obj_pdf->SetHeaderData('', '', PDF_HEADER_TITLE, PDF_HEADER_STRING);  
+				$obj_pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
+				$obj_pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
+				$obj_pdf->SetDefaultMonospacedFont('helvetica');  
+				$obj_pdf->SetFooterMargin(PDF_MARGIN_FOOTER);  
+				$obj_pdf->SetMargins(PDF_MARGIN_LEFT, '5', PDF_MARGIN_RIGHT);  
+				$obj_pdf->setPrintHeader(false);  
+				$obj_pdf->setPrintFooter(false);  
+				$obj_pdf->SetAutoPageBreak(TRUE, 10);  
+				$obj_pdf->SetFont('helvetica', '', 12);  
+				$obj_pdf->AddPage();
+
+
+			$html .= '<table class="table table-bordered">
+			<tr>
+			<th class="title" width="100%">CHENKEN WELFARE ASSOCIATION></th>
+			
+			</tr>
+			<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>May</th>
+			<th>June</th>
+			<th>July</th>
+			<th>August</th>
+			<th>September</th>
+			<th>October</th>
+			<th>November</th>
+			<th>December</th>
+			<th style>TOTALS</th>
+			<th>Cumulative Totals </th>
+			
+
+			</tr>
+			';
+			$html .= '</table>';
+			ob_end_clean();
+			$obj_pdf->writeHTML($html);  
+			$obj_pdf->Output('sample.pdf', 'I');
+		   } ?>
 <!DOCTYPE HTML>
 <html>
-	<?PHP includeHead('Annual Report',1) ?>	
+	<?PHP includeHead('Revenue Report',1) ?>	
 	<body>
 		
 		<!-- MENU -->
@@ -52,8 +99,8 @@ error_reporting(E_ALL);
 			//$reps_year = $rep_year;
 			$years  = $rep_year;
 
-			$_SESSION['rep_export'] = array();
-			$_SESSION['rep_exp_title'] = $rep_year.'_annual-report';
+			//$_SESSION['rep_export'] = array();
+			//$_SESSION['rep_exp_title'] = $rep_year.'_annual-report';
 
 			
 		
@@ -93,7 +140,7 @@ error_reporting(E_ALL);
 			
 			
 		
-		<form class="export" action="rep_export.php" method="post">
+		<form class="export" action="" method="post">
 				<input type="submit" name="export_rep" value="Export Report" />
 			</form>
 
@@ -405,35 +452,13 @@ error_reporting(E_ALL);
 
 				
 			
-				
-				//foreach($cities as $key => $value){
-				//	echo $key . " : " . $value . "<br>"
-
-			
 				?>
-			
-			  
-		
-				  </tr>
-
-				  
-				 
-				
-				
-				
-			
-		
-		
-			
+				</tr>
+				  </table>
 			
 
-			
-			
-			
-			</table>
-			<?php
-			}
-		
+		<?php	} 
+
 			else
 			{
           ?>
@@ -827,8 +852,8 @@ error_reporting(E_ALL);
 				</tr>
 				<?php
 
-				$sql_expense = "SELECT exptype_id as types,exp_amount as amount from expenses e 
-				";
+				$sql_expense = "SELECT exptype_id as types,exp_amount as amount,exp_year from expenses e 
+				 WHERE exp_year = $years";
 				$query_expense=mysqli_query($db_link,$sql_expense);
 				checkSQL($db_link, $query_expense);
 				$expense_total =0;
