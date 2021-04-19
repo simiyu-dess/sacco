@@ -1,5 +1,5 @@
 <?PHP
-$sixtydays = time() - convertDays(60);
+$sixtydays = time() - convertDays(2555);
 
 // Getting expenses
 $sql_exp = "SELECT exp_amount FROM expenses WHERE exp_date > $sixtydays";
@@ -20,8 +20,8 @@ while($row_inc = mysqli_fetch_assoc($query_inc)){
 }
 
 // Convert to percent
-$inc_percent = $inc_percent === 0 ? 0 : $inc_total/($inc_total+$exp_total)*100;
-$exp_percent = $exp_percent === 0 ? 0 : $exp_total/($inc_total+$exp_total)*100;
+$inc_percent = $inc_total === 0 ? 0 : $inc_total/($inc_total+$exp_total)*100;
+$exp_percent = $exp_total === 0 ? 0 : $exp_total/($inc_total+$exp_total)*100;
 
 // Getting savings
 $sql_sav = "SELECT sav_amount FROM savings WHERE sav_date > $sixtydays";
@@ -35,8 +35,8 @@ while($row_sav = mysqli_fetch_assoc($query_sav)){
 }
 
 // Convert to percent
-$sav_depos_percent = $sav_depos_percent === 0 ? 0 : $sav_depos/($sav_depos+$sav_withd)*100;
-$sav_withd_percent = $sav_withd_percent === 0 ? 0 : $sav_withd/($sav_depos+$sav_withd)*100;
+$sav_depos_percent = $sav_depos === 0 ? 0 : $sav_depos/($sav_depos+$sav_withd)*100;
+$sav_withd_percent = $sav_withd=== 0 ? 0 : $sav_withd/($sav_depos+$sav_withd)*100;
 ?>
 
 <!-- Income / Expense Ratio -->

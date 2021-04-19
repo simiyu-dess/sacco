@@ -178,7 +178,7 @@ error_reporting(E_ALL);
 				</tr>
 				<tr>
 					<th>Loan No.</th>
-					<th>Customer</th>
+					<th>Member</th>
 					<th>Principal</th>
 					<th>Interest</th>
 					<th>Period</th>

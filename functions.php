@@ -293,9 +293,9 @@ error_reporting(E_ALL);
 			<meta http-equiv="Content-Script-Type" content="text/javascript">
 			<meta http-equiv="Content-Style-Type" content="text/css">
 			<meta name="robots" content="noindex, nofollow">
-			<title>mangoO | '.$title.'</title>
-			<link rel="shortcut icon" href="ico/favicon.ico" type="image/x-icon">
-			<link rel="stylesheet" href="css/mangoo.css" />
+			<title>ChenKen | '.$title.'</title>
+			<link rel="shortcut icon" href="" type="image/x-icon">
+			<link rel="stylesheet" href="css/mangoo.css"  />
 			<link rel="stylesheet" href="ico/font-awesome/css/font-awesome.min.css">
 			<link rel="stylesheet" href="jquery/jquery-ui-1.11.4/jquery-ui.min.css">
 			<script src="jquery/jquery-2.2.1.min.js"></script>
@@ -323,7 +323,7 @@ error_reporting(E_ALL);
 		echo '
 		<!-- MENU HEADER -->
 		<div id="menu_header">
-			<img src="ico/mangoo_logo_m.png" style="margin: 1em 0 0 .75em;"/>
+			<img src="" alt="CHENKEN WELFARE ASSOCIATION" style="margin: 1em 0 0 .75em;"/>
 			<div id="menu_logout">
 				<ul>
 					<li>'.$_SESSION['log_user'].'
@@ -344,7 +344,7 @@ error_reporting(E_ALL);
 				echo '><a href="start.php"><i class="fa fa-tachometer fa-fw"></i> Dashboard</a></li>
 				<li';
 				if ($tab_no == 2) echo ' id="tab_selected"';
-				echo '><a href="cust_search.php"><i class="fa fa-group fa-fw"></i> Customers</a></li>
+				echo '><a href="cust_search.php"><i class="fa fa-group fa-fw"></i> Members</a></li>
 				<li';
 				if ($tab_no == 3) echo ' id="tab_selected"';
 				echo '><a href="loans_search.php"><i class="fa fa-percent fa-fw"></i> Loans</a></li>

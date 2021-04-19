@@ -92,9 +92,9 @@ error_reporting(E_ALL);
 			<a href="acc_sav_withd.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Withdrawal</a>
 			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Buy</a>
 			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>" id="item_selected">New Loan</a>
-			<a href="cust_new.php">New Customer</a>
-			<a href="cust_act.php">Active Cust.</a>
-			<a href="cust_inact.php">Inactive Cust.</a>
+			<a href="cust_new.php">New Member <marquee behavior= direction=""></marquee></a>
+			<a href="cust_act.php">Active Memb.</a>
+			<a href="cust_inact.php">Inactive Memb.</a>
 		</div>
 
 		<div class="content_center">
