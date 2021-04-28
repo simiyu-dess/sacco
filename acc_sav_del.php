@@ -36,4 +36,5 @@ error_reporting(E_ALL);
 
 	//Refer back to ACC_SAV_DEPOS.PHP
 	header('Location: acc_sav_depos.php?cust='.$_SESSION['cust_id']);
+	
 ?>

@@ -34,35 +34,7 @@ error_reporting(E_ALL);
 		$savtype_id = sanitize($db_link, $_POST['savtype_id']);
 		$sav_mother=NULL;
 
-		// Insert savings transaction into SAVINGS
-		/*
-		$sql_insert = "INSERT INTO savings (
-									 savtype_id, 
-									 cust_id,
-									 ltrans_id,
-									 sav_mother,
-									  sav_date, 
-									  sav_amount, 
-									  sav_receipt, 
-									  sav_slip,
-									   sav_payer, 
-									   sav_fixed, 
-									   sav_created, 
-									   user_id) 
-									   VALUES (
-										   '$savtype_id', 
-										   '$_SESSION[cust_id]',
-										    NULL
-										   '$sav_mother', 
-										   '$sav_date', 
-										    $sav_amount, 
-										   '$sav_receipt',
-										   '$sav_slip', 
-										   '$sav_payer', 
-										    $sav_fixed, 
-										   '$timestamp', 
-										   '$_SESSION[log_id]')";
-										   */
+		
 
 		$sql_insert = "INSERT INTO savings (
 											cust_id, 
