@@ -91,7 +91,7 @@ error_reporting(E_ALL);
 			//Sanitize user input
 			$rep_year = sanitize($db_link, $_POST['rep_year']);
 			//$reps_year = $rep_year;
-			$years  = $rep_year;
+			$_SESSION['year']  = $rep_year;
 
 			//$_SESSION['rep_export'] = array();
 			//$_SESSION['rep_exp_title'] = $rep_year.'_annual-report';
@@ -100,7 +100,7 @@ error_reporting(E_ALL);
 			$sql_revenues = "SELECT cust_name, cust_email,c.cust_id as cust_id,sav_year,sav_amount,MONTHNAME(str_to_date(sav_month,'%m'))as sav_month,m_id,m_name
 			                    FROM customer c, savings s, months m WHERE c.cust_id = s.cust_id
 								AND sav_month = m.m_id 
-								AND sav_year = $years
+								AND sav_year = $_SESSION[year]
 								
 								GROUP BY c.cust_id,m.m_id
 								ORDER BY c.cust_id asc";
@@ -109,27 +109,28 @@ error_reporting(E_ALL);
 			checkSQL($db_link, $query_revenues);
 
 			$sql_totals = "SELECT c.cust_id as cust_id, sum(sav_amount) as total, sav_year FROM customer c, 
-			savings s WHERE c.cust_id = s.cust_id AND sav_year <= $years GROUP BY c.cust_id";
+			savings s WHERE c.cust_id = s.cust_id AND sav_year <= $_SESSION[year] GROUP BY c.cust_id";
 			$query_total =mysqli_query($db_link,$sql_totals);
 			checkSQL($db_link,$query_total);
+			$_SESSION['query_sum'] = mysqli_fetch_assoc($query_total);
 
 			$sql_total_revenue ="SELECT SUM(sav_amount) as revenue_total,sav_year FROM savings
-			      WHERE sav_year = $years";
+			      WHERE sav_year = $_SESSION[year]";
 			$query_total_revenue = mysqli_query($db_link,$sql_total_revenue);
 			checkSQL($db_link,$query_total_revenue);
 
 			$sql_expense = "SELECT exptype_id as types,exp_amount as amount,exp_year from expenses e 
-				 WHERE exp_year = $years";
+				 WHERE exp_year = $_SESSION[year]";
 				 $query_expense=mysqli_query($db_link,$sql_expense);
 				 checkSQL($db_link, $query_expense);
 			
 			$sql_expense_bf ="SELECT SUM(exp_amount) AS exp_amount, exp_year FROM expenses e
-				  WHERE exp_year < $years";
+				  WHERE exp_year < $_SESSION[year]";
 				  $query_bf = mysqli_query($db_link, $sql_expense_bf);
 				  checkSQL($db_link,$query_bf);
 			
 			$sql_revenue_bf = "SELECT SUM(sav_amount) AS revenue_bf, sav_year FROM savings 
-			 WHERE sav_year < $years";
+			 WHERE sav_year < $_SESSION[year]";
 			 $query_revenue_bf = mysqli_query($db_link,$sql_revenue_bf);
 			 checkSQL($db_link,$query_revenue_bf);
 				
@@ -239,7 +240,7 @@ error_reporting(E_ALL);
 			</form>
 
 			<?php
-			if($years == 2014)
+			if($_SESSION['year'] == 2014)
 			{
 			?>
 
@@ -441,7 +442,7 @@ error_reporting(E_ALL);
 				
 				</colgroup>
 				<tr>
-					<th class="title" colspan="3">Expenditure <?PHP echo $years; ?></th>
+					<th class="title" colspan="3">Expenditure <?PHP echo $_SESSION['year']; ?></th>
 				</tr>
 				<tr>
 				<td>
@@ -536,7 +537,7 @@ error_reporting(E_ALL);
 			<col width="5.5%">
 			</colspan>
 			<tr>
-			<th class="title" colspan="15">CHENKEN WELFARE ASSOCIATION - <?PHP echo $years; ?></th>
+			<th class="title" colspan="15">CHENKEN WELFARE ASSOCIATION - <?PHP echo $_SESSION['year']; ?></th>
 			</tr>
 			<tr>
 			<th colspan ="2"></th>
@@ -567,7 +568,7 @@ error_reporting(E_ALL);
 			</tr>
 			<?php
 			
-				foreach($data as $row)
+				foreach($_SESSION['data'] as $row)
 				{
 				echo
 				"<tr>
@@ -683,43 +684,55 @@ error_reporting(E_ALL);
     
 				echo '<tr>
 		<td style="font-weight:bold;">TOTALS</td>
-		<td style ="font-weight:bold;">'.number_format($amount_jan).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_feb).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_march).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_april).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_may).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_june).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_july).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_august).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_september).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_october).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_november).'</td>
-		<td style ="font-weight:bold;">'.number_format($amount_december).'</td>
-		<td style ="font-weight:bold;">'.number_format($total_inc).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_jan']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_feb']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_march']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_april']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_may']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_june']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_july']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_august']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_september']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_october']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_november']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['amount_december']).'</td>
+		<td style ="font-weight:bold;">'.number_format($_SESSION['total_inc']).'</td>
 		</tr>';
 
 		echo "</tr>
 		<td style = 'font-weight:bold;'>CUMULATIVE Toatals</td>
 		<td></td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + $amount_april)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may + $amount_june)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may + $amount_june + $amount_july)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + 
-		$amount_april + $amount_may + $amount_june + $amount_july + $amount_august)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + 
-		$amount_april + $amount_may + $amount_june + $amount_july + $amount_august+ $amount_september)."</td>
-		<td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + 
-		$amount_april + $amount_may + $amount_june +
-		 $amount_july +$amount_august + $amount_september + $amount_october)."</td>
-		 <td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + 
-		$amount_april + $amount_may + $amount_june +
-		 $amount_july + $amount_august + $amount_september + $amount_october + $amount_november)."</td>
-		 <td style ='font-weight:bold;'>".number_format($amount_jan + $amount_feb + $amount_march + 
-		 $amount_april + $amount_may + $amount_june +
-		  $amount_july +$amount_august+ $amount_september + $amount_october + $amount_november + $amount_december)."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + $_SESSION['amount_april'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + $_SESSION['amount_april'] + $_SESSION['amount_may'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + $_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + $_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'] + $_SESSION['amount_july'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + $_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'] + $_SESSION['amount_july'] +
+		$_SESSION['amount_august'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + 
+		$_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'] + $_SESSION['amount_july'] +
+		$_SESSION['amount_august']+ $_SESSION['amount_september'])."</td>
+		<td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		 + 
+		$_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'] +
+		$_SESSION['amount_july'] + $_SESSION['amount_august'] + $_SESSION['amount_september'] + $_SESSION['amount_october'])."</td>
+		 <td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		  + 
+		$_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'] +
+		$_SESSION['amount_july'] + $_SESSION['amount_august'] + $_SESSION['amount_september'] + $_SESSION['amount_october']
+		 + $_SESSION['amount_november'])."</td>
+		 <td style ='font-weight:bold;'>".number_format($_SESSION['amount_jan'] + $_SESSION['amount_feb'] + $_SESSION['amount_march']
+		  + 
+		 $_SESSION['amount_april'] + $_SESSION['amount_may'] + $_SESSION['amount_june'] +
+		 $_SESSION['amount_july'] + $_SESSION['amount_august']+ $_SESSION['amount_september'] + $_SESSION['amount_october']
+		  + $_SESSION['amount_november'] + $_SESSION['amount_december'])."</td>
 		  <td style ='font-weight:bold;'></td>
 
 		</tr>";
@@ -740,7 +753,7 @@ error_reporting(E_ALL);
 				
 				</colgroup>
 				<tr>
-					<th class="title" colspan="3">Expenditure <?PHP echo $years; ?></th>
+					<th class="title" colspan="3">Expenditure <?PHP echo $_SESSION['year']; ?></th>
 				</tr>
 				<tr>
 				<td>

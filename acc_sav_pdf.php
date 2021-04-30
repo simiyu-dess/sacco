@@ -37,8 +37,8 @@ $html .= '
 </tr>
 <tr>
 <th style="font-weight:bold">Savings</th>
-<th style="font-weight:bold">Amount</th>
 <th style="font-weight:bold">Transaction</th>
+<th style="font-weight:bold">Amount</th>
 </tr>
 ';
 
