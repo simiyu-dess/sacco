@@ -11,6 +11,7 @@ error_reporting(E_ALL);
 	$rep_month = date("m",time());
 	$_SESSION['rep_export'] = array();
 	$_SESSION['rep_exp_title'] = $rep_year.'-'.$rep_month.'_cust-active';
+	$_SESSION['members']=array();
 
 	//Select active customers from CUSTOMER
 	$query_custact = getCustAct($db_link);
@@ -36,7 +37,7 @@ error_reporting(E_ALL);
 				
 			</colgroup>
 			<tr>
-				<form class="export" action="rep_export.php" method="post">
+				<form class="export" action="cust_export_pdf.php" method="post">
 					<th class="title" colspan="8">Active Customers
 					<!-- Export Button -->
 					<input type="submit" name="export_rep" value="Export" />
@@ -53,6 +54,11 @@ error_reporting(E_ALL);
 			<?PHP
 			$count = 0;
 			while ($row_custact = mysqli_fetch_assoc($query_custact)){
+			array_push($_SESSION['members'], array(
+					"number" => $row_custact['cust_no'],
+					"name"   => $row_custact['cust_name'],
+					"email"  => $row_custact['cust_email']
+				));
 				echo '<tr>
 								<td>
 									<a href="customer.php?cust='.$row_custact['cust_id'].'">'.$row_custact['cust_no'].'</a>

@@ -198,6 +198,7 @@ if($_SESSION['year']==2014)
 			$amount_total = $_SESSION['total_inc'];
 
 			$html='';
+			
 			$html .= '
 			<table id ="tb_table" style="width:95%">
 			<colspan>
@@ -320,7 +321,7 @@ if($_SESSION['year']==2014)
 							$december =number_format($value);
 							
 						}
-						//unset($Jan);
+						
 					   
 						
 						
@@ -436,6 +437,8 @@ if($_SESSION['year']==2014)
  <td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
  $amount_june + $amount_july + $amount_aug + $amount_sep + $amount_oct + $amount_nov + $amount_dec).'</td>
 </tr>';
+
+
 
 		}
     
