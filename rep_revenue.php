@@ -14,7 +14,6 @@ error_reporting(E_ALL);
 	$reps_year = NULL;
 	$_SESSION['expense_total'] =0;
 		$_SESSION['total_inc'] = 0;
-		$_SESSION['total_inc'] = 0;
 		$_SESSION['data']=array();
 		 $_SESSION['outputs']=[];
 		 $_SESSION['savings'] = array();
@@ -31,6 +30,9 @@ error_reporting(E_ALL);
 		 $_SESSION['amount_october']=0;
 		 $_SESSION['amount_november']=0;
 		 $_SESSION['amount_december']=0;
+		 $_SESSION['total']=array();
+		 $customers = array();
+		 $expense_total=0;
 ?>
 
 <!DOCTYPE HTML>
@@ -63,25 +65,6 @@ error_reporting(E_ALL);
 		</div>
 		
 		<?PHP
-		$expense_total=0;
-		$outputs=[];
-		$savings = array();
-		$customers= array();
-		$amount_jan= 0;
-		$amount_feb=0;
-		$amount_march=0;
-		$amount_april=0;
-		$amount_may=0;
-		$amount_june=0;
-		$amount_july=0;
-		$amount_august=0;
-		$amount_september=0;
-		$amount_october=0;
-		$amount_november=0;
-		$amount_december=0;
-
-
-		
 		
 		if(isset($_POST['select']))
 		{
@@ -110,9 +93,8 @@ error_reporting(E_ALL);
 
 			$sql_totals = "SELECT c.cust_id as cust_id, sum(sav_amount) as total, sav_year FROM customer c, 
 			savings s WHERE c.cust_id = s.cust_id AND sav_year <= $_SESSION[year] GROUP BY c.cust_id";
-			$query_total =mysqli_query($db_link,$sql_totals);
-			checkSQL($db_link,$query_total);
-			$_SESSION['query_sum'] = mysqli_fetch_assoc($query_total);
+		    $_SESSION['query_total']=mysqli_query($db_link,$sql_totals);
+			checkSQL($db_link,$_SESSION['query_total']);
 
 			$sql_total_revenue ="SELECT SUM(sav_amount) as revenue_total,sav_year FROM savings
 			      WHERE sav_year = $_SESSION[year]";
@@ -154,7 +136,16 @@ error_reporting(E_ALL);
 
 				array_push($customers,$customer);
 			}
-			  // $data = array();
+			
+			while($total_inc = mysqli_fetch_assoc($_SESSION['query_total']))
+		      {
+				$_SESSION['total'] += array(
+					$total_inc['cust_id'] => $total_inc['total']
+				);
+				
+
+			  }
+			  
 			  
 			   
 			   foreach($customers as $value){
@@ -344,8 +335,8 @@ error_reporting(E_ALL);
 								 }
 							 }echo "</td>
 				
-		<td style ='font-weight:bold;'>"; //foreach($row['amount'] as $key=>$value)
-		//{
+		<td style ='font-weight:bold;'>"; 
+		
 			if(array_sum($row['amount'])>0)
 			{
 			echo number_format(array_sum($row['amount']));
@@ -354,23 +345,17 @@ error_reporting(E_ALL);
 			else{
 				echo 0;
 			}
-		//}
-		//echo $arr;
 		echo"</td>
 
-		<td style ='font-weight:bold;'>"; foreach($query_total as $totals)
+		<td style ='font-weight:bold;'>"; foreach ($_SESSION['query_total'] as $totals)
 		{
 			if($totals['cust_id'] == $row['id'])
 			{
 				echo number_format($totals['total']);
-
 				
 			}
-			//echo $sum;
-		}
 			
-		
-		  
+		} 
 		echo "</td>
 		
 				
@@ -562,7 +547,7 @@ error_reporting(E_ALL);
 			<th>November</th>
 			<th>December</th>
 			<th style ='font-weight:bold;'>TOTALS</th>
-			<th>Cumulative Totals </th>
+			<th style='font-weight:bold;'>Cumulative Totals </th>
 			
 
 			</tr>
@@ -645,8 +630,8 @@ error_reporting(E_ALL);
 								 }
 							 }echo "</td>
 				
-		<td style ='font-weight:bold;'>"; //foreach($row['amount'] as $key=>$value)
-		//{
+		<td style ='font-weight:bold;'>"; 
+		
 			if(array_sum($row['amount'])>0)
 			{
 			echo number_format(array_sum($row['amount']));
@@ -655,23 +640,20 @@ error_reporting(E_ALL);
 			{
 				echo 0; 
 			}
-		//}
-		//echo $arr;
+		
 		echo"</td>
 
-		<td style ='font-weight:bold;'>"; foreach($query_total as $totals)
+		<td style ='font-weight:bold;'>"; foreach ($_SESSION['query_total'] as $totals)
 		{
 			if($totals['cust_id'] == $row['id'])
 			{
 				echo number_format($totals['total']);
+				
 
 				
 			}
-			//echo $sum;
-		}
 			
-		
-		  
+		}  
 		echo "</td>
 		
 				
@@ -827,7 +809,7 @@ error_reporting(E_ALL);
 
 		
 		}
-	//}
+	
 		?>
 
 <?php        

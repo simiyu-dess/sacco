@@ -30,6 +30,7 @@ if($_SESSION['year']==2014)
 			$amount_nov = $_SESSION['amount_november'];
 			$amount_dec = $_SESSION['amount_december'];
 			$amount_total = $_SESSION['total_inc'];
+			
             
             $html='';
 			$html .= '
@@ -74,19 +75,10 @@ if($_SESSION['year']==2014)
 			
 
 			</tr>';
+		
 
 			foreach($_SESSION['data'] as $row)
 				{
-					foreach($_SESSION['query_sum'] as $totals)
-					{
-						if($totals['cust_id'] == $row['id'])
-			          {
-				         $sum_total = number_format($totals['total']);
-
-				
-			        }  
-						
-					}
 
 					$name = $row['name'];
 					$email = $row['email'];
@@ -134,6 +126,16 @@ if($_SESSION['year']==2014)
 			else{
 				$sum = 0;
 			}
+			foreach($_SESSION['total'] as $id => $values)
+					{
+						if($id == $row['id'])
+						{
+							$c_total = number_format($values);
+							
+			
+							
+						}
+					}
 			
 			$html .= '
 				<tr>		
@@ -148,7 +150,7 @@ if($_SESSION['year']==2014)
 		<td>'.$november.'</td>
 		<td>'.$december.'</td>
 		<td>'.$sum.'</td>
-		<td>'.$sum_total.'</td>
+		<td>'.$c_total.'</td>
 		</tr>';
 			}
 					
@@ -238,66 +240,91 @@ if($_SESSION['year']==2014)
 			<th>Nov</th>
 			<th>Dec</th>
 			<th style ="font-weight:bold;">TOTALS</th>
-			<th>C.Totals </th>
+			<th style ="font-weight:bold;">C.Totals </th>
 			
 
 			</tr>';
+			
 
 			foreach($_SESSION['data'] as $row)
 				{
+					
 
 
 					$name = $row['name'];
 					$email = $row['email'];
 					foreach($row['amount'] as $key => $value){
+						
 						if($key == "January")
 						{
-							$Jan = number_format($value);
+							$Jan = number_format($value);	
 						}
 						if($key == "February")
 						{
 							$Feb = number_format($value);
+							
 						}
 						if($key == "March")
 						{
 							$March = number_format($value);
+							
 						}
 						if($key == "April")
 						{
 							$April = number_format($value);
+							
 						}
 						if($key == "May")
 						{
 							$May = number_format($value);
+							$value=0;
+							
+							
 						}
 						if($key=="June")
-						{
+						{   
 							$june =number_format($value);
+							
+							
 						}
 						if($key=="July")
 						{
 							$july =number_format($value);
+							
+							
 						}
 						if($key=="August")
 						{
 							$August =number_format($value);
+						
+							
 						}
 						if($key=="September")
 						{
 							$september =number_format($value);
+							
+							
 						}
 						if($key=="October")
 						{
 							$october =number_format($value);
+							
 						}
 						if($key=="November")
 						{
 							$november =number_format($value);
+							
 						}
 						if($key=="December")
 						{
 							$december =number_format($value);
+							
 						}
+						//unset($Jan);
+					   
+						
+						
+						
 
 					}
 					if(array_sum($row['amount'])>0)
@@ -308,6 +335,16 @@ if($_SESSION['year']==2014)
 			else{
 				$sum = 0;
 			}
+			foreach($_SESSION['total'] as $id => $values)
+					{
+						if($id == $row['id'])
+						{
+							$c_total = number_format($values);
+							
+			
+							
+						}
+					}
 				
 			$html .= '
 		<tr><td colspan= "17">--------------------------------------------------------------
@@ -331,9 +368,21 @@ if($_SESSION['year']==2014)
 		<td>'.$november.'</td>
 		<td>'.$december.'</td>
 		<td style="font-weight:Bold;">'.$sum.'</td>
-		<td></td>
+		<td style ="font-weight:bold;">'.$c_total.'</td>
 		<td></td>
 		</tr>';
+		unset($Jan);
+		unset($Feb);
+		unset($March);
+		unset($April);
+		unset($May);
+		unset($june);
+		unset($july);
+		unset($August);
+		unset($september);
+		unset($october);
+		unset($november);
+		unset($december);
 			}
 			$html .= '
 			<tr><td colspan= "17">--------------------------------------------------------------
@@ -396,5 +445,9 @@ if($_SESSION['year']==2014)
 		$obj_pdf->writeHTML($html);  
         ob_end_clean();
 		$obj_pdf->Output('revenue_report.pdf', 'I');
+
+
+	unset($_SESSION['totals']);
+	//unset($_SESSION['sav_export']);
 		
 ?>
