@@ -109,16 +109,20 @@ error_reporting(E_ALL);
 			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Buy</a>
 			<a href="acc_share_sale.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Sale</a>
 			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">New Loan</a>
-			<a href="cust_new.php">New Customer</a>
+			<?PHP if ($_SESSION['log_delete'] == 1) 
+			
+			echo '<a href="cust_new.php">New Customer</a>'
+			?>
 			<a href="cust_act.php">Active Cust.</a>
 			<a href="cust_inact.php">Inactive Cust.</a>
 		</div>
 
 		<!-- LEFT SIDE: Input for new Deposit -->
 		<div class="content_left" style="width:35%;">
-
+		<?PHP if ($_SESSION['log_delete'] == 1) 
+			{?>
 			<p class="heading_narrow">Deposit for <?PHP echo $result_cust['cust_name'].' ('.$result_cust['cust_no'].')'; ?></p>
-
+            
 			<form action="acc_sav_depos.php" method="post" onsubmit="return validate(this);">
 				<table id="tb_fields">
 					<tr>
@@ -166,6 +170,7 @@ error_reporting(E_ALL);
 					</tr>
 				</table>
 			</form>
+			<?php }?>
 		</div>
 
 		<!-- RIGHT SIDE: Statement for Savings Account -->

@@ -43,18 +43,6 @@ $html .= '
 ';
 
 foreach($_SESSION['user_account'] as $row_sav) {
-    //$date ='';
-    //$Amount=0;
-   /// $type='';
-   // if($key=='date'){
-   // $date = $value;
-   // }
-   // if($key=='amount'){
-       // $Amount = $value;
-       // }
-    //if($key=='type'){
-           // $type= $value;
-           // }
            $date = $row_sav['date'];
            $type = $row_sav['type'];
            $Amount = $row_sav['amount'];

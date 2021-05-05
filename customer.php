@@ -135,7 +135,10 @@ error_reporting(E_ALL);
 			if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
 				<a href="loan_new.php?cust='.$_SESSION['cust_id'].'">New Loan</a>';
 			?>
-			<a href="cust_new.php">New Customer</a>
+			<?PHP if ($_SESSION['log_delete'] == 1) 
+			echo'
+			<a href="cust_new.php">New Customer</a>'
+			?>
 			<a href="cust_act.php">Active Cust.</a>
 			<a href="cust_inact.php">Inactive Cust.</a>
 		</div>
@@ -169,10 +172,11 @@ error_reporting(E_ALL);
 								if ($result_cust['custsex_id'] == 2) echo '<img src="ico/custpic_f.png" title="Upload new picture" />';
 								else echo '<img src="ico/custpic_m.png" title="Upload new picture" />';
 						}
+		
 						echo '	</a>
 										</td>
 										<td>Cust No:</td>
-										<td><input type="text" name="cust_no" value="'.$result_cust['cust_no'].'" tabindex="1" /></td>
+									    <td><input type="text" name="cust_no" value="'.$result_cust['cust_no'].'"  tabindex="1" /></td>
 										<td>Occupation:</td>
 										<td><input type="text" name="cust_occup" value="'.$result_cust['cust_occup'].'" tabindex="8"/></td>
 									</tr>';

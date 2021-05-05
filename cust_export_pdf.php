@@ -26,8 +26,7 @@ $html .= '
 <table id ="tb_table" style="
     width:90%;
 	margin:auto;
-	margin-bottom:3em;
-">
+	margin-bottom:3em;">
 <colspan>
 <col width="15%">
 <col width="25%">

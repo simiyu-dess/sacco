@@ -114,7 +114,10 @@ error_reporting(E_ALL);
 			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>" id="item_selected">Share Buy</a>
 			<a href="acc_share_sale.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Sale</a>
 			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">New Loan</a>
-			<a href="cust_new.php">New Customer</a>
+			<?PHP if ($_SESSION['log_delete'] == 1) 
+			echo '
+			<a href="cust_new.php">New Customer</a>'
+			?>
 			<a href="cust_act.php">Active Cust.</a>
 			<a href="cust_inact.php">Inactive Cust.</a>
 		</div>

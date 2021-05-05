@@ -60,7 +60,10 @@ error_reporting(E_ALL);
 		<?PHP includeMenu(2); ?>
 		<div id="menu_main">
 			<a href="cust_search.php" id="item_selected">Search</a>
-			<a href="cust_new.php">New Customer</a>
+			<?PHP if ($_SESSION['log_delete'] == 1) 
+			echo'
+			<a href="cust_new.php">New Customer</a>'
+			?>
 			<a href="cust_act.php">Active Customers</a>
 			<a href="cust_inact.php">Inactive Customers</a>
 		</div>

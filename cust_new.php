@@ -87,19 +87,19 @@ error_reporting(E_ALL);
 				//fail += validateAddress(form.cust_address.value)
 				//fail += validatePhone(form.cust_phone.value)
 				fail += validateEmail(form.cust_email.value)
-				if (fail == "") {
-					receipt_no = prompt('Please enter Receipt Number for\nEntrance Fee and Stationary Sales:')
-					if (receipt_no == "" || receipt_no == null) {
-						alert('You have not specified the Receipt Number. Please try again.');
-						return false;
-					}
-					else {
-						document.getElementById("receipt_no").value = receipt_no;
-						return true;
-					}
-				}
-				else { alert(fail); return false; }
-			}
+				//if (fail == "") {
+				//	receipt_no = prompt('Please enter Receipt Number for\nEntrance Fee and Stationary Sales:')
+					//if (receipt_no == "" || receipt_no == null) {
+						//alert('You have not specified the Receipt Number. Please try again.');
+						//return false;
+				//	}
+					//else {
+					//	document.getElementById("receipt_no").value = receipt_no;
+					//	return true;
+					//}
+				//}
+				//else { alert(fail); return false; }
+			//}
 		</script>
 		<script src="functions_validate.js"></script>
 	</head>

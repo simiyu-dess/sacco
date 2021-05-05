@@ -46,4 +46,4 @@ error_reporting(E_ALL);
 		imagedestroy($tmp_img);
 	}
 	
-?>
+?> b
