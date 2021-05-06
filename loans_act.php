@@ -64,9 +64,22 @@ error_reporting(E_ALL);
 				</tr>
 				<?PHP
 				$count = 0;
+				$_SESSION['active_loans']=array();
 				while ($row_loans = mysqli_fetch_assoc($query_loans)){
 
 					$loan_balances = getLoanBalance($db_link, $row_loans['loan_id']);
+					array_push(
+						$_SESSION['active_loans'],
+						array(
+							"number"=> $row_loans['loan_no'],
+							"name" => $row_loans['cust_name'],
+							"period" => $row_loans['loan_period'],
+							"pdue" => $row_loans['pdue'],
+							"idue" => $row_loans['idue'],
+							"balance" => $row_loans['balance'],
+							"dateout" => $row_loans['loan_dateout']
+						)
+					);
 
 					echo '<tr>
 									<td><a href="loan.php?lid='.$row_loans['loan_id'].'">'.$row_loans['loan_no'].'</a></td>

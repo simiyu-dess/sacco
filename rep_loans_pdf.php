@@ -23,39 +23,42 @@ $obj_pdf->AddPage();
 $html = '';
 
 $html .= '
-<table id ="tb_table" style="width:75%; border: 1px solid black;">
+<table id ="tb_table" style="width:75%">
 <colspan>
-<col width="30%">
-<col width="30%">
-<col width="30%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
+<col width="25%">
 </colspan>
 <tr>
-<th colspan="3" style="font-weight:Bold; border: 1px solid black; text-align:center;">'.$_SESSION['name'].'    Savings  report</th>
+<th colspan="3" style="font-weight:Bold; text-align:center;">Loans report</th>
 </tr>
 <tr>
-<td style="background:Red;border: 1px solid black;">total balance '.$_SESSION['sav_bal'].'</td>
+<td style="background:Red"></td>
 </tr>
 <tr>
-<th style="font-weight:bold; border: 1px solid black;">Savings date</th>
-<th style="font-weight:bold; border: 1px solid black;">Transaction</th>
-<th style="font-weight:bold; border: 1px solid black;">Amount</th>
+<th style="font-weight:bold">Loan no</th>
+<th style="font-weight:bold">Loan status</th>
+<th style="font-weight:bold">Due date</th>
+<th style="font-weight:bold">Due amount</th>
 </tr>
 ';
 
-foreach($_SESSION['user_account'] as $row_sav) {
-           $date = $row_sav['date'];
-           $type = $row_sav['type'];
-           $Amount = $row_sav['amount'];
+foreach($_SESSION['loan_due'] as $row_loan) {
+           $number = $row_loan['loan_no'];
+           $status = $row_loan['status'];
+           $date = $row_loan['date'];
+           $amount = $row_loan['amount'];
    $html .= '
    <tr>
-   <td style="border: 1px solid black;">'.$date.'</td>
-   <td style="border: 1px solid black;">'.$type.'</td>
-   <td style="border: 1px solid black;">'.$Amount.'</td>
+   <td>'.$number.'</td>
+   <td>'.$status.'</td>
+   <td>'.$date.'</td>
+   <td>'.$amount.'</td>
    </tr>
    ';
 
 }
-$html .= '</table>';
 
 
         $obj_pdf->writeHTML($html);  

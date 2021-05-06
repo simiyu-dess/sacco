@@ -21,10 +21,8 @@ error_reporting(E_ALL);
 			<a href="rep_incomes.php">Income Report</a>
 			<a href="rep_expenses.php">Expense Report</a>
 			<a href="rep_loans.php" id="item_selected">Loans Report</a>
-			<a href="rep_capital.php">Capital Report</a>
 			<a href="rep_revenue.php">Revenue report</a>
-			<a href="rep_monthly.php">Monthly Report</a>
-			<a href="rep_annual.php">Annual Report</a>
+			
 		</div>
 		<!-- MENU: Selection Bar -->
 		<div id="menu_selection">
@@ -80,7 +78,7 @@ error_reporting(E_ALL);
 			?>
 
 			<!-- Export Button -->
-			<form class="export" action="rep_export.php" method="post">
+			<form class="export" action="rep_loans_pdf.php" method="post">
 				<input type="submit" name="export_rep" value="Export Report" />
 			</form>
 
@@ -102,8 +100,16 @@ error_reporting(E_ALL);
 					<th>Due Amount</th>
 				</tr>
 				<?PHP
+				$_SESSION['loan_due'] = array();
 				$total_loandue = 0;
 				while($row_loandue = mysqli_fetch_assoc($query_loandue)){
+					$_SESSION['loan_due'] += array(
+						  "id" => $row_loandue['loan_no'],
+						  "status" => $row_loandue['loanstatus_status'],
+						  "date" => date("d.m.Y",$row_loandue['ltrans_due']),
+						  "amount" => number_format($row_loandue['ltrans_principaldue'] + $row_loandue['ltrans_interestdue'])
+
+					);
 					echo '<tr>
 									<td><a href="loan.php?lid='.$row_loandue['loan_id'].'">'.$row_loandue['loan_no'].'</a></td>
 									<td>'.$row_loandue['loanstatus_status'].'</td>
@@ -141,7 +147,14 @@ error_reporting(E_ALL);
 				</tr>
 				<?PHP
 				$total_loanrec = 0;
+				$_SESSION['recovered_loans']=array();
 				while($row_loanrec = mysqli_fetch_assoc($query_loanrec)){
+					$_SESSION['revovered_loans'] += array(
+						"id"=> $row_loanrec['loan_no'],
+						"installment" => number_format($row_loanrec['ltrans_principaldue'] + $row_loanrec['ltrans_interestdue']),
+						"recovered" => number_format($row_loanrec['ltrans_principal'] + $row_loanrec['ltrans_interest']),
+						"date" => date("d.m.Y",$row_loanrec['ltrans_date'])
+					);
 					echo '<tr>
 									<td><a href="loan.php?lid='.$row_loanrec['loan_id'].'">'.$row_loanrec['loan_no'].'</a></td>
 									<td>'.number_format($row_loanrec['ltrans_principaldue'] + $row_loanrec['ltrans_interestdue']).' '.$_SESSION['set_cur'].'</td>
@@ -150,6 +163,7 @@ error_reporting(E_ALL);
 								</tr>';
 					$total_loanrec = $total_loanrec + $row_loanrec['ltrans_principal'] + $row_loanrec['ltrans_interest'];
 				}
+				array_push($_SESSION['recovered_loans'],array("amount"=>$total_loanrec));
 				echo '<tr class="balance">
 								<td colspan="4">
 									Total Recoveries: '.number_format($total_loanrec).' '.$_SESSION['set_cur'];

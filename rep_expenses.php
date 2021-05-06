@@ -23,10 +23,8 @@ error_reporting(E_ALL);
 			<a href="rep_incomes.php">Income Report</a>
 			<a href="rep_expenses.php" id="item_selected">Expense Report</a>
 			<a href="rep_loans.php">Loans Report</a>
-			<a href="rep_capital.php">Capital Report</a>
 			<a href="rep.revenue.php">Revenue report</a>
-			<a href="rep_monthly.php">Monthly Report</a>
-			<a href="rep_annual.php">Annual Report</a>
+			
 		</div>
 
 		<!-- MENU: Selection Bar -->
@@ -49,7 +47,7 @@ error_reporting(E_ALL);
 				</select>
 				<select name="rep_form" style="height:24px;">
 					<option value="d" selected="selected">Detailed Rep.</option>
-					<option value="a">Summarised Rep.</option>
+					<option value="d">Detailed Rep.</option>
 				</select>
 				<input type="submit" name="select" value="Select Report" />
 			</form>
@@ -134,6 +132,11 @@ error_reporting(E_ALL);
 				$sql_expendit = "SELECT * FROM expenses, exptype WHERE expenses.exptype_id = exptype.exptype_id AND exp_date BETWEEN $firstDay AND $lastDay ORDER BY exp_date";
 				$query_expendit = mysqli_query($db_link, $sql_expendit);
 				checkSQL($db_link, $query_expendit);
+
+				$sql_expense = "SELECT exptype_id as types,exp_amount as amount,exp_date,exp_recipient,exp_receipt from expenses e 
+				 WHERE exp_date BETWEEN $firstDay AND $lastDay ORDER BY exp_date";
+				 $query_expendit = mysqli_query($db_link,$sql_expense);
+				 checkSQL($db_link, $query_expendit);
 				?>
 
 				<!-- TABLE: Results -->
@@ -148,8 +151,8 @@ error_reporting(E_ALL);
 						<col width="15%">
 					</colspan>
 					<tr>
-						<form class="export" action="rep_export.php" method="post">
-							<th class="title" colspan="7">Detailed Expenses for <?PHP echo $rep_month.'/'.$rep_year ?>
+						<form class="export" action="rep_expense_pdf.php" method="post">
+							<th class="title" colspan="5">Detailed Expenses for <?PHP echo $rep_month.'/'.$rep_year ?>
 							<!-- Export Button -->
 							<input type="submit" name="export_rep" value="Export" />
 							</th>
@@ -159,30 +162,38 @@ error_reporting(E_ALL);
 						<th>Date</th>
 						<th>Type</th>
 						<th>Recipient</th>
-						<th>Details</th>
-						<th>Receipt No.</th>
-						<th>Voucher No.</th>
 						<th>Amount</th>
+						<th>Receipt No.</th>
 					</tr>
 					<?PHP
-					$total_exp = 0;
+					$_SESSION['total_exp'] = 0;
+					$_SESSION['expenses'] = array();
 					while($row_expendit = mysqli_fetch_assoc($query_expendit)){
+						array_push(
+							$_SESSION['expenses'],
+							array(
+								"date" => date("d.m.Y", $row_expendit['exp_date']),
+								"type" => $row_expendit['types'],
+								"recipient" => $row_expendit['exp_recipient'],
+								"amount" => $row_expendit['amount'],
+								"receipt" => $row_expendit['exp_receipt']
+
+							)
+						);
 						echo '<tr>
 										<td>'.date("d.m.Y",$row_expendit['exp_date']).'</td>
-										<td>'.$row_expendit['exptype_type'].'</td>
+										<td>'.$row_expendit['types'].'</td>
 										<td>'.$row_expendit['exp_recipient'].'</td>
-										<td>'.$row_expendit['exp_text'].'</td>
+										<td>'.number_format($row_expendit['amount']).' '.$_SESSION['set_cur'].'</td>
 										<td>'.$row_expendit['exp_receipt'].'</td>
-										<td>'.$row_expendit['exp_voucher'].'</td>
-										<td>'.number_format($row_expendit['exp_amount']).' '.$_SESSION['set_cur'].'</td>
 									</tr>';
-						$total_exp = $total_exp + $row_expendit['exp_amount'];
+						$_SESSION['total_exp'] = $_SESSION['total_exp'] + $row_expendit['amount'];
 
 						//Prepare data for export to Excel file
-						array_push($_SESSION['rep_export'], array("Date" => date("d.m.Y",$row_expendit['exp_date']), "Type" => $row_expendit['exptype_type'], "Recipient" => $row_expendit['exp_recipient'], "Details" => $row_expendit['exp_text'], "Receipt No" => $row_expendit['exp_receipt'], "Voucher No" => $row_expendit['exp_voucher'],"Amount" => $row_expendit['exp_amount']));
+						//array_push($_SESSION['rep_export'], array("Date" => date("d.m.Y",$row_expendit['exp_date']), "Type" => $row_expendit['exptype_type'], "Recipient" => $row_expendit['exp_recipient'], "Details" => $row_expendit['exp_text'], "Receipt No" => $row_expendit['exp_receipt'], "Voucher No" => $row_expendit['exp_voucher'],"Amount" => $row_expendit['exp_amount']));
 					}
 					echo '<tr class="balance">
-									<td colspan="7">Total expenses: '.number_format($total_exp).' '.$_SESSION['set_cur'].'</td>
+									<td colspan="5">Total expenses: '.number_format($_SESSION['total_exp']).' '.$_SESSION['set_cur'].'</td>
 								</tr>';
 			}
 		}

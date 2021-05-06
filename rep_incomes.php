@@ -22,10 +22,8 @@ error_reporting(E_ALL);
 			<a href="rep_incomes.php" id="item_selected">Income Report</a>
 			<a href="rep_expenses.php">Expense Report</a>
 			<a href="rep_loans.php">Loans Report</a>
-			<a href="rep_capital.php">Capital Report</a>
 			<a href="rep_revenue.php">Revenue Report</a>
-			<a href="rep_monthly.php">Monthly Report</a>
-			<a href="rep_annual.php">Annual Report</a>
+
 		</div>
 		<!-- MENU: Selection Bar -->
 		<div id="menu_selection">
@@ -149,7 +147,7 @@ error_reporting(E_ALL);
 						<col width="15%">
 					</colspan>
 					<tr>
-						<form class="export" action="rep_export.php" method="post">
+						<form class="export" action="rep_income_pdf.php" method="post">
 							<th class="title" colspan="5">Detailed Incomes Report for <?PHP echo $rep_month.'/'.$rep_year; ?>
 							<!-- Export Button -->
 							<input type="submit" name="export_rep" value="Export" />
@@ -163,9 +161,18 @@ error_reporting(E_ALL);
 						<th>From</th>
 						<th>Receipt No.</th>
 					</tr>
-					<?PHP
+					<?PHP 
+					$_SESSION['incomes'] = array();
 					$total_inc = 0;
+					
 					while($row_incomes = mysqli_fetch_assoc($query_incomes)){
+					array_push($_SESSION['incomes'], array(
+							"date" => date("d.m.Y", $row_incomes['inc_date']),
+							"amount" => number_format($row_incomes['inc_amount']),
+							"type" => $row_incomes['inctype_type'],
+							"from" => $row_incomes['cust_name'],
+							"receipt" => $row_incomes['inc_receipt']
+						));
 						echo '<tr>
 										<td>'.date("d.m.Y",$row_incomes['inc_date']).'</td>
 										<td>'.number_format($row_incomes['inc_amount']).' '.$_SESSION['set_cur'].'</td>

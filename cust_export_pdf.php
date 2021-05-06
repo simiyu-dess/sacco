@@ -17,7 +17,7 @@ $obj_pdf->SetMargins(PDF_MARGIN_LEFT, '5', PDF_MARGIN_RIGHT);
 $obj_pdf->setPrintHeader(false);  
 $obj_pdf->setPrintFooter(false);  
 $obj_pdf->SetAutoPageBreak(TRUE, 10);  
-$obj_pdf->SetFont('helvetica', '', 16);  
+$obj_pdf->SetFont('helvetica', '', 10);  
 $obj_pdf->AddPage();    
 
 $html = '';
@@ -25,20 +25,19 @@ $html = '';
 $html .= '
 <table id ="tb_table" style="
     width:90%;
-	margin:auto;
-	margin-bottom:3em;">
+	border: 1px solid black;">
 <colspan>
 <col width="15%">
 <col width="25%">
 <col width="50%">
 </colspan>
 <tr>
-<th colspan="3">Chenken Welfare Association Members</th>
+<th colspan="3" style="border: 1px solid black; text-align:center;">Chenken Welfare Association Members</th>
 </tr>
 <tr>
-<th style="font-weight:bold">Member No.</th>
-<th style="font-weight:bold">Member name</th>
-<th style="font-weight:bold">Email</th>
+<th style="font-weight:bold;border: 1px solid black;">Member No.</th>
+<th style="font-weight:bold; border: 1px solid black;">Member name</th>
+<th style="font-weight:bold;border: 1px solid black;">Email</th>
 </tr>
 ';
 
@@ -50,16 +49,14 @@ foreach($_SESSION['members'] as $row_cust) {
 
    $html .= '
    <tr>
-   <td>'.$number.'</td>
-   <td>'.$name.'</td>
-   <td>'.$email.'</td>
-   </tr>
-   <tr>
-   <td colspan="3">----------------------------------------------------------------------------</td>
+   <td style="border: 1px solid black;">'.$number.'</td>
+   <td style="border: 1px solid black;">'.$name.'</td>
+   <td style="border: 1px solid black;">'.$email.'</td>
    </tr>
    ';
 
 }
+$html .= '</table>';
 
 
         $obj_pdf->writeHTML($html);  

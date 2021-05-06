@@ -43,7 +43,7 @@ error_reporting(E_ALL);
 				<col width="8%" />
 			</colgroup>
 			<tr>
-				<form class="export" action="rep_export.php" method="post">
+				<form class="export" action="rep_empcurr_pdf.php" method="post">
 					<th class="title" colspan="9">Current Employees
 					<!-- Export Button -->
 					<input type="submit" name="export_rep" value="Export" />
@@ -62,8 +62,22 @@ error_reporting(E_ALL);
 				<th>In</th>
 			</tr>
 			<?PHP
+			$_SESSION['curr_emp'] = array();
 			$count = 0;
 			while ($row_emplcurr = mysqli_fetch_assoc($query_emplcurr)){
+				array_push(
+					$_SESSION['curr_emp'],
+					array(
+						"number" => $row_emplcurr['empl_no'],
+						"name" => $row_emplcurr['empl_name'],
+						"position" => $row_emplcurr['empl_position'],
+						"sex" => $row_emplcurr['emplsex_name'],
+						"date" => date("d.m.Y", $row_emplcurr['empl_dob']),
+						"address" => $row_emplcurr['empl_address'],
+						"phone" => $row_emplcurr['empl_phone'],
+						"email" => $row_emplcurr['empl_email'],
+						"date_in" => date("d.m.Y",$row_emplcurr['empl_in'])
+					));
 				echo '<tr>
 								<td><a href="employee.php?empl='.$row_emplcurr['empl_id'].'">'.$row_emplcurr['empl_no'].'</a></td>
 								<td>'.$row_emplcurr['empl_name'].'</td>

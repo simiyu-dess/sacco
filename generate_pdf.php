@@ -13,7 +13,7 @@ $obj_pdf->SetMargins(0, '0',2);
 $obj_pdf->setPrintHeader(FALSE);  
 $obj_pdf->setPrintFooter(false);  
 $obj_pdf->SetAutoPageBreak(TRUE, 10);  
-$obj_pdf->SetFont('helvetica', '', 5);  
+$obj_pdf->SetFont('helvetica', '', 8);  
 $obj_pdf->AddPage();
 
 
@@ -34,7 +34,7 @@ if($_SESSION['year']==2014)
             
             $html='';
 			$html .= '
-			<table id ="tb_table" style="width:95%">
+			<table style="width:95%; border: 1px solid black;">
 			<colspan>
 			<col width="16%">
 			<col width="18%">
@@ -52,26 +52,26 @@ if($_SESSION['year']==2014)
 			<col width="5.5%">
 			</colspan>
 			<tr>
-			<th class="title" colspan="12">CHENKEN WELFARE ASSOCIATION - <?PHP echo $years; ?></th>
+			<th colspan="13" style="border: 1px solid black;text-align:center;">CHENKEN WELFARE ASSOCIATION SAVINGS- '.$_SESSION['year'].'</th>
 			
 			</tr>
 			<tr>
-			<th colspan= "2"></th>
-			<th colspan = "10"> Amount </th>
+			<th colspan= "2" style="border: 1px solid black;"></th>
+			<th colspan = "10" style="border: 1px solid black;"> Amount </th>
 			</tr>
 			<tr>
-			<th>Name</th>
-			<th>Email</th>
-			<th>May</th>
-			<th>June</th>
-			<th>July</th>
-			<th>August</th>
-			<th>September</th>
-			<th>October</th>
-			<th>November</th>
-			<th>December</th>
-			<th style ="font-weight:bold;">TOTALS</th>
-			<th>Cumulative Totals </th>
+			<th style="border: 1px solid black;">Name</th>
+			<th style="border: 1px solid black;">Email</th>
+			<th style="border: 1px solid black;">May</th>
+			<th style="border: 1px solid black;">June</th>
+			<th style="border: 1px solid black;">July</th>
+			<th style="border: 1px solid black;">August</th>
+			<th style="border: 1px solid black;">September</th>
+			<th style="border: 1px solid black;">October</th>
+			<th style="border: 1px solid black;">November</th>
+			<th style="border: 1px solid black;">December</th>
+			<th style ="font-weight:bold;border: 1px solid black;">TOTALS</th>
+			<th style="border: 1px solid black;">Cumulative Totals </th>
 			
 
 			</tr>';
@@ -139,47 +139,47 @@ if($_SESSION['year']==2014)
 			
 			$html .= '
 				<tr>		
-		<td>'.$name.'</td>
-		<td>'.$email.'</td>
-		<td>'.$May.'</td>
-		<td>'.$june.'</td>
-		<td>'.$july.'</td>
-		<td>'.$August.'</td>
-		<td>'.$september.'</td>
-		<td>'.$october.'</td>
-		<td>'.$november.'</td>
-		<td>'.$december.'</td>
-		<td>'.$sum.'</td>
-		<td>'.$c_total.'</td>
+		<td style="border: 1px solid black;">'.$name.'</td>
+		<td style="border: 1px solid black;">'.$email.'</td>
+		<td style="border: 1px solid black;">'.$May.'</td>
+		<td style="border: 1px solid black;">'.$june.'</td>
+		<td style="border: 1px solid black;">'.$july.'</td>
+		<td style="border: 1px solid black;">'.$August.'</td>
+		<td style="border: 1px solid black;">'.$september.'</td>
+		<td style="border: 1px solid black;">'.$october.'</td>
+		<td style="border: 1px solid black;">'.$november.'</td>
+		<td style="border: 1px solid black;">'.$december.'</td>
+		<td style="border: 1px solid black;">'.$sum.'</td>
+		<td style="border: 1px solid black;">'.$c_total.'</td>
 		</tr>';
 			}
 					
 			$html .= '
 				<tr>		
-		<td>Totals</td>
-		<td></td>
-		<td>'.number_format($amount_may).'</td>
-		<td>'.number_format($amount_june).'</td>
-		<td>'.number_format($amount_july).'</td>
-		<td>'.number_format($amount_aug).'</td>
-		<td>'.number_format($amount_sep).'</td>
-		<td>'.number_format($amount_oct).'</td>
-		<td>'.number_format($amount_nov).'</td>
-		<td>'.number_format($amount_dec).'</td>
+		<td style="border: 1px solid black;">Totals</td>
+		<td style="border: 1px solid black;"></td>
+		<td style="border: 1px solid black;">'.number_format($amount_may).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_june).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_july).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_aug).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_sep).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_oct).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_nov).'</td>
+		<td style="border: 1px solid black;">'.number_format($amount_dec).'</td>
 		</tr>';
 
 		$html .= '
 		<tr>		
-<td>C.Totals</td>
-<td></td>
-<td>'.number_format($amount_may).'</td>
-<td>'.number_format($amount_june + $amount_may).'</td>
-<td>'.number_format($amount_july +$amount_june + $amount_may).'</td>
-<td>'.number_format($amount_aug + $amount_july +$amount_june + $amount_may).'</td>
-<td>'.number_format($amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
-<td>'.number_format($amount_oct + $amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
-<td>'.number_format($amount_nov + $amount_oct + $amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
-<td>'.number_format($amount_dec + $amount_nov + $amount_oct + $amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">C.Totals</td>
+<td style="border: 1px solid black;"></td>
+<td style="border: 1px solid black;">'.number_format($amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_july +$amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_aug + $amount_july +$amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_oct + $amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_nov + $amount_oct + $amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
+<td style="border: 1px solid black;">'.number_format($amount_dec + $amount_nov + $amount_oct + $amount_sep + $amount_aug + $amount_july +$amount_june + $amount_may).'</td>
 </tr>';
 		}
 		else
@@ -200,48 +200,50 @@ if($_SESSION['year']==2014)
 			$html='';
 			
 			$html .= '
-			<table id ="tb_table" style="width:95%">
+			<table style="width:99%;border: 1px solid black;">
 			<colspan>
-			<col width="16%">
-			<col width="18%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
-			<col width="5.5%">
+			<col width="15.5%">
+			<col width="17.5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
+			<col width="5%">
 			<col width="5.5%">
 			</colspan>
 			<tr>
-			<th class="title" colspan="15">CHENKEN WELFARE ASSOCIATION - echo $_SESSION[year]; ?></th>
+			<th class="title" colspan="16" style="border: 1px solid black;text-align:center;">CHENKEN WELFARE ASSOCIATION - '.$_SESSION['year'].'</th>
 			
 			</tr>
 			<tr>
-			<th colspan= "2"></th>
-			<th colspan = "13"> Amount </th>
+			<th colspan= "2" style="border: 1px solid black;"></th>
+			<th colspan = "13" style="border: 1px solid black;text-align:center;"> Amount </th>
 			</tr>
 			<tr>
-			<th>Name</th>
-			<th>Email</th>
-			<th>jan</th>
-			<th>feb</th>
-			<th>march</th>
-			<th>April</th>
-			<th>May</th>
-			<th>June</th>
-			<th>July</th>
-			<th>Aug</th>
-			<th>Sep</th>
-			<th>Oct</th>
-			<th>Nov</th>
-			<th>Dec</th>
-			<th style ="font-weight:bold;">TOTALS</th>
-			<th style ="font-weight:bold;">C.Totals </th>
+			<th style="border: 1px solid black;">Name</th>
+			<th style="border: 1px solid black;">Email</th>
+			<th style="border: 1px solid black;">jan</th>
+			<th style="border: 1px solid black;">feb</th>
+			<th style="border: 1px solid black;">march</th>
+			<th style="border: 1px solid black;">April</th>
+			<th style="border: 1px solid black;">May</th>
+			<th style="border: 1px solid black;">June</th>
+			<th style="border: 1px solid black;">July</th>
+			<th style="border: 1px solid black;">Aug</th>
+			<th style="border: 1px solid black;">Sep</th>
+			<th style="border: 1px solid black;">Oct</th>
+			<th style="border: 1px solid black;">Nov</th>
+			<th style="border: 1px solid black;">Dec</th>
+			<th style ="font-weight:bold;border: 1px solid black;">TOTALS</th>
+			<th style ="font-weight:bold;border: 1px solid black;">C.Totals </th>
 			
 
 			</tr>';
@@ -348,29 +350,23 @@ if($_SESSION['year']==2014)
 					}
 				
 			$html .= '
-		<tr><td colspan= "17">--------------------------------------------------------------
-		--------------------------------------------------------------------------------
-		----------------------------------------------------------------------------------
-		---------------------------------------------------------------------------------
-		--------------------------------------------</td></tr>
 				<tr>		
-		<td>'.$name.'</td>
-		<td>'.$email.'</td>
-		<td>'.$Jan.'</td>
-		<td>'.$Feb.'</td>
-		<td>'.$March.'</td>
-		<td>'.$April.'</td>
-		<td>'.$May.'</td>
-		<td>'.$june.'</td>
-		<td>'.$july.'</td>
-		<td>'.$August.'</td>
-		<td>'.$september.'</td>
-		<td>'.$october.'</td>
-		<td>'.$november.'</td>
-		<td>'.$december.'</td>
-		<td style="font-weight:Bold;">'.$sum.'</td>
-		<td style ="font-weight:bold;">'.$c_total.'</td>
-		<td></td>
+		<td style="border: 1px solid black;">'.$name.'</td>
+		<td style="border: 1px solid black;">'.$email.'</td>
+		<td style="border: 1px solid black;">'.$Jan.'</td>
+		<td style="border: 1px solid black;">'.$Feb.'</td>
+		<td style="border: 1px solid black;">'.$March.'</td>
+		<td style="border: 1px solid black;">'.$April.'</td>
+		<td style="border: 1px solid black;">'.$May.'</td>
+		<td style="border: 1px solid black;">'.$june.'</td>
+		<td style="border: 1px solid black;">'.$july.'</td>
+		<td style="border: 1px solid black;">'.$August.'</td>
+		<td style="border: 1px solid black;">'.$september.'</td>
+		<td style="border: 1px solid black;">'.$october.'</td>
+		<td style="border: 1px solid black;">'.$november.'</td>
+		<td style="border: 1px solid black;">'.$december.'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.$sum.'</td>
+		<td style ="font-weight:bold;border: 1px solid black;">'.$c_total.'</td>
 		</tr>';
 		unset($Jan);
 		unset($Feb);
@@ -386,61 +382,53 @@ if($_SESSION['year']==2014)
 		unset($december);
 			}
 			$html .= '
-			<tr><td colspan= "17">--------------------------------------------------------------
-		--------------------------------------------------------------------------------
-		----------------------------------------------------------------------------------
-		---------------------------------------------------------------------------------
-		--------------------------------------------</td></tr>
 				<tr>		
-		<td style="font-weight:Bold;">Totals</td> 
+		<td style="font-weight:Bold;border: 1px solid black;">Totals</td> 
 		<td></td>
-		<td style="font-weight:Bold;">'.number_format($amount_jan).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_feb).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_march).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_april).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_may).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_june).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_july).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_aug).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_sep).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_oct).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_nov).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_dec).'</td>
-		<td style="font-weight:Bold;">'.number_format($amount_total).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_feb).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_march).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_april).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_may).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_june).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_july).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_aug).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_sep).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_oct).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_nov).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_dec).'</td>
+		<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_total).'</td>
 		</tr>
-		<tr><td colspan= "17">--------------------------------------------------------------
-		--------------------------------------------------------------------------------
-		----------------------------------------------------------------------------------
-		---------------------------------------------------------------------------------
-		--------------------------------------------</td></tr>';
+		';
 
 
 		$html .= '
 		<tr>		
 <td style="font-weight:Bold;">C.Totals</td>
 <td></td>
-<td style="font-weight:Bold;">'.number_format($amount_jan).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may + $amount_june).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may + $amount_june + $amount_july).'</td>
-<td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may + $amount_june).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may + $amount_june + $amount_july).'</td>
+<td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
  $amount_june + $amount_july + $amount_aug).'</td>
- <td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
+ <td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
  $amount_june + $amount_july + $amount_aug + $amount_sep).'</td>
- <td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
+ <td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
  $amount_june + $amount_july + $amount_aug + $amount_sep + $amount_oct).'</td>
- <td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
+ <td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
  $amount_june + $amount_july + $amount_aug + $amount_sep + $amount_oct + $amount_nov).'</td>
- <td style="font-weight:Bold;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
+ <td style="font-weight:Bold;border: 1px solid black;">'.number_format($amount_jan + $amount_feb + $amount_march + $amount_april + $amount_may +
  $amount_june + $amount_july + $amount_aug + $amount_sep + $amount_oct + $amount_nov + $amount_dec).'</td>
 </tr>';
 
 
 
 		}
+	$html .= '</table>';
     
 
 		

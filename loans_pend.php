@@ -65,8 +65,21 @@ error_reporting(E_ALL);
 				</tr>
 				<?PHP
 				$total_loanpend = 0;
+				$_SESSION['pending_loans'] = array();
 				$count = 0;
 				while($row_loanpend = mysqli_fetch_assoc($query_loanpend)){
+					array_push(
+						$_SESSION['pending_loans'],
+						array(
+							"number"=>$row_loanpend['loan_no'],
+							"name" => $row_loanpend['cust-name'],
+							"period" => $row_loanpend['loan_period'],
+							"status" => $row_loanpend['loanstatus_status'],
+							"principal" => $row_loanpend['loan_principal'],
+							"repay" => $row_loanpend['loan_repaytotal'] - $row_loanpend['loan_principal'],
+							"date" => $row_loanpend['loan_date']
+						)
+					);
 					echo '<tr>
 									<td><a href="loan.php?lid='.$row_loanpend['loan_id'].'">'.$row_loanpend['loan_no'].'</a></td>
 									<td>'.$row_loanpend['cust_name'].' ('.$row_loanpend['cust_no'].')</td>
