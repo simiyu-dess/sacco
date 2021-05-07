@@ -47,7 +47,7 @@ error_reporting(E_ALL);
 					<col width="10%"/>
 				</colgroup>
 				<tr>
-					<form class="export" action="rep_export.php" method="post">
+					<form class="export" action="reploan_pending.php" method="post">
 						<th class="title" colspan="7">Pending Loans
 						<!-- Export Button -->
 						<input type="submit" name="export_rep" value="Export" />
@@ -72,12 +72,12 @@ error_reporting(E_ALL);
 						$_SESSION['pending_loans'],
 						array(
 							"number"=>$row_loanpend['loan_no'],
-							"name" => $row_loanpend['cust-name'],
+							"name" => $row_loanpend['cust_name'],
 							"period" => $row_loanpend['loan_period'],
 							"status" => $row_loanpend['loanstatus_status'],
 							"principal" => $row_loanpend['loan_principal'],
 							"repay" => $row_loanpend['loan_repaytotal'] - $row_loanpend['loan_principal'],
-							"date" => $row_loanpend['loan_date']
+							"date" => date("d.m.Y",$row_loanpend['loan_date'])
 						)
 					);
 					echo '<tr>

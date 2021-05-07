@@ -46,7 +46,7 @@ error_reporting(E_ALL);
 					<col width="7.5%">
 				</colgroup>
 				<tr>
-					<form class="export" action="rep_export.php" method="post">
+					<form class="export" action="reploan_active.php" method="post">
 						<th class="title" colspan="7">Active Loans
 						<!-- Export Button -->
 						<input type="submit" name="export_rep" value="Export" />
@@ -77,7 +77,7 @@ error_reporting(E_ALL);
 							"pdue" => $row_loans['pdue'],
 							"idue" => $row_loans['idue'],
 							"balance" => $row_loans['balance'],
-							"dateout" => $row_loans['loan_dateout']
+							"dateout" => date("d.m.Y",$row_loans['loan_dateout'])
 						)
 					);
 
