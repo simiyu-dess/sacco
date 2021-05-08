@@ -74,10 +74,10 @@ error_reporting(E_ALL);
 							"number"=> $row_loans['loan_no'],
 							"name" => $row_loans['cust_name'],
 							"period" => $row_loans['loan_period'],
-							"pdue" => $row_loans['pdue'],
-							"idue" => $row_loans['idue'],
-							"balance" => $row_loans['balance'],
-							"dateout" => date("d.m.Y",$row_loans['loan_dateout'])
+							"pdue" => $loan_balances['pdue'],
+							"idue" => $loan_balances['idue'],
+							"balance" => $loan_balances['balance'],
+							"dateout" => date("d.m.Y", $row_loans['loan_dateout'])
 						)
 					);
 

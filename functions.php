@@ -347,14 +347,17 @@ error_reporting(E_ALL);
 				echo '><a href="cust_search.php"><i class="fa fa-group fa-fw"></i> Members</a></li>
 				<li';
 				if ($tab_no == 3) echo ' id="tab_selected"';
-				echo '><a href="loans_search.php"><i class="fa fa-percent fa-fw"></i> Loans</a></li>
-				<li';
+				echo '><a href="loans_search.php"><i class="fa fa-percent fa-fw"></i> Loans</a></li>';
+				 if ($_SESSION['log_admin'] == 1){
+				echo '<li';
 				if ($tab_no == 4) echo ' id="tab_selected"';
-				echo '><a href="books_expense.php"><i class="fa fa-calculator fa-fw"></i> Accounting</a></li>
-				<li';
+				echo '><a href="books_expense.php"><i class="fa fa-calculator fa-fw"></i> Accounting</a></li>';
+				 }
+				 if ($_SESSION['log_admin'] == 1){
+				echo '<li';
 				if ($tab_no == 7) echo ' id="tab_selected"';
 				echo '><a href="empl_curr.php"><i class="fa fa-male fa-fw"></i> Employees</a></li>';
-
+				 }
 				if ($_SESSION['log_report'] == 1){
 					echo '<li';
 					if ($tab_no == 5) echo ' id="tab_selected"';
@@ -385,13 +388,13 @@ error_reporting(E_ALL);
 	* @return int savbal : Current savings account balance for given customer
 	*/
 	function getSavingsBalance($db_link, $cust_id){
-		$sql_savbal = "SELECT savbal_balance FROM savbalance WHERE cust_id = $cust_id";
+		$sql_savbal = "SELECT SUM(sav_amount) as balance FROM savings WHERE cust_id = $cust_id";
 		$query_savbal = mysqli_query($db_link, $sql_savbal);
 		checkSQL($db_link, $query_savbal);
 
 		$savbal = mysqli_fetch_assoc($query_savbal);
 
-		return $savbal['savbal_balance'];
+		return $savbal['balance'];
 	}
 
 	/**
@@ -415,26 +418,7 @@ error_reporting(E_ALL);
 		$timestamp = time();
 		
 		$sql_savbal_upd = "UPDATE savbalance SET savbal_balance = (SELECT SUM(sav_amount) FROM savings WHERE cust_id = $cust_id), savbal_fixed = (SELECT SUM(sav_amount) FROM savings WHERE cust_id = $cust_id and sav_fixed > $timestamp) WHERE cust_id = $cust_id";
-											 
-											 
-/*
-		$sql_savbal_upd = " UPDATE savbalance
-						 SET 
-						  savbalance.cust_id = $_SESSION[cust_id],
-						  savbalance.savbal_balance =(
-			              SELECT sum(savings.sav_amount)
-			                FROM savings
-							WHERE savings.cust_id = savbalance.cust_id),
-							savbalance.savbal_fixed =(
-							SELECT SUM(savings.sav_amount)
-							  FROM savings 
-							  WHERE savings.cust_id = savbalance.cust_id),
-							  savbalance.savbal_date = $timestamp,
-							  savbalance.savbal_created = $timestamp,
-							  savbalance.user_id = $_SESSION[log_id]
-														 ";
-														 */
-		                          
+											 		                          
 		                                        
 		$query_savbal_upd = mysqli_query($db_link, $sql_savbal_upd);
 		checkSQL($db_link, $query_savbal_upd, $db_link);

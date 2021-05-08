@@ -2,7 +2,7 @@
 $sixtydays = time() - convertDays(2555);
 
 // Getting expenses
-$sql_exp = "SELECT exp_amount FROM expenses WHERE exp_date > $sixtydays";
+$sql_exp = "SELECT exp_amount FROM expenses";
 $query_exp = mysqli_query($db_link, $sql_exp);
 checkSQL($db_link, $query_exp);
 $exp_total = 0;
@@ -11,7 +11,7 @@ while($row_exp = mysqli_fetch_assoc($query_exp)){
 }
 
 // Getting income
-$sql_inc = "SELECT inc_amount FROM incomes WHERE inc_date > $sixtydays";
+$sql_inc = "SELECT inc_amount FROM incomes";
 $query_inc = mysqli_query($db_link, $sql_inc);
 checkSQL($db_link, $query_inc);
 $inc_total = 0;

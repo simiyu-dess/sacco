@@ -7,7 +7,7 @@ require 'TCPDF/tcpdf.php';
 ob_start();
 $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
 $obj_pdf->SetCreator(PDF_CREATOR);  
-$obj_pdf->SetTitle("Export HTML Table data to PDF using TCPDF in PHP");  
+$obj_pdf->SetTitle("Export active loans");  
 $obj_pdf->SetHeaderData('', '', PDF_HEADER_TITLE, PDF_HEADER_STRING);  
 $obj_pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
 $obj_pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
@@ -58,7 +58,7 @@ foreach($_SESSION['active_loans'] as $row_loan) {
     $pdue = $row_loan['pdue'];
     $idue = $row_loan['idue'];
     $balance= $row_loan['balance'];
-    $date_out = $row_loan['date_out'];
+    $date_out = $row_loan['dateout'];
     
 
 
@@ -80,6 +80,6 @@ $html .='</table>';
 
         $obj_pdf->writeHTML($html);  
         ob_end_clean();
-		$obj_pdf->Output('Employee_report.pdf', 'I');
+		$obj_pdf->Output('active_loans.pdf', 'I');
 
 ?>

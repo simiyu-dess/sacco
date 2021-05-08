@@ -29,10 +29,10 @@ function validateEmail(field){
 	return ""
 }
 
-//function validateReceipt(field) {
-	//if (field == "") return "Please specify the Receipt Number.\n\n"
-	//return ""
-//}
+function validateReceipt(field) {
+	if (field == "") return "Please specify the Receipt Number.\n\n"
+	return ""
+}
 
 //function validateSlip(field) {
 	//if (field == "") return "Please specify the Slip Number.\n\n"
@@ -54,10 +54,10 @@ function validateOverdraft(field, balance, wd_fee, minsavbal, fixed){
 	return ""
 }
 
-//function validateRecipient(field) {
-	//if (field == "") return "Please enter a Recipient.\n\n"
-	//return ""
-//}
+function validateRecipient(field) {
+	if (field == "") return "Please enter a Recipient.\n\n"
+	return ""
+}
 
 //function validateVoucher(field) {
 	//if (field == "") return "Please specify a Voucher Number.\n\n"

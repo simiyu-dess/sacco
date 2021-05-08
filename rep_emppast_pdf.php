@@ -7,7 +7,7 @@ require 'TCPDF/tcpdf.php';
 ob_start();
 $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
 $obj_pdf->SetCreator(PDF_CREATOR);  
-$obj_pdf->SetTitle("Export HTML Table data to PDF using TCPDF in PHP");  
+$obj_pdf->SetTitle("Export past employees");  
 $obj_pdf->SetHeaderData('', '', PDF_HEADER_TITLE, PDF_HEADER_STRING);  
 $obj_pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));  
 $obj_pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));  
@@ -61,7 +61,7 @@ foreach($_SESSION['emp_past'] as $row_emp) {
     $postion = $row_emp['position'];
     $sex = $row_emp['sex'];
     $Dob = $row_emp['date'];
-    $address= $row_emp['address'];
+    $address = $row_emp['address'];
     $date_in = $row_emp['date_in'];
     $phone = $row_emp['phone'];
     $email = $row_emp['email'];
@@ -89,6 +89,6 @@ $html .='</table>';
 
         $obj_pdf->writeHTML($html);  
         ob_end_clean();
-		$obj_pdf->Output('Employee_report.pdf', 'I');
+		$obj_pdf->Output('past_employee.pdf', 'I');
 
 ?>
