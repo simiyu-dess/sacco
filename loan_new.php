@@ -48,6 +48,7 @@ error_reporting(E_ALL);
 		$loan_repaytotal = $loan_principal + $loan_interesttotal;
 		$loan_rate = $loan_principaldue + $loan_interestdue;
 		$loan_fee = $loan_principal / 100 * $_SESSION['fee_loan'];
+		
 		$loan_insurance = $loan_principal / 100 * $_SESSION['fee_loaninsurance'];
 
 		//Insert Loan into LOANS

@@ -1,6 +1,7 @@
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
+date_default_timezone_set('Africa/Nairobi');
 error_reporting(E_ALL);
 	require 'functions.php';
 	require 'function_loans.php';
@@ -8,7 +9,7 @@ error_reporting(E_ALL);
 	$db_link = connect();
 	getLoanID($db_link);
 
-	$timestamp = time();
+	$timestamp =Time();
 
 	// Select details of current loan from LOANS, LOANSTATUS, CUSTOMER
 	$sql_loan = "SELECT * FROM loans JOIN loanstatus ON 
@@ -104,15 +105,15 @@ error_reporting(E_ALL);
 
 			//Update loan information. Set loan to "Approved" and "Issued".
 			$sql_issue = "UPDATE loans SET loanstatus_id = 
-											 '$loan_status', 
-											 loan_issued = '1', 
+											 $loan_status, 
+											 loan_issued = 1, 
 											 loan_dateout = '$loan_dateout', 
-											 loan_principalapproved = '$loan_princp_approved', 
-											 loan_fee = '$loan_fee', 
-											 loan_fee_receipt = '$loan_fee_receipt', 
-											 loan_insurance = '$loan_insurance', 
-											 loan_insurance_receipt = '$loan_fee_receipt' 
-											 WHERE loan_id = '$_SESSION[loan_id]'";
+											 loan_principalapproved = $loan_princp_approved, 
+											 loan_fee = $loan_fee, 
+											 loan_fee_receipt = $loan_fee_receipt, 
+											 loan_insurance = $loan_insurance, 
+											 loan_insurance_receipt = $loan_fee_receipt 
+											 WHERE loan_id = $_SESSION[loan_id]";
 			$query_issue = mysqli_query($db_link, $sql_issue);
 			checkSQL($db_link, $query_issue);
 		}
@@ -195,12 +196,15 @@ error_reporting(E_ALL);
 		$ltransid = $ltransid_result['MIN(ltrans_id)'];
 
 		if(!isset($ltransid)){
-			$sql_insertrepay = "INSERT INTO ltrans (loan_id, ltrans_date, ltrans_principal, ltrans_interest, ltrans_receipt, ltrans_created, user_id) VALUES ($_SESSION[loan_id], $loan_repay_date, '$loan_repay_principal', '$loan_repay_interest', '$loan_repay_receipt', $timestamp, '$_SESSION[log_id]')";
+			$sql_insertrepay = "INSERT INTO ltrans (loan_id, ltrans_date, ltrans_principal, ltrans_interest, ltrans_receipt, ltrans_created, user_id)
+			 VALUES ($_SESSION[loan_id], $loan_repay_date, '$loan_repay_principal', '$loan_repay_interest', '$loan_repay_receipt', $timestamp,
+			  '$_SESSION[log_id]')";
 			$query_insertrepay = mysqli_query($db_link, $sql_insertrepay);
 			checkSQL($db_link, $query_insertrepay);
 
 			// Get LTRANS_ID of latest entry
-			$sql_ltransid = "SELECT MAX(ltrans_id) FROM ltrans WHERE loan_id = '$_SESSION[loan_id]' AND ltrans_receipt = '$loan_repay_receipt' AND ltrans_created = '$timestamp'";
+			$sql_ltransid = "SELECT MAX(ltrans_id) FROM ltrans WHERE loan_id = '$_SESSION[loan_id]' AND ltrans_receipt = '$loan_repay_receipt'
+			 AND ltrans_created = '$timestamp'";
 			$query_ltransid = mysqli_query($db_link, $sql_ltransid);
 			checkSQL($db_link, $query_ltransid);
 			$ltransid_result = mysqli_fetch_row($query_ltransid);
@@ -322,6 +326,7 @@ error_reporting(E_ALL);
 	$ltrans_exp_date = date("Y-m-d",time());
 	$_SESSION['ltrans_export'] = array();
 	$_SESSION['ltrans_exp_title'] = $_SESSION['cust_id'].'_loan_'.$ltrans_exp_date;
+	$_SESSION['user_loan'] = array();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -389,7 +394,7 @@ error_reporting(E_ALL);
 		<!-- MENU -->
 		<?PHP includeMenu(3); ?>
 		<div id="menu_main">
-			<a href="customer.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Customer</a>
+			<a href="customer.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Member</a>
 			<a href="loans_search.php">Search</a>
 			<a href="loans_act.php">Active Loans</a>
 			<a href="loans_pend.php">Pending Loans</a>
@@ -562,6 +567,8 @@ error_reporting(E_ALL);
 				$_SESSION['loan_period'] = $result_loan['loan_period'];
 				$_SESSION['loan_fee'] = $result_loan['loan_fee'];
 				$_SESSION['loan_issued'] = $result_loan['loan_issued'];
+				$_SESSION['l_cust'] = $result_loan['cust_name']
+
 				?>
 			</form>
 		</div>
@@ -571,10 +578,10 @@ error_reporting(E_ALL);
 
 			<table id="tb_table">
 				<tr>
-					<form class="export" action="ltrans_export.php" method="post">
+					<form class="export" action="rep_userloanPdf.php" method="post">
 						<th class="title" colspan="10">Loan Payment Transactions
 						<!-- Export Button -->
-						<input type="submit" name="export_rep" value="Export" />
+						<!-- <input type="submit" name="export_rep" value="Export" /> -->
 						</th>
 					</form>
 				</tr>
@@ -600,7 +607,9 @@ error_reporting(E_ALL);
 				while ($row_duedates = mysqli_fetch_assoc($query_duedates)){
 					echo '<tr>';
 					if ($row_duedates['ltrans_due'] === NULL) echo '<td></td>';
-						elseif ($row_duedates['ltrans_due'] < $timestamp AND $row_duedates['ltrans_date'] === NULL AND $row_duedates['ltrans_fined'] == 0) echo '<td class="warn">'.date("d.m.Y",$row_duedates['ltrans_due']).'</td>';
+						elseif ($row_duedates['ltrans_due'] < $timestamp AND 
+						$row_duedates['ltrans_date'] === NULL AND $row_duedates['ltrans_fined'] == 0)
+						 echo '<td class="warn">'.date("d.m.Y",$row_duedates['ltrans_due']).'</td>';
 						else echo '<td>'.date("d.m.Y",$row_duedates['ltrans_due']).'</td>';
 					if ($row_duedates['ltrans_date'] === NULL) echo '<td></td>';
 						else echo '<td>'.date("d.m.Y", $row_duedates['ltrans_date']).'</td>';
@@ -644,7 +653,16 @@ error_reporting(E_ALL);
 						else $exp_fined='Yes';
 
 					//Prepare data for export to Excel file
-					array_push($_SESSION['ltrans_export'], array("Date due" => date("d.m.Y",$row_duedates['ltrans_due']), "Date paid" => date("d.m.Y",$row_duedates['ltrans_date']), "Principial due" => $row_duedates['ltrans_principaldue'], "Principal paid" => $row_duedates['ltrans_principal'], "Interest due" => $row_duedates['ltrans_interestdue'], "Interest paid" => $row_duedates['ltrans_interest'], "Receipt" => $row_duedates['ltrans_receipt'], "Fined" => $exp_fined));
+					array_push($_SESSION['ltrans_export'],
+					 array(
+					"Date due" => date("d.m.Y",$row_duedates['ltrans_due']), 
+					"Date paid" => date("d.m.Y",$row_duedates['ltrans_date']), 
+					"Principial due" => $row_duedates['ltrans_principaldue'], 
+					"Principal paid" => $row_duedates['ltrans_principal'], 
+					"Interest due" => $row_duedates['ltrans_interestdue'], 
+					"Interest paid" => $row_duedates['ltrans_interest'], 
+					"Receipt" => $row_duedates['ltrans_receipt'], 
+					"Fined" => $exp_fined));
 				}
 
 				//Pass relevant data to SESSION

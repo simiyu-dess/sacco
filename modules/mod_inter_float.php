@@ -10,6 +10,7 @@ $difference_principal = $loan_princp_approved - ($loan_princp_due * $loan_period
 $ltrans_due = $loan_dateout + convertDays(31);
 $ltrans_princp_due = $loan_princp_due;
 $ltrans_princp_remain = $loan_princp_approved;
+
 $i = 1;
 while ($i <= $loan_period){
 	
