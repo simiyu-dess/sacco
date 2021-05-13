@@ -300,7 +300,7 @@ error_reporting(E_ALL);
 									<td>'.$row_sav['savtype_type'].'</td>
 									<td>'.number_format($row_sav['sav_amount']).' '.$_SESSION['set_cur'].'</td>';
 					if ($row_sav['savtype_id'] == 2) echo '<td>S '.$row_sav['sav_slip'].'</td>';
-						else echo '<td>R '.$row_sav['sav_receipt'].'</td>';
+						else echo '<td> '.$row_sav['sav_receipt'].'</td>';
 					echo '</tr>';
 				}
 

@@ -1,14 +1,15 @@
 <?PHP
+require "functions.php";
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 	session_start();
 
 	// Connect to database
-	$db_link = mysqli_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
-	if(!$db_link) die('Could not connect to server '.$_SESSION['db_host'].': '.mysqli_error($db_link));
-
-	require_once 'functions.php';
+	//$db_link = mysqli_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
+	//if(!$db_link) die('Could not connect to server '.$_SESSION['db_host'].': '.mysqli_error($db_link));
+   $db_link = connect();
+	//require_once 'functions.php';
 
 	if(isset($_POST['adminSetup'])){
 

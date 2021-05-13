@@ -22,9 +22,10 @@ error_reporting(E_ALL);
 		$query_log = mysqli_query($db_link, $sql_log);
 		checkSQL($db_link, $query_log);
 		$result_log = mysqli_fetch_assoc($query_log);
-
+		$pepper = 'g7NIiru!!8';
+        //'g7NIiru!!8'
 		// Verify Password
-		if(password_verify($log_pw.'g7NIiru!!8', $result_log['user_pw'])){
+		if(password_verify($log_pw.$pepper, $result_log['user_pw'])){
 
 			// Define Session Variables for this User
 			$_SESSION['log_user'] = $log_user;
@@ -37,7 +38,8 @@ error_reporting(E_ALL);
 			$_SESSION['log_fingerprint'] = $fingerprint;
 
 			// Check if user logged out properly last time
-			$sql_logout = "SELECT logrec_id, logrec_logout FROM logrec WHERE logrec_id IN (SELECT MAX(logrec_id) FROM logrec WHERE user_id = '$_SESSION[log_id]')";
+			$sql_logout = "SELECT logrec_id, logrec_logout FROM logrec WHERE logrec_id IN 
+			(SELECT MAX(logrec_id) FROM logrec WHERE user_id = '$_SESSION[log_id]')";
 			$query_logout = mysqli_query($db_link, $sql_logout);
 			checkSQL($db_link, $query_logout);
 			$logout = mysqli_fetch_array($query_logout);
