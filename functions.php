@@ -417,7 +417,9 @@ error_reporting(E_ALL);
 	function updateSavingsBalance($db_link, $cust_id){
 		$timestamp = time();
 		
-		$sql_savbal_upd = "UPDATE savbalance SET savbal_balance = (SELECT SUM(sav_amount) FROM savings WHERE cust_id = $cust_id), savbal_fixed = (SELECT SUM(sav_amount) FROM savings WHERE cust_id = $cust_id and sav_fixed > $timestamp) WHERE cust_id = $cust_id";
+		$sql_savbal_upd = "UPDATE savbalance SET savbal_balance = (SELECT SUM(sav_amount) 
+		FROM savings WHERE cust_id = $cust_id), savbal_fixed = (SELECT SUM(sav_amount) FROM savings 
+		WHERE cust_id = $cust_id and sav_fixed > $timestamp) WHERE cust_id = $cust_id";
 											 		                          
 		                                        
 		$query_savbal_upd = mysqli_query($db_link, $sql_savbal_upd);

@@ -55,6 +55,7 @@ $_SESSION['name'] = $name['cust_name'];
 		?>
 		<th>Transaction</th>
 		<th>Amount</th>
+		<th>Receipt</th>
 		<th>Authorised by</th>
 		<th>Delete</th>
 	</tr>
@@ -62,6 +63,7 @@ $_SESSION['name'] = $name['cust_name'];
 	while($row_sav = mysqli_fetch_assoc($query_sav)){
 		array_push($_SESSION['user_account'],array("date" => date('d.m.y',$row_sav['sav_date']),
 									   "amount" => number_format($row_sav['sav_amount']),
+									   "receipt" => $row_sav['sav_receipt'],
 									    "type" => $row_sav['savtype_type']));
 		echo '<tr>
 						<td>'.date("d.m.Y",$row_sav['sav_date']).'</td>';
@@ -71,6 +73,7 @@ $_SESSION['name'] = $name['cust_name'];
 			}
 			echo '<td>'.$row_sav['savtype_type'].'</td>
 						<td>'.number_format($row_sav['sav_amount']).' '.$_SESSION['set_cur'].'</td>
+						<td>'.$row_sav['sav_receipt'].'</td>
 						<td>'.$row_sav['user_name'].'</td>';
 						if ($_SESSION['log_delete'] == 1 and ($row_sav['savtype_id'] == 1 or $row_sav['savtype_id'] == 2)) echo '<td><a href="acc_sav_del.php?sav_id='.$row_sav['sav_id'].'" onClick="return randCheck();"><i class="fa fa-remove fa-lg"></i></a></td>';
 						else echo '<td></td>';

@@ -67,13 +67,13 @@ error_reporting(E_ALL);
 		updateSavingsBalance($db_link, $_SESSION['cust_id']);
 
 		// Include Expense, if transaction was Savings Interest
-		/*
+
 		if ($savtype_id == 3){
 			$sql_expense = "INSERT INTO expenses (cust_id, exptype_id, exp_amount, exp_date, exp_voucher, exp_created, user_id) VALUES ('$_SESSION[cust_id]', '19', '$sav_amount', '$sav_date', '$sav_receipt', '$timestamp', '$_SESSION[log_id]')";
 			$query_expense = mysqli_query($db_link, $sql_expense);
 			checkSQL($db_link, $query_expense);
 		}
-		*/
+		
 
 		//Refer to acc_sav_depos.php
 		header('Location: acc_sav_depos.php?cust='.$_SESSION['cust_id']);
@@ -153,7 +153,7 @@ error_reporting(E_ALL);
 					</tr>
 					<tr>
 						<td>Receipt No:</td>
-						<td><input type="number" name="sav_receipt" placeholder="for Deposit Transaction" class="defaultnumber" tabindex="4" required="required" /></td>
+						<td><input type="text" name="sav_receipt" placeholder="for Deposit Transaction" class="defaultnumber" tabindex="4" required="required" /></td>
 					</tr>
 					<!--
 					<tr>

@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 	require 'functions.php';
+	session_start();
 	checkLogin();
 	checkPermissionAdmin();
 	$db_link = connect();
@@ -192,8 +193,10 @@ error_reporting(E_ALL);
 					<tr>
 						<td><span>Use Fixed Saving Deposits to pay Loan Default Fine</span></td>
 						<td>
-							<input type="radio" name="fixed4Fine" value="1" <?PHP if ($_SESSION['set_f4f'] == 1) echo 'checked="checked"'; ?> /> Yes
-							<input type="radio" name="fixed4Fine" value="0" <?PHP if ($_SESSION['set_f4f'] != 1) echo 'checked="checked"'; ?> style="margin-left:.75em;" /> No
+							<input type="radio" name="fixed4Fine" value="1" 
+							<?PHP if($_SESSION['set_f4f'] == 1) echo 'checked="checked"'; ?> /> Yes
+							<input type="radio" name="fixed4Fine" value="0" 
+							<?PHP if($_SESSION['set_f4f'] != 1) echo 'checked="checked"'; ?> style="margin-left:.75em;" /> No
 						</td>
 					</tr>
 
