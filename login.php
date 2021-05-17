@@ -1,9 +1,10 @@
 <?php 
-require 'functions.php';
 session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+require 'functions.php';
+
 	//session_start();
 	$fingerprint = fingerprint();
 	$db_link = connect();
@@ -36,6 +37,7 @@ error_reporting(E_ALL);
 			$_SESSION['log_delete'] = $result_log['ugroup_delete'];
 			$_SESSION['log_report'] = $result_log['ugroup_report'];
 			$_SESSION['log_fingerprint'] = $fingerprint;
+		
 
 			// Check if user logged out properly last time
 			$sql_logout = "SELECT logrec_id, logrec_logout FROM logrec WHERE logrec_id IN 
@@ -63,8 +65,10 @@ error_reporting(E_ALL);
 			$_SESSION['logrec_id'] = $logrecid['MAX(logrec_id)'];
 
 			// Forward to start.php
+			
+			
 			header('Location: start.php');
-		}
+			}
 		else showMessage('Authentification failed!\nWrong Username and/or Password!');
 	}
 ?>
@@ -103,6 +107,10 @@ error_reporting(E_ALL);
 						</td>
 					</tr>
 				</table>
+			</form>
+
+			<form class="register" action="register.php" method="post">
+			<input type="submit" name="go_register" value="register"/>
 			</form>
 
 		</div>

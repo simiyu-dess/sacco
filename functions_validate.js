@@ -123,6 +123,15 @@ function validateUser(field, usernames, user_id) {
 	}
 	return ""
 }
+function validateMemberId(field, member_ids)
+{
+	if(field == "") return "Please enter the member id"
+	for (i=0, len= member_ids.length; i<len;i++)
+	{
+		if(member_ids[i] == field) return"no name"
+	}
+	return ""
+}
 
 function validatePw(pw, pw_conf) {
 	if (pw == "") return "Please enter a password.\n\n"

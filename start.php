@@ -7,6 +7,16 @@ error_reporting(E_ALL);
 	$db_link = connect();
 	getSettings($db_link);
 	getFees($db_link);
+
+	if($_SESSION['log_ugroup']=="Members")
+			{
+				$sql_select_member = "SELECT member_id from user WHERE user.user_name ='$_SESSION[log_user] '";
+				$query_id = mysqli_query($db_link, $sql_select_member);
+				checkSQL($db_link, $query_id);
+				$id = mysqli_fetch_assoc($query_id);
+
+			header('Location: customer.php?cust='.$id['member_id'].'');
+			}
 ?>
 
 <!DOCTYPE HTML>

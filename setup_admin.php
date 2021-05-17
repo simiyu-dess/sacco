@@ -30,7 +30,7 @@ error_reporting(E_ALL);
 		checkSQL($db_link, $query_makeadmin);
 
 		// Forward to setup_makeconf.php
-		header ('Location:setup_makeconf.php');
+		header ('Location:login.php');
 	}
 ?>
 <!DOCTYPE HTML>
