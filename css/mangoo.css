@@ -31,8 +31,8 @@ a:hover {
 * input[type=text], * input[type=number], * input[type=password], * select {
 	width:160px;
 	height:24px;
-  border: 1px solid #6e6e6e;
-  transition: box-shadow 0.3s, border 0.3s;
+    border: 1px solid #6e6e6e;
+    transition: box-shadow 0.3s, border 0.3s;
 }
 * input[type="text"]:focus, * input[type=number]:focus, * input[type=password]:focus, * select:focus {
 	border: 1px solid #2e2e2e;

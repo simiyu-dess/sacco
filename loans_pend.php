@@ -30,6 +30,7 @@ error_reporting(E_ALL);
 			<a href="loans_search.php">Search</a>
 			<a href="loans_act.php">Active Loans</a>
 			<a href="loans_pend.php" id="item_selected">Pending Loans</a>
+			<a href="cleared_loans.php">Cleared Loans</a>
 			<a href="loans_securities.php">Loan Securities</a>
 		</div>
 

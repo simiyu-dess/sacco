@@ -18,6 +18,7 @@ error_reporting(E_ALL);
 		if (!isset($_SESSION['log_user']) || $_SESSION['log_fingerprint'] != $fingerprint) logout();
 		session_regenerate_id();
 	}
+	
 /**
 	* Establish Database Connection
 	*/
@@ -181,7 +182,7 @@ error_reporting(E_ALL);
 	* Pushing fee settings into session variables
 	*/
 	function getFees($db_link){
-		$sql_fees = "SELECT * FROM fees";
+		$sql_fees = "SELECT * FROM fees,settings";
 		$query_fees = mysqli_query($db_link, $sql_fees);
 		checkSQL($db_link, $query_fees, $db_link);
 		while ($row_fees = mysqli_fetch_assoc($query_fees)){
@@ -430,7 +431,8 @@ error_reporting(E_ALL);
 	* Update savings account balance for ALL customers
 	*/
 	function updateSavingsBalanceAll($db_link){
-		$sql_savbal_upd_all = "UPDATE savbalance SET savbalance.savbal_balance = (SELECT SUM(savings.sav_amount) FROM savings WHERE savings.cust_id = savbalance.cust_id)";
+		$sql_savbal_upd_all = "UPDATE savbalance SET savbalance.savbal_balance = (SELECT SUM(savings.sav_amount) 
+		FROM savings WHERE savings.cust_id = savbalance.cust_id)";
 		$query_savbal_upd_all = mysqli_query($db_link, $sql_savbal_upd_all);
 		checkSQL($db_link, $query_savbal_upd_all, $db_link);
 	}
@@ -441,7 +443,8 @@ error_reporting(E_ALL);
 	*/
 	function getLoanBalance($db_link, $loan_id){
 		//Select Loan Balance from LTRANS
-		$sql_balances = "SELECT ltrans_principaldue, ltrans_interestdue, ltrans_principal, ltrans_interest FROM ltrans WHERE ltrans.loan_id = '$loan_id'";
+		$sql_balances = "SELECT ltrans_principaldue, ltrans_interestdue, ltrans_principal, ltrans_interest 
+		FROM ltrans WHERE ltrans.loan_id = '$loan_id'";
 		$query_balances = mysqli_query($db_link, $sql_balances);
 		checkSQL($db_link, $query_balances, $db_link);
 
@@ -595,12 +598,24 @@ error_reporting(E_ALL);
 		return $custNo;
 	}
 
+	function generateMemberId($custNo)
+	{
+		$member_id =int((base64_encode($custNo) * 2014)/2021);
+		return $member_id;
+	}
+	function checkPagePermisions()
+	{
+		
+	}
+
+
 /**
 	* Get current employee
 	* @return array result_empl :  Associative array with the details of the current employee
 	*/
 	function getEmployee($db_link, $empl_id){
-		$sql_empl = "SELECT * FROM employee LEFT JOIN user ON employee.empl_id = user.empl_id WHERE employee.empl_id = $empl_id";
+		$sql_empl = "SELECT * FROM employee LEFT JOIN user ON employee.empl_id = user.empl_id 
+		WHERE employee.empl_id = $empl_id";
 		$query_empl = mysqli_query($db_link, $sql_empl);
 		checkSQL($db_link, $query_empl, $db_link);
 		$result_empl = mysqli_fetch_assoc($query_empl);
@@ -614,7 +629,9 @@ error_reporting(E_ALL);
 	*/
 	function getEmplCurr($db_link){
 		$timestamp = time();
-		$sql_emplcurr = "SELECT * FROM employee LEFT JOIN emplsex ON employee.emplsex_id = emplsex.emplsex_id LEFT JOIN emplmarried ON employee.emplmarried_id = emplmarried.emplmarried_id WHERE empl_id != 0 AND (empl_out > $timestamp OR empl_out IS NULL) ORDER BY empl_id";
+		$sql_emplcurr = "SELECT * FROM employee LEFT JOIN emplsex ON employee.emplsex_id = emplsex.emplsex_id 
+		LEFT JOIN emplmarried ON employee.emplmarried_id = emplmarried.emplmarried_id WHERE empl_id != 0 
+		AND (empl_out > $timestamp OR empl_out IS NULL) ORDER BY empl_id";
 		$query_emplcurr = mysqli_query($db_link, $sql_emplcurr);
 		checkSQL($db_link, $query_emplcurr, $db_link);
 
@@ -681,7 +698,9 @@ error_reporting(E_ALL);
 	*/
 	function getLtransOverdue($db_link){
 		$timestamp = time();
-		$sql_overdue = "SELECT * FROM ltrans LEFT JOIN loans ON ltrans.loan_id = loans.loan_id LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE ltrans_due <= $timestamp AND ltrans_date IS NULL AND loanstatus_id = 2 ORDER BY ltrans_due";
+		$sql_overdue = "SELECT * FROM ltrans LEFT JOIN loans ON ltrans.loan_id = loans.loan_id 
+		LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE ltrans_due <= $timestamp AND ltrans_date IS NULL
+		 AND loanstatus_id = 2 ORDER BY ltrans_due";
 		$query_overdue = mysqli_query($db_link, $sql_overdue);
 		checkSQL($db_link, $query_overdue, $db_link);
 		return $query_overdue;

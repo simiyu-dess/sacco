@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 	// Connect to database
 	//$db_link = mysqli_connect($_SESSION['db_host'], $_SESSION['db_user'], $_SESSION['db_pass'], $_SESSION['db_name']);
 	//if(!$db_link) die('Could not connect to server '.$_SESSION['db_host'].': '.mysqli_error($db_link));
-   $db_link = connect();
+    $db_link = connect();
 	//require_once 'functions.php';
 
 	if(isset($_POST['adminSetup'])){
@@ -25,7 +25,8 @@ error_reporting(E_ALL);
 		$timestamp = time();
 
 		// Insert new admin user into database
-		$sql_makeadmin = "INSERT INTO user (user_name, user_pw, ugroup_id, empl_id, user_created) VALUES ('$admin_name', '$admin_pass', '1', '0', '$timestamp')";
+		$sql_makeadmin = "INSERT INTO user (user_name, user_pw, ugroup_id, empl_id, user_created)
+		 VALUES ('$admin_name', '$admin_pass', '1', '0', '$timestamp')";
 		$query_makeadmin = mysqli_query($db_link, $sql_makeadmin);
 		checkSQL($db_link, $query_makeadmin);
 

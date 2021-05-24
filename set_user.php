@@ -117,7 +117,7 @@ error_reporting(E_ALL);
 			<?PHP if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX') echo '<a href="set_dbbackup.php">Database Backup</a>' ?>
 		</div>
 
-		<!-- LEFT SIDE: Create New User Form -->
+		<!-- LEFT SIDE: Create New User Form -->g
 		<div class="content_left">
 			<div class="content_settings" style="text-align:left; width:80%;">
 

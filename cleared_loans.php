@@ -14,7 +14,11 @@ error_reporting(E_ALL);
 	$_SESSION['rep_exp_title'] = $rep_year.'-'.$rep_month.'_loans-active';
 
 	//Select Active Loans from LOANS
-	$sql_loans = "SELECT * FROM loans LEFT JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE loans.loanstatus_id = 2 ORDER BY loan_dateout, loans.cust_id";
+	$sql_loans = "SELECT * FROM loans LEFT JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id 
+    LEFT JOIN customer ON loans.cust_id = customer.cust_id 
+    WHERE loans.loanstatus_id = 5 
+    ORDER BY loan_dateout, loans.cust_id";
+
 	$query_loans = mysqli_query($db_link, $sql_loans);
 	checkSQL($db_link, $query_loans);
 ?>
@@ -29,7 +33,7 @@ error_reporting(E_ALL);
 			<a href="loans_search.php">Search</a>
 			<a href="loans_act.php" id="item_selected">Active Loans</a>
 			<a href="loans_pend.php">Pending Loans</a>
-			<a href="cleared_loans.php">Cleared Loans</a>
+            <a href="cleared_loans.php">Cleared Loans</a>
 			<a href="loans_securities.php">Loan Securities</a>
 		</div>
 
@@ -60,8 +64,10 @@ error_reporting(E_ALL);
 					<th>Loan Period</th>
 					<th>Principal</th>
 					<th>Interest</th>
-					<th>Remaining</th>
-					<th>Issued on</th>
+                    <th>isuued on</th>
+                    <th>expected_date</th>
+                    <th>Date cleared</th>
+					<th>Total payed</th>
 				</tr>
 				<?PHP
 				$count = 0;
@@ -76,7 +82,8 @@ error_reporting(E_ALL);
 							"name" => $row_loans['cust_name'],
 							"period" => $row_loans['loan_period'],
 							"pdue" => $loan_balances['pdue'],
-							"idue" => $loan_balances['idue'],
+                            "idue" => $loan_balances['idue'],
+                            "dateout" => date("d.m.Y", $row_loans['loan_dateout']),
 							"balance" => $loan_balances['balance'],
 							"dateout" => date("d.m.Y", $row_loans['loan_dateout'])
 						)

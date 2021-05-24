@@ -27,7 +27,7 @@ while ($i <= $loan_period){
 	checkSQL($db_link, $query_insert_ltrans);
 	
 	//Reset both due amounts to standard value after first iteration
-	if ($i == 1) {
+	if($i == 1){
 		$ltrans_princp_due = $loan_princp_due;
 		$ltrans_inter_due = $loan_inter_due;
 	}
