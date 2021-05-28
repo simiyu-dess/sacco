@@ -8,6 +8,8 @@ error_reporting(E_ALL);
 /**
 	* Check if current user is logged in
 	*/
+	//SetEnv PHPRC /home/customer/www/chenken.co.ke/public_html/php.ini
+//AddHandler application/x-httpd-php74 .php .php5 .php4 .php3
 	function checkLogin() {
 		$fingerprint = fingerprint();
 		if(!session_id())
@@ -383,6 +385,19 @@ error_reporting(E_ALL);
 						alert(\''.$text.'\')
 					</script>';
 	}
+	function checkMember($db_link)
+	{
+	 
+		if($_SESSION['log_ugroup']=="Members")
+			{
+				$sql_select_member = "SELECT member_id from user WHERE user.user_name ='$_SESSION[log_user] '";
+				$query_id = mysqli_query($db_link, $sql_select_member);
+				checkSQL($db_link, $query_id);
+				$id = mysqli_fetch_assoc($query_id);
+
+			header('Location: customer.php?cust='.$id['member_id'].'');
+			}
+	}
 
 /**
 	* Calculate a given customer's savings account balance
@@ -462,7 +477,8 @@ error_reporting(E_ALL);
 			$loan_balances['ppaid'] = $loan_balances['ppaid'] + $row_balances['ltrans_principal'];
 			$loan_balances['ipaid'] = $loan_balances['ipaid'] + $row_balances['ltrans_interest'];
 		}
-		$loan_balances['balance'] = ($loan_balances['pdue'] + $loan_balances['idue']) - ($loan_balances['ppaid'] + $loan_balances['ipaid']);
+		$loan_balances['balance'] = ($loan_balances['pdue'] + $loan_balances['idue']) - ($loan_balances['ppaid'] + 
+		$loan_balances['ipaid']);
 
 		return $loan_balances;
 	}
@@ -488,7 +504,10 @@ error_reporting(E_ALL);
 	* @return array result_cust : Associative array with the details of the current customer
 	*/
 	function getCustomer($db_link, $custID){
-		$sql_cust = "SELECT * FROM customer LEFT JOIN custsex ON customer.custsex_id = custsex.custsex_id LEFT JOIN custmarried ON customer.custmarried_id = custmarried.custmarried_id LEFT JOIN custsick ON customer.custsick_id = custsick.custsick_id LEFT JOIN user ON customer.user_id = user.user_id WHERE cust_id = '$custID'";
+		$sql_cust = "SELECT * FROM customer LEFT JOIN custsex ON customer.custsex_id = custsex.custsex_id 
+		LEFT JOIN custmarried ON customer.custmarried_id = custmarried.custmarried_id 
+		LEFT JOIN custsick ON customer.custsick_id = custsick.custsick_id 
+		LEFT JOIN user ON customer.user_id = user.user_id WHERE cust_id = '$custID'";
 		$query_cust = mysqli_query($db_link, $sql_cust);
 		checkSQL($db_link, $query_cust, $db_link);
 		$result_cust = mysqli_fetch_assoc($query_cust);
@@ -501,7 +520,8 @@ error_reporting(E_ALL);
 	* @return array query_custother : Array with the result of the SQL query
 	*/
 	function getCustOther($db_link){
-		$sql_custother = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id WHERE cust_id NOT IN (0, $_SESSION[cust_id]) ORDER BY cust_id";
+		$sql_custother = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id 
+		WHERE cust_id NOT IN (0, $_SESSION[cust_id]) ORDER BY cust_id";
 		$query_custother = mysqli_query($db_link, $sql_custother);
 		checkSQL($db_link, $query_custother, $db_link);
 
@@ -513,7 +533,8 @@ error_reporting(E_ALL);
 	* @return array query_custact : Array with the result of the SQL query
 	*/
 	function getCustAct($db_link){
-		$sql_custact = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id WHERE cust_id != 0 AND cust_active = 1 ORDER BY cust_id";
+		$sql_custact = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id WHERE cust_id != 0 
+		AND cust_active = 1 ORDER BY cust_id";
 		$query_custact = mysqli_query($db_link, $sql_custact);
 		checkSQL($db_link, $query_custact, $db_link);
 
@@ -525,7 +546,8 @@ error_reporting(E_ALL);
 	* @return array query_custinact : Array with the result of the SQL query
 	*/
 	function getCustInact($db_link){
-		$sql_custinact = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id WHERE cust_id != 0 AND cust_active != 1 ORDER BY cust_id";
+		$sql_custinact = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id WHERE cust_id != 0 
+		AND cust_active != 1 ORDER BY cust_id";
 		$query_custinact = mysqli_query($db_link, $sql_custinact);
 		checkSQL($db_link, $query_custinact, $db_link);
 
@@ -550,7 +572,8 @@ error_reporting(E_ALL);
 	*/
 	function getCustOverdue($db_link){
 		$last_subscr = time() - convertDays(365); //Seconds for 365 days
-		$sql_custoverdue = "SELECT * FROM customer WHERE cust_active = 1 AND cust_lastsub < $last_subscr ORDER BY cust_lastsub, cust_id";
+		$sql_custoverdue = "SELECT * FROM customer WHERE cust_active = 1 AND cust_lastsub < $last_subscr 
+		ORDER BY cust_lastsub, cust_id";
 		$query_custoverdue = mysqli_query($db_link, $sql_custoverdue);
 		checkSQL($db_link, $query_custoverdue, $db_link);
 
@@ -644,7 +667,9 @@ error_reporting(E_ALL);
 	*/
 	function getEmplPast($db_link){
 		$timestamp = time();
-		$sql_emplpast = "SELECT * FROM employee LEFT JOIN emplsex ON employee.emplsex_id = emplsex.emplsex_id LEFT JOIN emplmarried ON employee.emplmarried_id = emplmarried.emplmarried_id WHERE empl_id != 0 AND empl_out < $timestamp ORDER BY empl_id";
+		$sql_emplpast = "SELECT * FROM employee LEFT JOIN emplsex ON employee.emplsex_id = emplsex.emplsex_id 
+		LEFT JOIN emplmarried ON employee.emplmarried_id = emplmarried.emplmarried_id WHERE empl_id != 0 AND empl_out < $timestamp 
+		ORDER BY empl_id";
 		$query_emplpast = mysqli_query($db_link, $sql_emplpast);
 		checkSQL($db_link, $query_emplpast, $db_link);
 
@@ -700,13 +725,42 @@ error_reporting(E_ALL);
 		$timestamp = time();
 		$sql_overdue = "SELECT * FROM ltrans LEFT JOIN loans ON ltrans.loan_id = loans.loan_id 
 		LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE ltrans_due <= $timestamp AND ltrans_date IS NULL
-		 AND loanstatus_id = 2 ORDER BY ltrans_due";
+		AND loanstatus_id = 2 ORDER BY ltrans_due";
 		$query_overdue = mysqli_query($db_link, $sql_overdue);
 		checkSQL($db_link, $query_overdue, $db_link);
 		return $query_overdue;
 	}
+   //calculating the interest overdue on loans 
+   // when the required duration of time have elapsed and the users have not cleared there balances
+	function chargeOverdueLoans($db_link)
+	{
+	   $sql_select = "SELECT MAX(ltrans_due) AS max_date, MAX(ltrans_interestdue) AS interest_due, loan_amount_paid, loan_repaytotal 
+	   FROM ltrans, loans WHERE ltrans.loan_id = loans.loan_id";
+	   $query_loanOverdue = mysqli_query($db_link, $sql_select);
+	   checkSQL($db_link,$query_loanOverdue);
+	   $loan_results = mysqli_fetch_assoc($query_loanOverdue);
 
-/**
+	   $total_repayAmount = $loan_results['loan_repaytotal'];
+	   $latest_payDate = $loan_results['max_date'];
+	   $loan_AmountPaid = $loan_results['loan_amount_paid'];
+	   $loan_dueInterest = $loan_results['interest_due'];
+	   $timestamp = Time();
+
+
+	   $next_interest_date = $latest_payDate + convertDays(31);
+	   
+	   while($next_interest_date < $timestamp && $loan_AmountPaid < $total_repayAmount)
+	   {
+		   $sql_insertOverdueInterest = "UPDATE loans 
+		   SET loans.overdue_interest = loans.overdue_interest + $loan_dueInterest,
+			loans.overdue_time = loans.overdue_time + $next_interest_date 
+			WHERE ltrans.loan_id = loans.loan_d";
+			$next_interest_date = $next_interest_date + convertDays(31);
+
+	   }
+	}
+
+/*
 	* Get all securities which belong to a given loan
 	* @return array securities : Array with the result of the SQL query
 	*/
@@ -724,7 +778,8 @@ error_reporting(E_ALL);
 	* @return array result_sec : Array with the result of the SQL query
 	*/
 	function getSecurity($db_link, $sec_id){
-		$sql_sec = "SELECT * FROM securities LEFT JOIN loans ON securities.loan_id = loans.loan_id LEFT JOIN customer ON securities.cust_id = customer.cust_id WHERE sec_id = $sec_id";
+		$sql_sec = "SELECT * FROM securities LEFT JOIN loans ON securities.loan_id = loans.loan_id 
+		LEFT JOIN customer ON securities.cust_id = customer.cust_id WHERE sec_id = $sec_id";
 		$query_sec = mysqli_query($db_link, $sql_sec);
 		checkSQL($db_link, $query_sec);
 		$result_sec = mysqli_fetch_assoc($query_sec);

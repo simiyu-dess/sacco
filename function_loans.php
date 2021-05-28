@@ -51,7 +51,8 @@ error_reporting(E_ALL);
 			if ($i == 1) $ltrans_pDue = $ltrans_pDue + $difference_principal;
 
 			//Update LTRANS
-			$sql_update_ltrans = "UPDATE ltrans SET ltrans_principaldue = '$ltrans_pDue', ltrans_interestdue = '$ltrans_iDue' WHERE ltrans_id = '$inst[ltrans_id]'";
+			$sql_update_ltrans = "UPDATE ltrans SET ltrans_principaldue = '$ltrans_pDue', ltrans_interestdue = '$ltrans_iDue'
+			WHERE ltrans_id = '$inst[ltrans_id]'";
 			$query_update_ltrans = mysqli_query($db_link, $sql_update_ltrans);
 			checkSQL($db_link, $query_update_ltrans);
 

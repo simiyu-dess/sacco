@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 	require 'functions.php';
 	checkLogin();
 	$db_link = connect();
+	chargeOverdueLoans($db_link);
 
 	$rep_year = date("Y",time());
 	$rep_month = date("m",time());
@@ -14,7 +15,9 @@ error_reporting(E_ALL);
 	$_SESSION['rep_exp_title'] = $rep_year.'-'.$rep_month.'_loans-active';
 
 	//Select Active Loans from LOANS
-	$sql_loans = "SELECT * FROM loans LEFT JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE loans.loanstatus_id = 2 ORDER BY loan_dateout, loans.cust_id";
+	$sql_loans = "SELECT * FROM loans LEFT JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id
+	LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE loans.loanstatus_id = 2 
+	ORDER BY loan_dateout, loans.cust_id";
 	$query_loans = mysqli_query($db_link, $sql_loans);
 	checkSQL($db_link, $query_loans);
 ?>
