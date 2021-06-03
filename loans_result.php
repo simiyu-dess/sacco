@@ -9,9 +9,11 @@ error_reporting(E_ALL);
 	//Select from LOANS depending on Search or not Search
 	if (isset($_POST['loan_no'])){
 		$loan_search = sanitize($db_link, $_POST['loan_no']);
-		$sql_loansearch = "SELECT * FROM loans LEFT JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE loan_no LIKE '%$loan_search%'";
+		$sql_loansearch = "SELECT * FROM loans LEFT JOIN loanstatus ON loans.loanstatus_id = loanstatus.loanstatus_id 
+		LEFT JOIN customer ON loans.cust_id = customer.cust_id WHERE loan_no LIKE '%$loan_search%'";
 		$query_loansearch = mysqli_query($db_link, $sql_loansearch);
 		checkSQL($db_link, $query_loansearch);
+		
 	}
 	elseif (isset($_POST['loan_status'])){
 		$loan_search = sanitize($db_link, $_POST['loan_status']);

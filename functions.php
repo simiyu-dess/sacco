@@ -8,8 +8,6 @@ error_reporting(E_ALL);
 /**
 	* Check if current user is logged in
 	*/
-	//SetEnv PHPRC /home/customer/www/chenken.co.ke/public_html/php.ini
-//AddHandler application/x-httpd-php74 .php .php5 .php4 .php3
 	function checkLogin() {
 		$fingerprint = fingerprint();
 		if(!session_id())
@@ -21,6 +19,7 @@ error_reporting(E_ALL);
 		session_regenerate_id();
 	}
 	
+	
 /**
 	* Establish Database Connection
 	*/
@@ -28,7 +27,7 @@ error_reporting(E_ALL);
 		require_once 'config/config.php';
 		$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		if (!$connect) header('Location:setup.php');
-		mysqli_set_charset($connect, 'utf8');
+		mysqli_set_charset($connect,'utf8');
 		return $connect;
 	}
 
@@ -734,8 +733,14 @@ error_reporting(E_ALL);
    // when the required duration of time have elapsed and the users have not cleared there balances
 	function chargeOverdueLoans($db_link)
 	{
-	   $sql_select = "SELECT MAX(ltrans_due) AS max_date, MAX(ltrans_interestdue) AS interest_due, loan_amount_paid, loan_repaytotal 
-	   FROM ltrans, loans WHERE ltrans.loan_id = loans.loan_id";
+	   $timestamp = time();
+	   $sql_select = "SELECT * FROM ltrans 
+	   LEFT JOIN loans ON ltrans.loan_id = loans.loan_id 
+	   LEFT JOIN customer ON loans.cust_id = customer.cust_id
+	   WHERE ltrans_due <= $timestamp AND loanstatus_id = 2
+	   ORDER BY loans.loan_id";
+
+
 	   $query_loanOverdue = mysqli_query($db_link, $sql_select);
 	   checkSQL($db_link,$query_loanOverdue);
 	   $loan_results = mysqli_fetch_assoc($query_loanOverdue);
@@ -754,7 +759,7 @@ error_reporting(E_ALL);
 		   $sql_insertOverdueInterest = "UPDATE loans 
 		   SET loans.overdue_interest = loans.overdue_interest + $loan_dueInterest,
 			loans.overdue_time = loans.overdue_time + $next_interest_date 
-			WHERE ltrans.loan_id = loans.loan_d";
+			WHERE loans.loan_id = ltrans.loan_id";
 			$next_interest_date = $next_interest_date + convertDays(31);
 
 	   }

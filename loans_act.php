@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 	require 'functions.php';
 	checkLogin();
 	$db_link = connect();
-	chargeOverdueLoans($db_link);
+	//chargeOverdueLoans($db_link);
 
 	$rep_year = date("Y",time());
 	$rep_month = date("m",time());

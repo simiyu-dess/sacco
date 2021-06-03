@@ -48,7 +48,6 @@ error_reporting(E_ALL);
 		$loan_repaytotal = $loan_principal + $loan_interesttotal;
 		$loan_rate = $loan_principaldue + $loan_interestdue;
 		$loan_fee = $loan_principal / 100 * $_SESSION['fee_loan'];
-		
 		$loan_insurance = $loan_principal / 100 * $_SESSION['fee_loaninsurance'];
 
 		//Insert Loan into LOANS
@@ -77,27 +76,27 @@ error_reporting(E_ALL);
 								  user_id)
 								   VALUES (
 									 '$_SESSION[cust_id]', 
-									 '1', 
+									 1, 
 									 '$loan_no',
-									  '$loan_date', 
-									  '0', 
-									  '$loan_principal', 
-									  '$loan_interest', 
-									   '$loan_appfee_receipt',
-										'$loan_fee', 
-										'$loan_insurance', 
-										'$loan_rate', 
-										'$loan_period',
+									  $loan_date, 
+									  0, 
+									  $loan_principal, 
+									   $loan_interest, 
+									    $loan_appfee_receipt,
+										$loan_fee, 
+										$loan_insurance, 
+										$loan_rate, 
+										$loan_period,
 										 $loan_repaytotal, 
 										 '$loan_purpose', 
-										 '$loan_guarant1', 
+										 $loan_guarant1, 
 
-										 '$loan_guarant2', 
-										 '$loan_guarant3', 
-										  $timestamp, 
-										 '$loan_xtra1', 
-										 '$loan_xtraFee1', 
-										 '$_SESSION[log_id]')";
+										 $loan_guarant2, 
+										 $loan_guarant3, 
+										 $timestamp, 
+										'$loan_xtra1', 
+										 $loan_xtraFee1, 
+										 $_SESSION[log_id])";
 		$query_insert_loan = mysqli_query($db_link, $sql_insert_loan);
 		checkSQL($db_link, $query_insert_loan);
 

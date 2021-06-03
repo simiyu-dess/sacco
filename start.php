@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 	getSettings($db_link);
 	getFees($db_link);
 	checkMember($db_link);
+	//chargeOverdueLoans($db_link)
 ?>
 
 <!DOCTYPE HTML>

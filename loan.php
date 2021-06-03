@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 	getLoanID($db_link);
 
 	$timestamp =Time();
-	chargeOverdueLoans($db_link);
+	//chargeOverdueLoans($db_link);
 
 	// Select details of current loan from LOANS, LOANSTATUS, CUSTOMER
 	$sql_loan = "SELECT * FROM loans JOIN loanstatus ON 
