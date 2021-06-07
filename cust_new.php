@@ -27,6 +27,7 @@ error_reporting(E_ALL);
 		$custsick_id = sanitize($db_link, $_POST['custsick_id']);
 		$cust_since = strtotime(sanitize($db_link, $_POST['cust_since']));
 		$_SESSION['receipt_no'] = sanitize($db_link, $_POST['receipt_no']);
+		$cust_id = generateMemberId($cust_no);
 
 		//Insert new Customer into CUSTOMER
 		$sql_insert = "INSERT INTO customer (cust_no, cust_name, cust_email, cust_since, cust_active, user_id) VALUES 

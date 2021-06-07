@@ -24,6 +24,7 @@ error_reporting(E_ALL);
 		$empl_phone = sanitize($db_link, $_POST['empl_phone']);
 		$empl_email = sanitize($db_link, $_POST['empl_email']);
 		$empl_in = strtotime(sanitize($db_link, $_POST['empl_in']));
+		$empl_id = generateMemberId($empl_no);
 
 		//Insert new employee into EMPLOYEE
 		$sql_insert = "INSERT INTO employee 

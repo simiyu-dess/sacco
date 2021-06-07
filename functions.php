@@ -397,6 +397,17 @@ error_reporting(E_ALL);
 			header('Location: customer.php?cust='.$id['member_id'].'');
 			}
 	}
+	function getCustomerid($dblink,$log_id)
+	{
+		$sql_getId = "SELECT cust_id FROM customer WHERE customer.cust_id = '$_SESSION[gg]'";
+	}
+
+	function generateCustomerId($member_number)
+	{   $f = strval(mt_rand(1,50));
+		$string = str_replace('/', $f, $member_number);
+		$generic_id = bin2hex($member_number);
+		return $generic_id;
+	}
 
 /**
 	* Calculate a given customer's savings account balance
