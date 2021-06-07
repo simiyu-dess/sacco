@@ -26,7 +26,12 @@ error_reporting(E_ALL);
 		$empl_in = strtotime(sanitize($db_link, $_POST['empl_in']));
 
 		//Insert new employee into EMPLOYEE
-		$sql_insert = "INSERT INTO employee (empl_no, empl_name, empl_dob, emplsex_id, emplmarried_id, empl_position, empl_salary, empl_address, empl_phone, empl_email, empl_in, empl_lastupd, user_id) VALUES ('$empl_no', '$empl_name', '$empl_dob', '$emplsex_id', '$emplmarried_id', '$empl_position', '$empl_salary', '$empl_address', '$empl_phone', '$empl_email', $empl_in, $empl_in, '$_SESSION[log_id]')";
+		$sql_insert = "INSERT INTO employee 
+		(empl_no, empl_name, empl_dob, emplsex_id, emplmarried_id, empl_position, 
+		empl_salary, empl_address, empl_phone, empl_email, empl_in, empl_lastupd, user_id)
+		VALUES ('$empl_no', '$empl_name', '$empl_dob', '$emplsex_id', '$emplmarried_id', 
+		'$empl_position', '$empl_salary', '$empl_address', '$empl_phone', '$empl_email', 
+		$empl_in, $empl_in, '$_SESSION[log_id]')";
 		$query_insert = mysqli_query($db_link, $sql_insert);
 		checkSQL($db_link, $query_insert);
 

@@ -716,6 +716,19 @@ error_reporting(E_ALL);
 		return $emplNo;
 	}
 
+	function checkUser($user_id, $loguser_id)
+	{   
+		if($user_id != $loguser_id)
+		{
+			header("Location:customer.php?custid=$loguser_id");
+		}
+		else
+		{
+			header("Location:customer.php?custid=$user_id");
+		}
+
+	}
+
 /**
 	* Get all overdue Loan Instalments
 	* @return array query_overdue : Array with the result of the SQL query
@@ -734,35 +747,39 @@ error_reporting(E_ALL);
 	function chargeOverdueLoans($db_link)
 	{
 	   $timestamp = time();
-	   $sql_select = "SELECT * FROM ltrans 
-	   LEFT JOIN loans ON ltrans.loan_id = loans.loan_id 
-	   LEFT JOIN customer ON loans.cust_id = customer.cust_id
-	   WHERE ltrans_due <= $timestamp AND loanstatus_id = 2
-	   ORDER BY loans.loan_id";
+
+	   $sql_select = "SELECT loan_id, overdue_time,loanstatus_id, overdue_interest, loan_repaytotal, loan_amount_paid,  
+					  loan_rate,loan_period, loan_principal FROM loans WHERE loan_amount_paid < loan_repaytotal
+					   AND overdue_time<$timestamp AND loanstatus_id = 2";
 
 
 	   $query_loanOverdue = mysqli_query($db_link, $sql_select);
 	   checkSQL($db_link,$query_loanOverdue);
-	   $loan_results = mysqli_fetch_assoc($query_loanOverdue);
+	   $data = mysqli_fetch_assoc($query_loanOverdue);
+	   $seconds = convertDays(30.5);
 
-	   $total_repayAmount = $loan_results['loan_repaytotal'];
-	   $latest_payDate = $loan_results['max_date'];
-	   $loan_AmountPaid = $loan_results['loan_amount_paid'];
-	   $loan_dueInterest = $loan_results['interest_due'];
-	   $timestamp = Time();
-
-
-	   $next_interest_date = $latest_payDate + convertDays(31);
-	   
-	   while($next_interest_date < $timestamp && $loan_AmountPaid < $total_repayAmount)
+	   foreach($query_loanOverdue as $loan_results)
 	   {
-		   $sql_insertOverdueInterest = "UPDATE loans 
-		   SET loans.overdue_interest = loans.overdue_interest + $loan_dueInterest,
-			loans.overdue_time = loans.overdue_time + $next_interest_date 
-			WHERE loans.loan_id = ltrans.loan_id";
-			$next_interest_date = $next_interest_date + convertDays(31);
+		$next_interest_date = $loan_results['overdue_time'];
+		$interest =$loan_results['loan_rate'] - ($loan_results['loan_principal']/ $loan_results['loan_period']); 
+		while( $next_interest_date <= $timestamp && $loan_results['loan_amount_paid'] < $loan_results['loan_repaytotal'])
+		{
+			
+			$next_interest_date = $next_interest_date + $seconds;
+			$sql_insertOverdueInterest = "UPDATE loans 
+		    SET loans.overdue_interest = loans.overdue_interest + $interest,
+			loans.overdue_time = loans.overdue_time  + $seconds
+			WHERE  loans.loan_id = $loan_results[loan_id]";
+			$query_update_loans = mysqli_query($db_link,$sql_insertOverdueInterest);
+			checkSQL($db_link, $query_update_loans);
 
+
+		}
+		   
 	   }
+	   
+	   
+	   
 	}
 
 /*

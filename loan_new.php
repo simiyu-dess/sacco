@@ -328,7 +328,8 @@ error_reporting(E_ALL);
 						</td>
 					<?PHP } ?>
 						<td><?PHP if($_SESSION['set_xl1'] != "") echo $_SESSION['set_xl1'].':'; ?></td>
-						<td><?PHP if($_SESSION['set_xl1'] != "") echo '<input type="text" name="loan_xtra1" id="loan_xtra1" />'; ?></td>
+						<td><?PHP if($_SESSION['set_xl1'] != "") echo '<input type="text" name="loan_xtra1" id="loan_xtra1" />'; ?>
+						</td>
 					</tr>
 
 					

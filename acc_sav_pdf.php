@@ -3,8 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
-require 'TCPDF/tcpdf.php';
 ob_start();
+require 'TCPDF/tcpdf.php';
 $obj_pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);  
 $obj_pdf->SetCreator(PDF_CREATOR);  
 $obj_pdf->SetTitle("Export HTML Table data to PDF using TCPDF in PHP");  
@@ -64,6 +64,7 @@ $html .= '</table>';
 
         $obj_pdf->writeHTML($html);  
         ob_end_clean();
-		$obj_pdf->Output('Account_report.pdf', 'I');
-
+        $obj_pdf->Output('Account_report.pdf', 'FI');
 ?>
+
+
