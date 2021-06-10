@@ -271,9 +271,11 @@ error_reporting(E_ALL);
 	* If not, return to start page.
 	*/
 	function getCustID($db_link){
-		if (isset($_GET['cust'])) $_SESSION['cust_id'] = sanitize($db_link, $_GET['cust']);
+		if (isset($_GET['cust'])) $_SESSION['member_id'] = sanitize($db_link, $_GET['cust']);
 		else header('Location: start.php');
 	}
+
+	
 
 /**
 	* Check if a GET parameter with a Loan ID has been set

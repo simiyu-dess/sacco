@@ -21,14 +21,20 @@ error_reporting(E_ALL);
     
 
    
-    $sql_select_user = "SELECT cust_no FROM customer WHERE customer.cust_id > 0";
+    $sql_select_user = "SELECT cust_no, cust_id FROM customer WHERE customer.cust_id > 0";
     $query_user = mysqli_query($db_link,$sql_select_user);
     checkSQL($db_link, $query_user);
    // $user_id = array();
    $user = [];
+   $cust_id;
     while($user_id = mysqli_fetch_assoc($query_user))
     {
-        if($user_id['cust_no'] == strval($member_id))  $user[] = $user_id['cust_no'];
+        if($user_id['cust_no'] == strval($member_id)) 
+        {
+         $user[] = $user_id['cust_no'];
+         $cust_id = $user_id['cust_id'];
+
+        }
    
     }
 
@@ -60,7 +66,7 @@ error_reporting(E_ALL);
                              '$user_name',
                              '$password',
                              '3',
-                             '$member_id',
+                             $cust_id,
                              '$time_stamp'
                          )";
 
@@ -71,7 +77,7 @@ error_reporting(E_ALL);
         }
         else
         {
-           echo "login failed"; 
+           echo "Registration failed"; 
         }
    }
 

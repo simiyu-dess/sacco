@@ -21,13 +21,14 @@ error_reporting(E_ALL);
 	<body>
 		<!-- MENU -->
 		<?PHP
-				includeMenu(1);
+				includeMenu(1)
 		?>
 		<!-- MENU MAIN -->
 		<div id="menu_main">
 			<a href="cust_search.php">Search Customer</a>
 			<a href="cust_new.php">New Customer</a>
 			<a href="loans_search.php">Search Loan</a>
+			<a href="member.php">MyAccount</a>
 		</div>
 
 		<!-- Left Side of Dashboard -->

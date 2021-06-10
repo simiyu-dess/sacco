@@ -4,18 +4,18 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 // Select Savings Transactions from SAVINGS
 $sql_sav = "SELECT * FROM savings LEFT JOIN savtype ON savings.savtype_id = savtype.savtype_id 
-LEFT JOIN user ON savings.user_id = user.user_id WHERE cust_id = '$_SESSION[cust_id]' ORDER BY sav_date DESC, sav_id DESC";
+LEFT JOIN user ON savings.user_id = user.user_id WHERE cust_id = '$_SESSION[member_id]' ORDER BY sav_date DESC, sav_id DESC";
 $query_sav = mysqli_query($db_link, $sql_sav);
 checkSQL($db_link, $query_sav);
 
-$sql_cust_name = "SELECT cust_name FROM customer WHERE customer.cust_id = '$_SESSION[cust_id]'";
+$sql_cust_name = "SELECT cust_name FROM customer WHERE customer.cust_id = '$_SESSION[member_id]'";
  $query_bal = mysqli_query($db_link,$sql_cust_name);
  checkSQL($db_link,$query_bal);
 
 // Make array for exporting data
 $sav_exp_date = date("Y-m-d",time());
 $_SESSION['sav_export']=array();
-$_SESSION['sav_exp_title'] = $_SESSION['cust_id'].'_savings_'.$sav_exp_date;
+$_SESSION['sav_exp_title'] = $_SESSION['member_id'].'_savings_'.$sav_exp_date;
 $_SESSION['user_account'] = array();
 $name = mysqli_fetch_assoc($query_bal);
 $_SESSION['name'] = $name['cust_name'];

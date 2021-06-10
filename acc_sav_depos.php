@@ -6,14 +6,15 @@ error_reporting(E_ALL);
 	require 'functions.php';
 	checkLogin();
 	$db_link = connect();
-	getCustID($db_link);
+	if($_SESSION['log_ugroup'] != "members") getCustID($db_link);
+	
 
 	//Generate timestamp
 	$timestamp = time();
 
 	// Update savings balance for current customer and store into variable
-	updateSavingsBalance ($db_link, $_SESSION['cust_id']);
-	$sav_balance = getSavingsBalance($db_link, $_SESSION['cust_id']);
+	updateSavingsBalance ($db_link, $_SESSION['member_id']);
+	$sav_balance = getSavingsBalance($db_link, $_SESSION['member_id']);
 
 	// DEPOSIT-Button
 	if (isset($_POST['deposit'])){
@@ -64,23 +65,24 @@ error_reporting(E_ALL);
 		checkSQL($db_link, $query_insert);
 		
 		// Update savings account balance
-		updateSavingsBalance($db_link, $_SESSION['cust_id']);
+		updateSavingsBalance($db_link, $_SESSION['member_id']);
 
 		// Include Expense, if transaction was Savings Interest
 
 		if ($savtype_id == 3){
-			$sql_expense = "INSERT INTO expenses (cust_id, exptype_id, exp_amount, exp_date, exp_voucher, exp_created, user_id) VALUES ('$_SESSION[cust_id]', '19', '$sav_amount', '$sav_date', '$sav_receipt', '$timestamp', '$_SESSION[log_id]')";
+			$sql_expense = "INSERT INTO expenses (cust_id, exptype_id, exp_amount, exp_date, exp_voucher, exp_created, user_id)
+			 VALUES ('$_SESSION[member_id]', '19', '$sav_amount', '$sav_date', '$sav_receipt', '$timestamp', '$_SESSION[log_id]')";
 			$query_expense = mysqli_query($db_link, $sql_expense);
 			checkSQL($db_link, $query_expense);
 		}
 		
 
 		//Refer to acc_sav_depos.php
-		header('Location: acc_sav_depos.php?cust='.$_SESSION['cust_id']);
+		header('Location: acc_sav_depos.php?cust='.$_SESSION['member_id']);
 	}
 
 	//Get current customer's details
-	$result_cust = getCustomer($db_link, $_SESSION['cust_id']);
+	$result_cust = getCustomer($db_link, $_SESSION['member_id']);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -101,20 +103,42 @@ error_reporting(E_ALL);
 	<body>
 		<!-- MENU -->
 		<?PHP includeMenu(2); ?>
-		<div id="menu_main">
-			<a href="customer.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Back</a>
-			<a href="cust_search.php">Search</a>
-			<a href="acc_sav_depos.php?cust=<?PHP echo $_SESSION['cust_id'] ?>" id="item_selected">Deposit</a>
-			<a href="acc_sav_withd.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Withdrawal</a>
-			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Buy</a>
-			<a href="acc_share_sale.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Sale</a>
-			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">New Loan</a>
-			<?PHP if ($_SESSION['log_delete'] == 1) 
+		<div id=menu_main>
+		<?php 
+		if ($_SESSION['log_ugroup'] != "members")
+		{
+	 
+		echo '<a href="customer.php?cust='.$_SESSION['member_id'].'">Back</a>';
+		echo '<a href="cust_search.php">Search</a>';
+		echo '<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>';
+		echo '<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>';
+		echo '<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>';
+		echo '<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
+		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'>">New Loan</a>';
+		echo '<a href="cust_act.php">Active Cust.</a>
+			<a href="cust_inact.php">Inactive Cust.</a>';
+		}
+		if ($_SESSION['log_delete'] == 1) 
+			{
 			
-			echo '<a href="cust_new.php">New Customer</a>'
-			?>
-			<a href="cust_act.php">Active Cust.</a>
-			<a href="cust_inact.php">Inactive Cust.</a>
+			echo '<a href="cust_new.php">New Customer</a>';
+		}
+		
+	
+		
+		if($_SESSION['log_ugroup'] == "members")
+		{
+			echo '
+			<a href="customer.php">Back</a>
+			<a href="cust_search.php">Search</a>
+			<a href="acc_sav_depos.php" id="item_selected">Deposits</a>
+			<a href="acc_sav_withd.php">Withdrawal</a>
+			<a href="acc_share_buy.php">Share Buy</a>
+			<a href="acc_share_sale.php">Share Sale</a>
+			<a href="loan_new.php">New Loan</a>
+			'; 
+		}
+		?>
 		</div>
 
 		<!-- LEFT SIDE: Input for new Deposit -->

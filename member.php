@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 	require 'functions.php';
 	checkLogin();
 	$db_link = connect();
-	getCustID($db_link);
+	//getCustID($db_link);
 
 	unset($_SESSION['interest_sum'], $_SESSION['balance']);
 
@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 	$timestamp = time();
 
 	//Calculate Balance on Savings account
-	$sav_balance = getSavingsBalance($db_link, $_SESSION['member_id']);
+	$sav_balance = getSavingsBalance($db_link,$_SESSION['member_id'] );
 	$sav_fixed = getSavingsFixed($db_link, $_SESSION['member_id']);
 
 	//UPDATE-Button
@@ -37,21 +37,21 @@ error_reporting(E_ALL);
 		$timestamp = time();
 
 		//Update CUSTOMER
-		$sql_update = "UPDATE customer SET cust_no = '$cust_no', cust_name = '$cust_name', cust_dob = $cust_dob, 
-		custsex_id = $custsex_id, cust_address = '$cust_address', cust_phone = '$cust_phone', cust_email = '$cust_email',
-		cust_occup = '$cust_occup', custmarried_id = $custmarried_id, cust_heir = '$cust_heir', cust_heirrel = '$cust_heirrel',
-		custsick_id = $custsick_id, cust_active = '$cust_active', cust_lastupd = $cust_dob, user_id = $_SESSION[log_id] 
-		WHERE cust_id = $_SESSION[cust_id]";
+		$sql_update = "UPDATE customer SET cust_no = '$cust_no', cust_name = '$cust_name', 
+        cust_dob = $cust_dob, custsex_id = $custsex_id, cust_address = '$cust_address', cust_phone = '$cust_phone', 
+        cust_email = '$cust_email', cust_occup = '$cust_occup', custmarried_id = $custmarried_id, cust_heir = '$cust_heir', 
+        cust_heirrel = '$cust_heirrel', custsick_id = $custsick_id, cust_active = '$cust_active', cust_lastupd = $cust_dob,
+        user_id = $_SESSION[log_id] WHERE cust_id = $_SESSION[cust_id]";
 		$query_update = mysqli_query($db_link, $sql_update);
 		checkSQL($db_link, $query_update);
-		header('Location: customer.php?cust='.$_SESSION['member_id'].'');
+		header('Location: customer.php');
 	}
 
 	//Get current customer
-	$result_cust = getCustomer($db_link, $_SESSION['member_id']);
+	$result_cust = getCustomer($db_link,$_SESSION['member_id']);
 
 	//Error-Message, if customer is not found
-	if ($result_cust['cust_id']==''){
+	if ($_SESSION['member_id']==''){
 		echo '<script>
 						alert(\'Customer not found in database.\');
 						window.location = "cust_search.php";
@@ -85,8 +85,8 @@ error_reporting(E_ALL);
 	}
 
 	//Select the five most recent savings transactions for display
-	$sql_sav = "SELECT * FROM savings, savtype WHERE savings.savtype_id = savtype.savtype_id AND cust_id = '$_SESSION[member_id]'
-	 ORDER BY sav_date DESC, sav_id DESC LIMIT 5" ;
+	$sql_sav = "SELECT * FROM savings, savtype WHERE savings.savtype_id = savtype.savtype_id AND 
+    cust_id = '$_SESSION[member_id]' ORDER BY sav_date DESC, sav_id DESC LIMIT 5" ;
 	$query_sav = mysqli_query($db_link, $sql_sav);
 	checkSQL($db_link, $query_sav);
 ?>
@@ -133,12 +133,12 @@ error_reporting(E_ALL);
 			<a href="cust_search.php">Search</a>
 			<?PHP
 			if ($result_cust['cust_active'] == 1) echo '
-				<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Deposit</a>
-				<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
-				<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
-				<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
+				<a href="acc_sav_depos.php">Deposit</a>
+				<a href="acc_sav_withd.php">Withdrawal</a>
+				<a href="acc_share_buy.php">Share Buy</a>
+				<a href="acc_share_sale.php">Share Sale</a>';
 			if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
-				<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
+				<a href="loan_new.php">New Loan</a>';
 			?>
 			<?PHP if ($_SESSION['log_delete'] == 1) 
 			echo'
@@ -287,7 +287,7 @@ error_reporting(E_ALL);
 					<th class="title" colspan="4">
 						<?PHP
 						if ($result_cust['cust_active'] == 1) echo
-						'<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Savings Account</a> (Recent Transactions)';
+						'<a href="acc_sav_depos.php">Savings Account</a> (Recent Transactions)';
 						else echo 'Savings Account (Recent Transactions)';
 						?>
 					</th>
@@ -337,14 +337,16 @@ error_reporting(E_ALL);
 				<?PHP
 				//Select all loans for current customer
 				$sql_loans = "SELECT * FROM loans, loanstatus WHERE loans.loanstatus_id = loanstatus.loanstatus_id 
-				AND cust_id = '$_SESSION[member_id]'";
+				AND cust_id = $_SESSION[member_id]";
 				$query_loans = mysqli_query($db_link, $sql_loans);
 				checkSQL($db_link, $query_loans);
 
 				while ($row_loan = mysqli_fetch_assoc($query_loans)){
 
 					//Select last unpaid Due Date from LTRANS
-					$sql_ltrans = "SELECT MIN(ltrans_due) FROM ltrans, loans WHERE ltrans.loan_id = loans.loan_id AND loans.loanstatus_id = '2' AND loans.loan_id = '$row_loan[loan_id]' AND ltrans_due IS NOT NULL AND ltrans_date IS NULL";
+					$sql_ltrans = "SELECT MIN(ltrans_due) FROM ltrans, loans WHERE ltrans.loan_id = loans.loan_id 
+					AND loans.loanstatus_id = '2' AND loans.loan_id = '$row_loan[loan_id]' AND ltrans_due IS NOT NULL 
+					AND ltrans_date IS NULL";
 					$query_ltrans = mysqli_query($db_link, $sql_ltrans);
 					checkSQL($db_link, $query_ltrans);
 					$next_due = mysqli_fetch_assoc($query_ltrans);
@@ -378,7 +380,7 @@ error_reporting(E_ALL);
 				<th class="title" colspan="2">
 					<?PHP
 					if ($result_cust['cust_active'] == 1) echo
-					'<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Account</a>';
+					'<a href="acc_share_buy.php">Share Account</a>';
 					else echo 'Share Account';
 					?>
 				</th>
