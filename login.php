@@ -1,17 +1,22 @@
 <?php 
 require 'functions.php';
-
-
 session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
+   if  ($_SESSION['log_user'] != null || $_SESSION['member_id'] != null)
+   {
+    showMessage('Multiple logins on the same browser is not allowed, \n please use another browser or logout the other user ');
+   
+	return "logout_success.php";
+   }
 	//session_start();
+else
+{
 	$fingerprint = fingerprint();
 	$db_link = connect();
-
+ 
 	if(isset($_POST['login'])){
 
 		// Include passwort pepper
@@ -31,7 +36,8 @@ error_reporting(E_ALL);
 		// Verify Password
 		if(password_verify($log_pw.$pepper, $result_log['user_pw'])){
 			
-		 if(isset($_SESSION['member_id'])) unset($_SESSION['member_id']);
+
+
 			// Define Session Variables for this User
 			$_SESSION['log_user'] = $log_user;
 			$_SESSION['log_time'] = time();
@@ -41,6 +47,7 @@ error_reporting(E_ALL);
 			$_SESSION['log_delete'] = $result_log['ugroup_delete'];
 			$_SESSION['log_report'] = $result_log['ugroup_report'];
 			$_SESSION['log_fingerprint'] = $fingerprint;
+
 		  
 			if($result_log['ugroup_name'] == "members" )
 			{
@@ -81,6 +88,7 @@ error_reporting(E_ALL);
 			}
 		else showMessage('Authentification failed!\nWrong Username and/or Password!');
 	}
+}
 ?>
 <!DOCTYPE html>
 <html>

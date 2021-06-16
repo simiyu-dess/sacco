@@ -4,14 +4,11 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-	//session_start();
 	$fingerprint = fingerprint();
     $db_link = connect();
-    //$peper ="myname";
     
-    //$user_id = 0;
     
-    //require "config/pepper.php";
+    
     $pepper = 'g7NIiru!!8';
     if(isset($_POST['register']))
     {

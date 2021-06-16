@@ -1,7 +1,6 @@
 <?PHP
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-date_default_timezone_set('Africa/Nairobi');
 error_reporting(E_ALL);
 	require 'functions.php';
 	require 'function_loans.php';

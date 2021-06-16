@@ -37,7 +37,12 @@ error_reporting(E_ALL);
 	* random string, and user agent
 	*/
 	function fingerprint(){
+		$tim = time();
 		return $fingerprint = md5($_SERVER['REMOTE_ADDR'].'jikI/20Y,!'.$_SERVER['HTTP_USER_AGENT']);
+	}
+	function denyLogin()
+	{
+		header('Location:logout_success.php');
 	}
 
 
@@ -781,10 +786,16 @@ error_reporting(E_ALL);
 			$next_interest_date = $next_interest_date + $seconds;
 			$sql_insertOverdueInterest = "UPDATE loans 
 		    SET loans.overdue_interest = loans.overdue_interest + $interest,
-			loans.overdue_time = loans.overdue_time  + $seconds
+			loans.overdue_time = loans.overdue_time  + $seconds,
+			loans.loan_repaytotal = loans.loan_repaytotal + $interest
 			WHERE  loans.loan_id = $loan_results[loan_id]";
 			$query_update_loans = mysqli_query($db_link,$sql_insertOverdueInterest);
 			checkSQL($db_link, $query_update_loans);
+
+	$sql_insert_ltrans = "INSERT INTO ltrans (loan_id, ltrans_due, ltrans_interestdue, user_id)
+	 VALUES ('$loan_results[loan_id]', '$next_interest_date','$interest', '$_SESSION[log_id]')";
+	$query_insert_ltrans = mysqli_query($db_link, $sql_insert_ltrans);
+	checkSQL($db_link, $query_insert_ltrans);
 
 
 		}
