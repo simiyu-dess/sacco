@@ -5,13 +5,13 @@ error_reporting(E_ALL);
 
 
 
-/**
-	* Check if current user is logged in
-	*/
+
+	//Check if current user is logged in
+	
 	function checkLogin() {
 		$fingerprint = fingerprint();
 		if(!session_id())
-		{
+	 {
 		session_start();
 		}
 
@@ -24,7 +24,7 @@ error_reporting(E_ALL);
 	* Establish Database Connection
 	*/
 	function connect() {
-		require_once 'config/config.php';
+		require 'config/config.php';
 		$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		if (!$connect) header('Location:setup.php');
 		mysqli_set_charset($connect,'utf8');

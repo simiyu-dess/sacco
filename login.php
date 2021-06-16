@@ -1,13 +1,12 @@
 <?php 
-if (ini_get("session.use_cookies")) {
-	$params = session_get_cookie_params();
-	setcookie(session_name(), '', time() - 86400, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
-}
+require 'functions.php';
+
+
 session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-require 'functions.php';
+
 
 	//session_start();
 	$fingerprint = fingerprint();
@@ -32,7 +31,7 @@ require 'functions.php';
 		// Verify Password
 		if(password_verify($log_pw.$pepper, $result_log['user_pw'])){
 			
-		 session_start();
+		 if(isset($_SESSION['member_id'])) unset($_SESSION['member_id']);
 			// Define Session Variables for this User
 			$_SESSION['log_user'] = $log_user;
 			$_SESSION['log_time'] = time();
@@ -43,11 +42,12 @@ require 'functions.php';
 			$_SESSION['log_report'] = $result_log['ugroup_report'];
 			$_SESSION['log_fingerprint'] = $fingerprint;
 		  
-			if($result_log['ugroup_name'] == "members")
+			if($result_log['ugroup_name'] == "members" )
 			{
-
+           
 				$_SESSION['member_id'] = $result_log['member_id'];
 			}
+		
 
 			// Check if user logged out properly last time
 			$sql_logout = "SELECT logrec_id, logrec_logout FROM logrec WHERE logrec_id IN 
