@@ -7,8 +7,6 @@ error_reporting(E_ALL);
 	$fingerprint = fingerprint();
     $db_link = connect();
     
-    
-    
     $pepper = 'g7NIiru!!8';
     if(isset($_POST['register']))
     {
@@ -21,7 +19,7 @@ error_reporting(E_ALL);
     $sql_select_user = "SELECT cust_no, cust_id FROM customer WHERE customer.cust_id > 0";
     $query_user = mysqli_query($db_link,$sql_select_user);
     checkSQL($db_link, $query_user);
-   // $user_id = array();
+   
    $user = [];
    $cust_id;
     while($user_id = mysqli_fetch_assoc($query_user))

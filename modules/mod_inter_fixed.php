@@ -35,4 +35,11 @@ while ($i <= $loan_period){
 	$ltrans_due = $ltrans_due + convertDays(31);	/* Add seconds for 31 days */
 	$i++;
 }
+//Update time in the loans to the time of the last deposit
+$sql_insert_maxltrans = "UPDATE loans SET 
+						 loans.overdue_time = $ltrans_due WHERE loans.loan_id = $_SESSION[loan_id]";
+						 
+$query_maxltrans = mysqli_query($db_link, $sql_insert_maxltrans);
+checkSQL($db_link, $query_maxltrans);
+
 ?>
