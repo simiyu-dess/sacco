@@ -2,10 +2,6 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include 'cronjobs/cron.php';
-
-
-
 
 	//Check if current user is logged in
 	
@@ -763,18 +759,23 @@ include 'cronjobs/cron.php';
 	}
    //calculating the interest overdue on loans 
    // when the required duration of time have elapsed and the users have not cleared there balances
-	function chargeOverdueLoans()
+	function chargeOverdueLoans($db_link)
 	{
-		if ($crondate !=date("Y-m-d"))
+		$timestamp = time();
+		include "cronjobs/cron.php";
+		if ($crondate != date("Y-m-d"))
 		{
-			$myfile = fopen("cronjobs.txt", "w") or die("Unable to open file!");
+			$myfile = fopen("cronjobs/cron.php", "w+");
 			$date = date("Y-m-d");
-			$txt = "$crondate = $date";
-            fwrite($myfile, $txt);
-            fclose($myfile);
-			$crondate = date("Y-m-d");
-		$db_link = connect();
-	   $timestamp = time();
+			$txt = "<?php \$crondate = $date ?>";
+			if (flock($myfile,LOCK_SH)) {
+				fwrite($myfile,$txt);
+				flock($myfile,LOCK_UN);
+			 } else {
+				die();
+			 }
+			 fclose($myfile);
+	   
 
 	   $sql_select = "SELECT loan_id, overdue_time,loanstatus_id, overdue_interest, loan_repaytotal, loan_amount_paid,  
 					  loan_rate,loan_period, loan_principal FROM loans WHERE loan_amount_paid < loan_repaytotal
