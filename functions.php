@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+include 'cronjobs/cron.php';
 
 
 
@@ -762,8 +763,17 @@ error_reporting(E_ALL);
 	}
    //calculating the interest overdue on loans 
    // when the required duration of time have elapsed and the users have not cleared there balances
-	function chargeOverdueLoans($db_link)
+	function chargeOverdueLoans()
 	{
+		if ($crondate !=date("Y-m-d"))
+		{
+			$myfile = fopen("cronjobs.txt", "w") or die("Unable to open file!");
+			$date = date("Y-m-d");
+			$txt = "$crondate = $date";
+            fwrite($myfile, $txt);
+            fclose($myfile);
+			$crondate = date("Y-m-d");
+		$db_link = connect();
 	   $timestamp = time();
 
 	   $sql_select = "SELECT loan_id, overdue_time,loanstatus_id, overdue_interest, loan_repaytotal, loan_amount_paid,  
@@ -793,12 +803,13 @@ error_reporting(E_ALL);
 			checkSQL($db_link, $query_update_loans);
 
 	$sql_insert_ltrans = "INSERT INTO ltrans (loan_id, ltrans_due, ltrans_interestdue, user_id)
-	 VALUES ('$loan_results[loan_id]', '$next_interest_date','$interest', '$_SESSION[log_id]')";
+	 VALUES ('$loan_results[loan_id]', '$next_interest_date','$interest', '0')";
 	$query_insert_ltrans = mysqli_query($db_link, $sql_insert_ltrans);
 	checkSQL($db_link, $query_insert_ltrans);
 
 
 		}
+	}
 		   
 	   }
 	   
