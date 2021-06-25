@@ -41,7 +41,7 @@ error_reporting(E_ALL);
 		custsex_id = $custsex_id, cust_address = '$cust_address', cust_phone = '$cust_phone', cust_email = '$cust_email',
 		cust_occup = '$cust_occup', custmarried_id = $custmarried_id, cust_heir = '$cust_heir', cust_heirrel = '$cust_heirrel',
 		custsick_id = $custsick_id, cust_active = '$cust_active', cust_lastupd = $cust_dob, user_id = $_SESSION[log_id] 
-		WHERE cust_id = $_SESSION[cust_id]";
+		WHERE cust_id = $_SESSION[member_id]";
 		$query_update = mysqli_query($db_link, $sql_update);
 		checkSQL($db_link, $query_update);
 		header('Location: customer.php?cust='.$_SESSION['member_id'].'');
@@ -344,7 +344,10 @@ error_reporting(E_ALL);
 				while ($row_loan = mysqli_fetch_assoc($query_loans)){
 
 					//Select last unpaid Due Date from LTRANS
-					$sql_ltrans = "SELECT MIN(ltrans_due) FROM ltrans, loans WHERE ltrans.loan_id = loans.loan_id AND loans.loanstatus_id = '2' AND loans.loan_id = '$row_loan[loan_id]' AND ltrans_due IS NOT NULL AND ltrans_date IS NULL";
+					$sql_ltrans = "SELECT MIN(ltrans_due) FROM ltrans, loans 
+					WHERE ltrans.loan_id = loans.loan_id AND loans.loanstatus_id = '2' 
+					AND loans.loan_id = '$row_loan[loan_id]' 
+					AND ltrans_due IS NOT NULL AND ltrans_date IS NULL";
 					$query_ltrans = mysqli_query($db_link, $sql_ltrans);
 					checkSQL($db_link, $query_ltrans);
 					$next_due = mysqli_fetch_assoc($query_ltrans);

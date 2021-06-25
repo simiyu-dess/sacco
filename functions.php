@@ -285,7 +285,7 @@ error_reporting(E_ALL);
 	*/
 	function getLoanID($db_link){
 		if (isset($_GET['lid'])) $_SESSION['loan_id'] = sanitize($db_link, $_GET['lid']);
-		else header('Location: customer.php?cust='.$_SESSION['cust_id']);
+		else header('Location: customer.php?cust='.$_SESSION['member_id']);
 	}
 
 /**
@@ -535,7 +535,7 @@ error_reporting(E_ALL);
 	*/
 	function getCustOther($db_link){
 		$sql_custother = "SELECT * FROM customer LEFT JOIN custsex ON custsex.custsex_id = customer.custsex_id 
-		WHERE cust_id NOT IN (0, $_SESSION[cust_id]) ORDER BY cust_id";
+		WHERE cust_id NOT IN (0, $_SESSION[member_id]) ORDER BY cust_id";
 		$query_custother = mysqli_query($db_link, $sql_custother);
 		checkSQL($db_link, $query_custother, $db_link);
 
@@ -767,7 +767,7 @@ error_reporting(E_ALL);
 		{
 			$myfile = fopen("cronjobs/cron.php", "w+");
 			$date = date("Y-m-d");
-			$txt = "<?php \$crondate = $date ?>";
+			$txt = "<?php \$crondate = '$date' ?>";
 			if (flock($myfile,LOCK_SH)) {
 				fwrite($myfile,$txt);
 				flock($myfile,LOCK_UN);
@@ -778,7 +778,7 @@ error_reporting(E_ALL);
 	   
 
 	   $sql_select = "SELECT loan_id, overdue_time,loanstatus_id, overdue_interest, loan_repaytotal, loan_amount_paid,  
-					  loan_rate,loan_period, loan_principal FROM loans WHERE loan_amount_paid < loan_repaytotal
+					  loan_rate,loan_period,loan_interest,loan_principal FROM loans WHERE loan_amount_paid < loan_repaytotal
 					   AND overdue_time<$timestamp AND loanstatus_id = 2";
 
 
@@ -790,11 +790,11 @@ error_reporting(E_ALL);
 	   foreach($query_loanOverdue as $loan_results)
 	   {
 		$next_interest_date = $loan_results['overdue_time'];
-		$interest =$loan_results['loan_rate'] - ($loan_results['loan_principal']/ $loan_results['loan_period']); 
+		$interest =ceil($loan_results['loan_principal'] * ($loan_results['loan_interest']/100)); 
+		$next_interest_date = $next_interest_date + $seconds;
 		while( $next_interest_date <= $timestamp && $loan_results['loan_amount_paid'] < $loan_results['loan_repaytotal'])
 		{
 			
-			$next_interest_date = $next_interest_date + $seconds;
 			$sql_insertOverdueInterest = "UPDATE loans 
 		    SET loans.overdue_interest = loans.overdue_interest + $interest,
 			loans.overdue_time = loans.overdue_time  + $seconds,
@@ -807,6 +807,10 @@ error_reporting(E_ALL);
 	 VALUES ('$loan_results[loan_id]', '$next_interest_date','$interest', '0')";
 	$query_insert_ltrans = mysqli_query($db_link, $sql_insert_ltrans);
 	checkSQL($db_link, $query_insert_ltrans);
+
+	$next_interest_date = $next_interest_date + $seconds;
+
+	
 
 
 		}

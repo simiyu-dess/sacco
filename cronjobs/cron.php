@@ -1,1 +1,1 @@
-<?php $crondate = 2021-06-22 ?>
+<?php $crondate = '2021-06-24' ?>

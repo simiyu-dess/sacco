@@ -12,9 +12,12 @@ error_reporting(E_ALL);
 	//Select all users from USER
 	$users = array();
 	$user_names = array();
-	$sql_users = "SELECT user.user_id, user.user_name, user.user_created, ugroup.ugroup_id, ugroup.ugroup_name, employee.empl_id, employee.empl_name 
-	FROM user LEFT JOIN ugroup ON ugroup.ugroup_id = user.ugroup_id LEFT JOIN employee ON user.empl_id = employee.empl_id WHERE user.user_id != 0 
-	ORDER BY user_name";
+	$sql_users = "SELECT user.user_id, user.user_name, user.user_created, ugroup.ugroup_id,
+	               ugroup.ugroup_name, employee.empl_id, employee.empl_name 
+	               FROM user LEFT JOIN ugroup ON ugroup.ugroup_id = user.ugroup_id 
+				   LEFT JOIN employee ON user.empl_id = employee.empl_id
+				   WHERE user.user_id != 0 
+	               ORDER BY user_name";
 	$query_users = mysqli_query($db_link, $sql_users);
 	checkSQL($db_link, $query_users);
 	while($row_users = mysqli_fetch_assoc($query_users)){
@@ -73,13 +76,17 @@ error_reporting(E_ALL);
 
 		if($user_id == 0){
 			// Insert new user into USER
-			$sql_user_ins = "INSERT INTO user (user_name, user_pw, ugroup_id, empl_id, user_created) VALUES ('$user_name', '$user_pw', '$ugroup', '$empl_id', '$timestamp')";
+			$sql_user_ins = "INSERT INTO user (user_name, user_pw, ugroup_id, empl_id, user_created)
+			 VALUES ('$user_name', '$user_pw', '$ugroup', '$empl_id', '$timestamp')";
 			$query_user_ins = mysqli_query($db_link, $sql_user_ins);
 			checkSQL($db_link, $query_user_ins);
 		}
 		else {
 			// Update existing user
-			$sql_user_upd = "UPDATE user SET user_name = '$user_name', user_pw = '$user_pw', ugroup_id = $ugroup, empl_id = $empl_id, user_created = $timestamp WHERE user_id = $user_id";
+			$sql_user_upd = "UPDATE user SET user_name = '$user_name', 
+			                user_pw = '$user_pw', ugroup_id = $ugroup,
+							empl_id = $empl_id, user_created = $timestamp 
+							WHERE user_id = $user_id";
 			$query_user_upd = mysqli_query($db_link, $sql_user_upd);
 			checkSQL($db_link, $query_user_upd);
 		}

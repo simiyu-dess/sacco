@@ -1,4 +1,7 @@
 <?PHP
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 	require 'functions.php';
 	checkLogin();
 	$db_link = connect();
@@ -32,6 +35,7 @@
 		$loan_guarant2 = sanitize($db_link, $_POST['loan_guarant2']);
 		$loan_guarant3 = sanitize($db_link, $_POST['loan_guarant3']);
 		$loan_appfee_receipt = sanitize($db_link, $_POST['loan_appfee_receipt']);
+		$loan_null = "NULL";
 		if($_SESSION['set_xl1'] != "") $loan_xtra1 = sanitize($db_link, $_POST['loan_xtra1']);
 		else $loan_xtra1 = NULL;
 		if($_SESSION['fee_xl1'] != 0) $loan_xtraFee1 = $_SESSION['fee_xl1'];
@@ -47,47 +51,52 @@
 		$loan_insurance = $loan_principal / 100 * $_SESSION['fee_loaninsurance'];
 
 		//Insert Loan into LOANS
-		$sql_insert_loan = "INSERT INTO loans (cust_id, 
-		                                       loanstatus_id,
-											    loan_no,
-												 loan_date,
-												  loan_issued, 
-												  loan_principal, 
-												  loan_interest, 
-												  loan_appfee_receipt, 
-												  loan_fee, 
-												  loan_insurance,
-												   loan_rate, loan_period, 
-												   loan_repaytotal, 
-												   loan_purpose, 
-												   loan_guarant1, 
-												   loan_guarant2, 
-												   loan_guarant3, 
-												   loan_created, 
-												   loan_xtra1,
-												    loan_xtraFee1,
-													 user_id) 
-													 VALUES ('$_SESSION[member_id]', 
-													 '1', 
-													 '$loan_no', 
-													 '$loan_date',
-													  '0', 
-													  '$loan_principal', 
-													  '$loan_interest', 
-													  '$loan_appfee_receipt', 
-													  '$loan_fee', 
-													  '$loan_insurance', 
-													  '$loan_rate', 
-													  '$loan_period',
-													   $loan_repaytotal, 
-													   '$loan_purpose',
-													    '$loan_guarant1',
-														 '$loan_guarant2',
-														  '$loan_guarant3',
-														   $timestamp,
-														    '$loan_xtra1', 
-															'$loan_xtraFee1',
-															 '$_SESSION[log_id]')";
+		$sql_insert_loan = "INSERT INTO loans (
+							   cust_id,
+							   loanstatus_id, 
+							   loan_no, 
+							   loan_date, 
+							   loan_issued, 
+							   loan_principal, 
+							   loan_interest,
+							   loan_appfee_receipt,
+							   loan_fee, 
+							   loan_insurance,
+							   loan_rate,
+							    loan_period, 
+								loan_repaytotal, 
+								loan_purpose,
+								
+								loan_guarant1,
+								 loan_guarant2, 
+								 loan_guarant3, 
+								 loan_created, 
+								 loan_xtra1, 
+								 loan_xtraFee1,
+								  user_id)
+								   VALUES (
+									 '$_SESSION[member_id]', 
+									 1, 
+									 '$loan_no',
+									  $loan_date, 
+									  0, 
+									  $loan_principal, 
+									   $loan_interest, 
+									    $loan_appfee_receipt,
+										$loan_fee, 
+										$loan_insurance, 
+										$loan_rate, 
+										$loan_period,
+										 $loan_repaytotal, 
+										 '$loan_purpose', 
+										 $loan_guarant1, 
+
+										 $loan_guarant2, 
+										 $loan_guarant3, 
+										 $timestamp, 
+										'$loan_xtra1', 
+										 $loan_xtraFee1, 
+										 $_SESSION[log_id])";
 		$query_insert_loan = mysqli_query($db_link, $sql_insert_loan);
 		checkSQL($db_link, $query_insert_loan);
 
@@ -100,24 +109,72 @@
 
 		//Insert loan securities into SECURITIES
 		if($loan_sec1 != ""){
-			$sql_insert_sec1 = "INSERT INTO securities (cust_id, loan_id, sec_no, sec_name, sec_value, sec_path, sec_returned)
-			 VALUES ($_SESSION[member_id], $_SESSION[loan_id], '1', '$loan_sec1', 0, '', 0)";
+			$sql_insert_sec1 = "INSERT INTO securities (
+								 cust_id, 
+								 loan_id, 
+								 sec_no, 
+								 sec_name,
+								 sec_value,
+								 sec_path, 
+								 sec_returned) 
+								 VALUES (
+									  $_SESSION[member_id],
+									  $_SESSION[loan_id], 
+									  '1', 
+									  '$loan_sec1',
+									   0, 
+									   '',
+									    0)";
 			$query_insert_sec1 = mysqli_query($db_link, $sql_insert_sec1);
 			checkSQL($db_link, $query_insert_sec1);
 		}
 		if($loan_sec2 != ""){
-			$sql_insert_sec2 = "INSERT INTO securities (cust_id, loan_id, sec_no, sec_name, sec_value, sec_path, sec_returned)
-			 VALUES ($_SESSION[member_id], $_SESSION[loan_id], '2', '$loan_sec2', 0, '', 0)";
+			$sql_insert_sec2 = "INSERT INTO securities (
+												cust_id, 
+												loan_id, 
+												sec_no, 
+												
+												sec_name, 
+												sec_value, 
+												sec_path,
+												
+												sec_returned) 
+												VALUES (
+													
+													$_SESSION[member_id], 
+													$_SESSION[loan_id], 
+													'2', 
+													'$loan_sec2',
+													 0, 
+													 '', 
+													 0)";
 			$query_insert_sec2 = mysqli_query($db_link, $sql_insert_sec2);
 			checkSQL($db_link, $query_insert_sec2);
 		}
 
 		//Insert Loan Application Fee into INCOMES
-		$sql_inc_laf = "INSERT INTO incomes (cust_id, loan_id, inctype_id, inc_amount, inc_date, inc_receipt, inc_created, user_id) 
-		VALUES ('$_SESSION[member_id]', '$_SESSION[loan_id]', '7', '$_SESSION[fee_loanappl]', '$loan_date', '$loan_appfee_receipt', $timestamp, '$_SESSION[log_id]')";
+		$sql_inc_laf = "INSERT INTO incomes (
+								 cust_id, 
+								 loan_id, 
+								 inctype_id,
+								 inc_amount, 
+								 inc_date, 
+								 inc_receipt, 
+								 inc_created,
+								  user_id)
+								   VALUES (
+									   '$_SESSION[member_id]', 
+									   '$_SESSION[loan_id]', 
+									   '7', 
+									   '$_SESSION[fee_loanappl]',
+										'$loan_date', 
+									    '$loan_appfee_receipt',
+										$timestamp, 
+										'$_SESSION[log_id]')";
+										
 		$query_inc_laf = mysqli_query($db_link, $sql_inc_laf);
 		checkSQL($db_link, $query_inc_laf);
-
+ 
 		//Refer to LOAN_SEC.PHP
 		header('Location: loan_sec.php?lid='.$_SESSION['loan_id']);
 	}
@@ -271,11 +328,12 @@
 						</td>
 					<?PHP } ?>
 						<td><?PHP if($_SESSION['set_xl1'] != "") echo $_SESSION['set_xl1'].':'; ?></td>
-						<td><?PHP if($_SESSION['set_xl1'] != "") echo '<input type="text" name="loan_xtra1" id="loan_xtra1" />'; ?></td>
+						<td><?PHP if($_SESSION['set_xl1'] != "") echo '<input type="text" name="loan_xtra1" id="loan_xtra1" />'; ?>
+						</td>
 					</tr>
 
 					
-					
+					<tr>
 						<td>Monthly Rate:</td>
 						<td><input type="text" name="loan_rate" id="loan_rate" disabled="disabled" /></td>
 						<td>Repay Total:</td>
