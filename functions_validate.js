@@ -160,3 +160,11 @@ function validateEmployee(field, employees, empl_current) {
 	}
 	return ""
 }
+function validateMember(field, members)
+{
+	for (i=0, len = members.length; i < len; i++)
+	{
+		if (members[i] == field ) return "Member id already associated with another user account"
+	 }
+	 return ""
+}

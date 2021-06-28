@@ -17,7 +17,8 @@ error_reporting(E_ALL);
 	               FROM user LEFT JOIN ugroup ON ugroup.ugroup_id = user.ugroup_id 
 				   LEFT JOIN employee ON user.empl_id = employee.empl_id
 				   WHERE user.user_id != 0 
-	               ORDER BY user_name";
+				   ORDER BY user_name";
+				   
 	$query_users = mysqli_query($db_link, $sql_users);
 	checkSQL($db_link, $query_users);
 	while($row_users = mysqli_fetch_assoc($query_users)){
@@ -68,24 +69,29 @@ error_reporting(E_ALL);
 		//Sanitize user input
 		$user_id = sanitize($db_link, $_POST['user_id']);
 		$user_name = sanitize($db_link, $_POST['user_name']);
+		$user_key = sanitize($db_link,$_POST['user_pw']);
 		$user_pw = password_hash((sanitize($db_link, $_POST['user_pw'])).$pepper, PASSWORD_DEFAULT);
 		$empl_id = sanitize($db_link, $_POST['empl_id']);
 		$ugroup = sanitize($db_link, $_POST['ugroup']);
+		$key = $user_name.$user_key;
 		if($user_id == 1) $ugroup = 1;
 		$timestamp = time();
 
 		if($user_id == 0){
 			// Insert new user into USER
-			$sql_user_ins = "INSERT INTO user (user_name, user_pw, ugroup_id, empl_id, user_created)
-			 VALUES ('$user_name', '$user_pw', '$ugroup', '$empl_id', '$timestamp')";
+			$sql_user_ins = "INSERT INTO user (user_name, user_pw, ugroup_id, empl_id,user_key,user_created)
+			 VALUES ('$user_name', '$user_pw', '$ugroup', '$empl_id','$key', '$timestamp')";
 			$query_user_ins = mysqli_query($db_link, $sql_user_ins);
 			checkSQL($db_link, $query_user_ins);
 		}
 		else {
 			// Update existing user
 			$sql_user_upd = "UPDATE user SET user_name = '$user_name', 
-			                user_pw = '$user_pw', ugroup_id = $ugroup,
-							empl_id = $empl_id, user_created = $timestamp 
+			                user_pw = '$user_pw', 
+							ugroup_id = $ugroup,
+							empl_id = $empl_id,
+							user_key = $key,
+							user_created = $timestamp 
 							WHERE user_id = $user_id";
 			$query_user_upd = mysqli_query($db_link, $sql_user_upd);
 			checkSQL($db_link, $query_user_upd);
