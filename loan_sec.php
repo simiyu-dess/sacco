@@ -86,15 +86,42 @@ error_reporting(E_ALL);
 		<!-- MENU -->
 		<?PHP includeMenu(2); ?>
 		<div id="menu_main">
-			<a href="customer.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Back</a>
-			<a href="cust_search.php">Search</a>
-			<a href="acc_sav_depos.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Deposit</a>
-			<a href="acc_sav_withd.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Withdrawal</a>
-			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Buy</a>
-			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>" id="item_selected">New Loan</a>
-			<a href="cust_new.php">New Member <marquee behavior= direction=""></marquee></a>
-			<a href="cust_act.php">Active Memb.</a>
-			<a href="cust_inact.php">Inactive Memb.</a>
+		<?php
+		$content = "content_right";
+		if ($_SESSION['log_ugroup'] != "members")
+		{
+	 
+		echo '<a href="customer.php?cust='.$_SESSION['member_id'].'">Back</a>';
+		echo '<a href="cust_search.php">Search</a>';
+		echo '<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>';
+		echo '<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>';
+		echo '<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>';
+		echo '<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
+		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'>">New Loan</a>';
+		echo '<a href="cust_act.php">Active Cust.</a>
+			<a href="cust_inact.php">Inactive Cust.</a>';
+		}
+		if ($_SESSION['log_delete'] == 1) 
+			{
+			
+			echo '<a href="cust_new.php>New Customer</a>';
+			
+		}
+		
+	
+		
+		if($_SESSION['log_ugroup'] == "members")
+		{
+			$content = "content_center";
+			echo '
+			<a href="member.php">Back</a>
+			<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>
+		    <a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
+		    <a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
+		    <a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a> 
+		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'>">New Loan</a>';
+		}
+		?>
 		</div>
 
 		<div class="content_center">

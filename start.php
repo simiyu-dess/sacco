@@ -17,6 +17,7 @@ error_reporting(E_ALL);
 	<!-- HTML HEAD -->
 	<?PHP includeHead('Chenken Welfare Association',0); ?>
 		<link rel="stylesheet" href="css/stats.css" />
+		<link rel = "stylesheet" href="css/mangoo.css">
 	</head>
 	<!-- HTML BODY -->
 	<body>

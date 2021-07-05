@@ -31,7 +31,7 @@ error_reporting(E_ALL);
 						 share_receipt, 
 						 share_created, 
 						 user_id) VALUES (
-						 '$_SESSION[cust_id]', 
+						 '$_SESSION[member_id]', 
 						 '$share_date',
 						  '$share_amount', 
 						  '$share_value', 
@@ -41,7 +41,7 @@ error_reporting(E_ALL);
 		$query_insert_sh = mysqli_query($db_link, $sql_insert_sh);
 		checkSQL($db_link, $query_insert_sh);
 
-		header('Location: acc_share_buy.php?cust='.$_SESSION['cust_id']);
+		header('Location: acc_share_buy.php?cust='.$_SESSION['member_id']);
 	}
 
 	//TRANSFER-Button
@@ -75,11 +75,11 @@ error_reporting(E_ALL);
 		$sql_inactive = "UPDATE customer SET cust_active = '0', cust_lastupd = '$timestamp', user_id = '$_SESSION[log_id]' WHERE cust_id = '$shtrans_cust'";
 		$query_inactive = mysqli_query($db_link, $sql_inactive);
 
-		header('Location: customer.php?cust='.$_SESSION['cust_id']);
+		header('Location: customer.php?cust='.$_SESSION['member_id'].'');
 	}
 
-	//Get current customer's details
-	$result_cust = getCustomer($db_link, $_SESSION['cust_id']);
+	//Get current customer
+	$result_cust = getCustomer($db_link, $_SESSION['member_id']);
 
 	//Get all other customers
 	$query_custother = getCustOther($db_link);
@@ -107,19 +107,42 @@ error_reporting(E_ALL);
 	<!-- MENU -->
 		<?PHP includeMenu(2); ?>
 		<div id="menu_main">
-			<a href="customer.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Back</a>
-			<a href="cust_search.php">Search</a>
-			<a href="acc_sav_depos.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Deposit</a>
-			<a href="acc_sav_withd.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Withdrawal</a>
-			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>" id="item_selected">Share Buy</a>
-			<a href="acc_share_sale.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Sale</a>
-			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">New Loan</a>
-			<?PHP if ($_SESSION['log_delete'] == 1) 
+			<?php
+		$content = "content_right";
+		if ($_SESSION['log_ugroup'] != "members")
+		{
+	 
+		echo '<a href="customer.php?cust='.$_SESSION['member_id'].'">Back</a>';
+		echo '<a href="cust_search.php">Search</a>';
+		echo '<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>';
+		echo '<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>';
+		echo '<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>';
+		echo '<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
+		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
+		echo '<a href="cust_act.php">Active Cust.</a>
+			<a href="cust_inact.php">Inactive Cust.</a>';
+		}
+		if ($_SESSION['log_delete'] == 1) 
+			{
+			
+			echo '<a href="cust_new.php>New Customer</a>';
+			
+		}
+		
+	
+		
+		if($_SESSION['log_ugroup'] == "members")
+		{
+			$content = "content_center";
 			echo '
-			<a href="cust_new.php">New Customer</a>'
-			?>
-			<a href="cust_act.php">Active Cust.</a>
-			<a href="cust_inact.php">Inactive Cust.</a>
+			<a href="member.php">Back</a>
+			<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>
+		    <a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
+		    <a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
+		    <a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a> 
+		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
+		}
+		?>
 		</div>
 
 		<!-- Left Side: Input for Share Addition -->
@@ -157,7 +180,8 @@ error_reporting(E_ALL);
 					<tr>
 						<td class="center" colspan="2">
 							<input type="submit" name="sharebuy" value="Buy Shares" />
-							<input type="button" name="sh_transfer" value="Transfer" onclick="setVisibility('content_hidden', 'block');" />
+							<input type="button" name="sh_transfer" value="Transfer" 
+							onclick="setVisibility('content_hidden', 'block');" />
 						</td>
 					</tr>
 				</table>

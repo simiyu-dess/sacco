@@ -11,9 +11,9 @@ error_reporting(E_ALL);
 	$timestamp = time();
 
 	// Update savings balance for current customer and store into variable
-	updateSavingsBalance ($db_link, $_SESSION['cust_id']);
-	$sav_balance = getSavingsBalance($db_link, $_SESSION['cust_id']);
-	$sav_fixed = getSavingsFixed($db_link, $_SESSION['cust_id']);
+	updateSavingsBalance ($db_link, $_SESSION['member_id']);
+	$sav_balance = getSavingsBalance($db_link, $_SESSION['member_id']);
+	$sav_fixed = getSavingsFixed($db_link, $_SESSION['member_id']);
 
 	// WITHDRAW-Button
 	if (isset($_POST['withdraw'])){
@@ -48,7 +48,7 @@ error_reporting(E_ALL);
 		checkSQL($db_link, $query_insert);
 
 		// Update savings account balance
-		updateSavingsBalance($db_link, $_SESSION['cust_id']);
+		updateSavingsBalance($db_link, $_SESSION['member_id']);
 
 		// Get SAV_ID for the latest entry
 		$sql_savid = "SELECT MAX(sav_id) FROM savings WHERE cust_id = '$_SESSION[cust_id]' AND sav_receipt = '$sav_receipt' AND sav_created = '$timestamp'";
@@ -87,15 +87,15 @@ error_reporting(E_ALL);
 			checkSQL($db_link, $query_insert_fee);
 
 			// Update savings account balance
-			updateSavingsBalance($db_link, $_SESSION['cust_id']);
+			updateSavingsBalance($db_link, $_SESSION['member_id']);
 		}
 
 		// Forward to acc_sav_withd.php
-		header('Location: acc_sav_withd.php?cust='.$_SESSION['cust_id']);
+		header('Location: acc_sav_withd.php?cust='.$_SESSION['member_id']);
 	}
 
 	// Get current customer's details
-	$result_cust = getCustomer($db_link, $_SESSION['cust_id']);
+	$result_cust = getCustomer($db_link, $_SESSION['member_id']);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -124,19 +124,42 @@ error_reporting(E_ALL);
 		<!-- MENU -->
 		<?PHP includeMenu(2); ?>
 		<div id="menu_main">
-			<a href="customer.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Back</a>
-			<a href="cust_search.php">Search</a>
-			<a href="acc_sav_depos.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Deposit</a>
-			<a href="acc_sav_withd.php?cust=<?PHP echo $_SESSION['cust_id'] ?>" id="item_selected">Withdrawal</a>
-			<a href="acc_share_buy.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Buy</a>
-			<a href="acc_share_sale.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">Share Sale</a>
-			<a href="loan_new.php?cust=<?PHP echo $_SESSION['cust_id'] ?>">New Loan</a>
-			<?PHP if ($_SESSION['log_delete'] == 1) 
-			echo'
-			<a href="cust_new.php">New Customer</a>'
-			?>
-			<a href="cust_act.php">Active Cust.</a>
-			<a href="cust_inact.php">Inactive Cust.</a>
+			<?php
+		$content = "content_right";
+		if ($_SESSION['log_ugroup'] != "members")
+		{
+	 
+		echo '<a href="customer.php?cust='.$_SESSION['member_id'].'">Back</a>';
+		echo '<a href="cust_search.php">Search</a>';
+		echo '<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>';
+		echo '<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>';
+		echo '<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>';
+		echo '<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
+		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
+		echo '<a href="cust_act.php">Active Cust.</a>
+			<a href="cust_inact.php">Inactive Cust.</a>';
+		}
+		if ($_SESSION['log_delete'] == 1) 
+			{
+			
+			echo '<a href="cust_new.php>New Customer</a>';
+			
+		}
+		
+	
+		
+		if($_SESSION['log_ugroup'] == "members")
+		{
+			$content = "content_center";
+			echo '
+			<a href="member.php">Back</a>
+			<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>
+		    <a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
+		    <a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
+		    <a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a> 
+		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
+		}
+		?>
 		</div>
 
 		<!-- LEFT SIDE: Input for new Withdrawal -->

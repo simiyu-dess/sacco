@@ -105,6 +105,7 @@ error_reporting(E_ALL);
 		<?PHP includeMenu(2); ?>
 		<div id=menu_main>
 		<?php 
+		$content = "content_right";
 		if ($_SESSION['log_ugroup'] != "members")
 		{
 	 
@@ -114,29 +115,29 @@ error_reporting(E_ALL);
 		echo '<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>';
 		echo '<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>';
 		echo '<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
-		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'>">New Loan</a>';
+		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
 		echo '<a href="cust_act.php">Active Cust.</a>
 			<a href="cust_inact.php">Inactive Cust.</a>';
 		}
 		if ($_SESSION['log_delete'] == 1) 
 			{
 			
-			echo '<a href="cust_new.php">New Customer</a>';
+			echo '<a href="cust_new.php>New Customer</a>';
+			
 		}
 		
 	
 		
 		if($_SESSION['log_ugroup'] == "members")
 		{
+			$content = "content_center";
 			echo '
-			<a href="customer.php">Back</a>
-			<a href="cust_search.php">Search</a>
-			<a href="acc_sav_depos.php" id="item_selected">Deposits</a>
-			<a href="acc_sav_withd.php">Withdrawal</a>
-			<a href="acc_share_buy.php">Share Buy</a>
-			<a href="acc_share_sale.php">Share Sale</a>
-			<a href="loan_new.php">New Loan</a>
-			'; 
+			<a href="member.php">Back</a>
+			<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>
+		    <a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
+		    <a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
+		    <a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a> 
+		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'>">New Loan</a>';
 		}
 		?>
 		</div>
@@ -198,7 +199,7 @@ error_reporting(E_ALL);
 		</div>
 
 		<!-- RIGHT SIDE: Statement for Savings Account -->
-		<div class="content_right" style="width:65%;">
+		<div class='<?php echo $content ?>' style="width:65%;">
 
 			<?PHP include 'acc_sav_list.php'; ?>
 

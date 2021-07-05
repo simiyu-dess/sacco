@@ -17,5 +17,5 @@ error_reporting(E_ALL);
 	}
 	
 	//Refer to customer.php
-	header('Location: acc_share_buy.php?cust='.$_SESSION['cust_id']);
+	header('Location: acc_share_buy.php?cust='.$_SESSION['member_id']);
 ?>

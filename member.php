@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 	require 'functions.php';
+	require 'includes/user.php';
 	checkLogin();
 	$db_link = connect();
 	//getCustID($db_link);
@@ -44,7 +45,7 @@ error_reporting(E_ALL);
         user_id = $_SESSION[log_id] WHERE cust_id = $_SESSION[cust_id]";
 		$query_update = mysqli_query($db_link, $sql_update);
 		checkSQL($db_link, $query_update);
-		header('Location: customer.php');
+		header('Location: member.php');
 	}
 
 	//Get current customer
@@ -128,24 +129,18 @@ error_reporting(E_ALL);
 
 	<body>
 		<!-- MENU -->
-		<?PHP includeMenu(2); ?>
+		<?PHP includeuser() ?>
 		<div id="menu_main">
-			<a href="cust_search.php">Search</a>
+			<a href="start.php">Home</a>
 			<?PHP
 			if ($result_cust['cust_active'] == 1) echo '
-				<a href="acc_sav_depos.php">Deposit</a>
-				<a href="acc_sav_withd.php">Withdrawal</a>
-				<a href="acc_share_buy.php">Share Buy</a>
-				<a href="acc_share_sale.php">Share Sale</a>';
-			if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
-				<a href="loan_new.php">New Loan</a>';
+			<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Deposit</a>
+			<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
+			<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
+			<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
+		if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
+			<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
 			?>
-			<?PHP if ($_SESSION['log_delete'] == 1) 
-			echo'
-			<a href="cust_new.php">New Customer</a>'
-			?>
-			<a href="cust_act.php">Active Members.</a>
-			<a href="cust_inact.php">Inactive Members.</a>
 		</div>
 
 		<!-- LEFT SIDE: Customer Details -->

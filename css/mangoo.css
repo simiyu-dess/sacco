@@ -78,29 +78,40 @@ a:hover {
 /* MENU: Header */
 #menu_header {
 	line-height:90px; 
-	margin-bottom:-1.75em;
+	margin-bottom: 0px;
+	background:#0a3f49;
 }
-
+#menu_tabs
+{ 
+	height: fit-content;
+	width: 100%;
+	background-color: #0a3f49;
+	border-top-width: 0ch;
+	margin-top: 0;
+}
 /* MENU: Tabs */
 #menu_tabs ul {
 	list-style: none;
 	padding: 0;
 	margin: 0 0 0 1em;
+	display: flex;
+	justify-content: center;
 }
-#menu_tabs li {
-	float: left;
+#menu_tabs li 
+{  
 	border-bottom-width: 0;
-	margin: 0 2em 0 0;
+	margin:0 auto;
+	
 }
 #menu_tabs a {
 	text-decoration: none;
 	/*font-weight: bold;*/
-	display: block;
-	background-color: #6e6e6e;
+	display: flex;
+	background-color: #0a3f49;
 	padding: .5em .5em;
 	color:#fff;
-	width: 8.4em;
-	text-align: center;
+	width: fit-content;
+	
 }
 #menu_tabs a:hover {
 	background-color: #f38630;
@@ -151,16 +162,19 @@ a:hover {
 	padding: .2em 1em;
 	line-height:2.75em;
 	vertical-align:middle;
+	display: flex;
+	align-content: center;
 	background-color: #2e2e2e;
 	margin-bottom: 2.5em;
 }
 #menu_main a {
 	display:inline;
-	margin: 0;
+	margin: 0 auto;
 	padding: .2em 1em;
 	border-right: 1px dashed white;
 	font-size:1.1em;
 	font-weight:bold;
+	position: relative;
 	text-decoration:none;
 	color: #fff;
 }
@@ -288,9 +302,7 @@ a:hover {
 	color:#2e2e2e;
 	/* background:#a7dbd8; */
 }
-#tb_set span{
-	/* font-weight:bold; */
-}
+
 
 /* TEXT-FORMATTING */
 .heading, .heading_narrow {

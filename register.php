@@ -10,33 +10,6 @@ error_reporting(E_ALL);
     
     $pepper = 'g7NIiru!!8';
     //get usernames from the database
-    $users = array();
-    $user_names = array();
-    $user_memberid = array();
-	$sql_users = "SELECT user.user_id, user.user_name, user.user_created,user.member_id, ugroup.ugroup_id,
-	               ugroup.ugroup_name, employee.empl_id, employee.empl_name 
-	               FROM user LEFT JOIN ugroup ON ugroup.ugroup_id = user.ugroup_id 
-				   LEFT JOIN employee ON user.empl_id = employee.empl_id
-				   WHERE user.user_id != 0 
-				   ORDER BY user_name";
-				   
-	$query_users = mysqli_query($db_link, $sql_users);
-	checkSQL($db_link, $query_users);
-	while($row_users = mysqli_fetch_assoc($query_users)){
-		$users[] = $row_users;
-        $user_names[] = $row_users['user_name'];
-        $user_memberid[] = $row_users['member_id'];
-
-        //get all members from the database who are lready associated with an account
-        
-    $sql_member_assoc = "SELECT cust_no FROM customer WHERE cust_no != NULL AND cust_no IN (SELECT member_id FROM user)";
-	$query_member_assoc = mysqli_query($db_link, $sql_member_assoc);
-    checkSQL($db_link, $query_member_assoc);
-    }
-	$memeber_assoc = array();
-	while($row_member_assoc = mysqli_fetch_assoc($query_member_assoc)){
-		$member_assoc[] = $row_member_assoc['empl_id'];
-    }
 
     if(isset($_POST['register']))
     {
@@ -80,8 +53,20 @@ error_reporting(E_ALL);
 
         if(empty($member))
         {
+            $names = 0;
+            $sql_select_username = "SELECT user_name from user WHERE user_id > 0";
+            $query_username = mysqli_query($db_link, $sql_select_username);
+            checkSQL($db_link, $query_username);
+            
+            while($get_user = mysqli_fetch_assoc($query_username))
+            {
+                if($get_user['user_name'] == $user_name) $names+=1;
+            }
+            if($names == 0)
+            {
 
-            $sql_insert_new_user = "INSERT INTO user(
+            $sql_insert_new_user = "INSERT INTO user
+            (
                 user_name,
                 user_pw,
                 ugroup_id,
@@ -99,6 +84,10 @@ error_reporting(E_ALL);
                 $query_insert_user = mysqli_query($db_link, $sql_insert_new_user);
                 checkSQL($db_link, $query_insert_user);
                 header('Location:login.php');
+             }
+             else{
+                 echo "Registration failed, Username already exits";
+             }
 
         }
         else

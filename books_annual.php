@@ -31,7 +31,8 @@ error_reporting(E_ALL);
 		}
 
 		//Get all savings in array
-		$sql_sav = "SELECT * FROM savings WHERE cust_id IN (SELECT cust_id FROM customer WHERE cust_active = 1) AND sav_date < $int_year_end";
+		$sql_sav = "SELECT * FROM savings WHERE cust_id IN (SELECT cust_id FROM customer WHERE cust_active = 1) 
+		            AND sav_date < $int_year_end";
 		$query_sav = mysqli_query($db_link, $sql_sav);
 		checkSQL($db_link, $query_sav);
 		$savings = array();

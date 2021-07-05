@@ -3,14 +3,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 //Select SHARES from database
-$sql_sha = "SELECT * FROM shares, user WHERE shares.user_id = user.user_id AND cust_id = '$_SESSION[cust_id]' ORDER BY share_date DESC";
+$sql_sha = "SELECT * FROM shares, user WHERE shares.user_id = user.user_id 
+AND cust_id = '$_SESSION[member_id]' ORDER BY share_date DESC";
 $query_sha = mysqli_query($db_link, $sql_sha);
 checkSQL($db_link, $query_sha);
 
 //Make array for exporting data
 $share_exp_date = date("Y-m-d",time());
 $_SESSION['share_export'] = array();
-$_SESSION['share_exp_title'] = $_SESSION['cust_id'].'_shares_'.$share_exp_date;
+$_SESSION['share_exp_title'] = $_SESSION['member_id'].'_shares_'.$share_exp_date;
 ?>
 
 <table id="tb_table">

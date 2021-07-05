@@ -377,7 +377,8 @@ error_reporting(E_ALL);
 				}
 			echo '</ul>
 		</div>';
-	}
+    }
+	
 
 /**
 	* Generate a Javascript alert message
@@ -633,16 +634,6 @@ error_reporting(E_ALL);
 
 		// Return customer number
 		return $custNo;
-	}
-
-	function generateMemberId($custNo)
-	{
-		$member_id =int((base64_encode($custNo) * 2014)/2021);
-		return $member_id;
-	}
-	function checkPagePermisions()
-	{
-		
 	}
 
 

@@ -12,12 +12,9 @@ error_reporting(E_ALL);
 	//require_once 'functions.php';
 
 	if(isset($_POST['adminSetup'])){
-
-		// Make new passwort pepper
-		require 'setup_makepepper.php';
-
-		// Include passwort pepper
-		require 'config/pepper.php';
+           
+		//use the password pepper
+		$pepper = 'g7NIiru!!8';
 
 		// Sanitize user input
 		$admin_name = sanitize($db_link, $_POST['admin_name']);
@@ -48,6 +45,7 @@ error_reporting(E_ALL);
 		<script src="functions_validate.js"></script>
 	</head>
 	<body>
+		<div class="main__container">
 		<div class="content_center">
 			<img src="ico/mangoo_l.png" style="width:380px; margin-top:3em; margin-bottom:2em;"/>
 			<p class="heading">mangoO Setup Assistant</p>
@@ -62,6 +60,7 @@ error_reporting(E_ALL);
 				</form>
 			</div>
 
+		</div>
 		</div>
 	</body>
 </html>
