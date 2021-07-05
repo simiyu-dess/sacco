@@ -124,7 +124,7 @@ error_reporting(E_ALL);
 			<?PHP
 			while ($row_expcur = mysqli_fetch_assoc($query_expcur)){
 				if ($row_expcur['cust_id'] != 0 AND $row_expcur['cust_id'] != NULL){
-					$result_cust = getCustomer($row_expcur['cust_id']);
+					$result_cust = getCustomer($db_link,$row_expcur['cust_id']);
 					$exp_recipient = $result_cust['cust_name'].' (<a href="customer.php?cust='.$row_expcur['cust_id'].'">'.$result_cust['cust_no'].'</a>)';
 				}
 				else $exp_recipient = $row_expcur['exp_recipient'];

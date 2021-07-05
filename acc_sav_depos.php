@@ -137,7 +137,7 @@ error_reporting(E_ALL);
 		    <a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
 		    <a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
 		    <a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a> 
-		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'>">New Loan</a>';
+		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
 		}
 		?>
 		</div>

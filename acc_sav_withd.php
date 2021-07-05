@@ -36,7 +36,7 @@ error_reporting(E_ALL);
 										   sav_created,
 											user_id)
 											 VALUES (
-												'$_SESSION[cust_id]',
+												'$_SESSION[member_id]',
 												 '$sav_date', 
 												  $sav_amount,
 												  '2', 
@@ -51,7 +51,8 @@ error_reporting(E_ALL);
 		updateSavingsBalance($db_link, $_SESSION['member_id']);
 
 		// Get SAV_ID for the latest entry
-		$sql_savid = "SELECT MAX(sav_id) FROM savings WHERE cust_id = '$_SESSION[cust_id]' AND sav_receipt = '$sav_receipt' AND sav_created = '$timestamp'";
+		$sql_savid = "SELECT MAX(sav_id) FROM savings WHERE cust_id = '$_SESSION[member_id]' 
+		AND sav_receipt = '$sav_receipt' AND sav_created = '$timestamp'";
 		$query_savid = mysqli_query($db_link, $sql_savid);
 		checkSQL($db_link, $query_savid);
 		$sav_id = mysqli_fetch_row($query_savid);
@@ -66,7 +67,7 @@ error_reporting(E_ALL);
 										  inc_receipt, 
 										  inc_created, user_id) 
 										  VALUES (
-											  '$_SESSION[cust_id]',
+											  '$_SESSION[member_id]',
 											   '2', 
 											   '$sav_id[0]', 
 											   '$_SESSION[fee_withdraw]', 

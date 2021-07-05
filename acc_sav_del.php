@@ -24,7 +24,7 @@ error_reporting(E_ALL);
 		checkSQL($db_link, $query_delsav);
 
 		// Update savings account balance
-		updateSavingsBalance($db_link, $_SESSION['cust_id']);
+		updateSavingsBalance($db_link, $_SESSION['member_id']);
 
 		//If Subscription Fee is deleted, revert date of last subscription by one year (and five seconds)
 		/*
@@ -37,6 +37,6 @@ error_reporting(E_ALL);
 	}
 
 	//Refer back to ACC_SAV_DEPOS.PHP
-	header('Location: acc_sav_depos.php?cust='.$_SESSION['cust_id']);
+	header('Location: acc_sav_depos.php?cust='.$_SESSION['member_id']);
 	
 ?>

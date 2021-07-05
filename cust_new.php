@@ -27,7 +27,6 @@ error_reporting(E_ALL);
 		$custsick_id = sanitize($db_link, $_POST['custsick_id']);
 		$cust_since = strtotime(sanitize($db_link, $_POST['cust_since']));
 		$_SESSION['receipt_no'] = sanitize($db_link, $_POST['receipt_no']);
-		$cust_id = generateMemberId($cust_no);
 
 		//Insert new Customer into CUSTOMER
 		$sql_insert = "INSERT INTO customer (cust_no, cust_name, cust_email, cust_since, cust_active, user_id) VALUES 
@@ -41,7 +40,7 @@ error_reporting(E_ALL);
 		$query_maxid = mysqli_query($db_link, $sql_maxid);
 		checkSQL($db_link, $query_maxid);
 		$maxid = mysqli_fetch_assoc($query_maxid);
-		$_SESSION['cust_id'] = $maxid['MAX(cust_id)'];
+		$_SESSION['member_id'] = $maxid['MAX(cust_id)'];
 
 		//Insert Entrance Fee and Stationary Sales into INCOMES
 		/*
@@ -100,7 +99,7 @@ error_reporting(E_ALL);
 					//}
 				//}
 				//else { alert(fail); return false; }
-			//}
+			}
 		</script>
 		<script src="functions_validate.js"></script>
 	</head>

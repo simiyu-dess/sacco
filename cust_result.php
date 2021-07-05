@@ -111,7 +111,15 @@ error_reporting(E_ALL);
 								</tr>';
 
 					//Prepare data for export to Excel file
-					array_push($_SESSION['cust_export'], array("Cust No." => $row_custsearch['cust_no'], "Name" => $row_custsearch['cust_name'], "DoB" => date("d.m.Y", $row_custsearch['cust_dob']), "Gender" => $row_custsearch['custsex_name'], "Occupation" => $row_custsearch['cust_occup'], "Address" => $row_custsearch['cust_address'], "Phone No." => $row_custsearch['cust_phone']));
+					array_push($_SESSION['cust_export'],
+					 array("Cust No." => $row_custsearch['cust_no'],
+					  "Name" => $row_custsearch['cust_name'],
+					   "DoB" => date("d.m.Y",
+					    $row_custsearch['cust_dob']), 
+						"Gender" => $row_custsearch['custsex_name'],
+						 "Occupation" => $row_custsearch['cust_occup'], 
+						 "Address" => $row_custsearch['cust_address'],
+						  "Phone No." => $row_custsearch['cust_phone']));
 				}
 				?>
 			</table>

@@ -1,5 +1,6 @@
 <?php 
 require 'functions.php';
+//session start
 session_start();
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
@@ -11,7 +12,6 @@ error_reporting(E_ALL);
    
 	return "logout_success.php";
    }
-	//session_start();
 else
 {
 	$fingerprint = fingerprint();
@@ -94,7 +94,7 @@ else
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V9</title>
+	<title>Login ChenKen</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
