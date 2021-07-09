@@ -152,7 +152,8 @@ error_reporting(E_ALL);
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-					<input class="input100" type="password" name="password" placeholder="password">
+					<input class="input100" type="password" name="conf_password"
+                     placeholder=" repeat password">
 					<span class="focus-input100"></span>
 				</div>
 
