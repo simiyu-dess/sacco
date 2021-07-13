@@ -37,7 +37,8 @@ error_reporting(E_ALL);
 	checkSQL($db_link, $query_employees);
 
 	// Select employees from EMPLOYEE who are already associated with a user
-	$sql_empl_assoc = "SELECT empl_id FROM employee WHERE empl_id != 0 AND empl_id IN (SELECT empl_id FROM user)";
+	$sql_empl_assoc = "SELECT empl_id FROM employee WHERE empl_id != 0 AND empl_id 
+	IN (SELECT empl_id FROM user)";
 	$query_empl_assoc = mysqli_query($db_link, $sql_empl_assoc);
 	checkSQL($db_link, $query_empl_assoc);
 	$empl_assoc = array();

@@ -47,8 +47,9 @@ error_reporting(E_ALL);
 					</th>
 				</form>
 			</tr>
+			<?php if($_SESSION['log_ugroup'] == "members")
+				{?>
 			<tr>
-				<th>Cust. No.</th>
 				<th>Name</th>
 				
 				<th>Email</th>
@@ -58,29 +59,23 @@ error_reporting(E_ALL);
 			$count = 0;
 			while ($row_custact = mysqli_fetch_assoc($query_custact)){
 			array_push($_SESSION['members'], array(
-					"number" => $row_custact['cust_no'],
+					"number" => '000',
 					"name"   => $row_custact['cust_name'],
 					"email"  => $row_custact['cust_email']
 				));
-				echo '<tr>
-								<td>
-									<a href="customer.php?cust='.$row_custact['cust_id'].'">'.$row_custact['cust_no'].'</a>
-								</td>
+				
+					echo '<tr>
+							
 								<td>'.$row_custact['cust_name'].'</td>
 								
 								<td>'.$row_custact['cust_email'].'</td>
 								<td>'.date("d.m.Y",$row_custact['cust_since']).'</td>
 							</tr>';
-
-				array_push($_SESSION['rep_export'], array("Cust. No." => $row_custact['cust_no'],
-				 "Customer Name" => $row_custact['cust_name'],  "Gender" => $row_custact['custsex_name'], 
-				  "customer email." => $row_custact['cust_email'], 
-				  "Member since" => date("d.m.Y",$row_custact['cust_since'])));
-
-				$count++;
-			}
-			?>
-			<tr class="balance">
+				
+							$count++;
+						}
+				?>
+				<tr class="balance">
 				<td colspan="8">
 				<?PHP
 				echo $count.' active customer';
@@ -88,6 +83,51 @@ error_reporting(E_ALL);
 				?>
 				</td>
 			</tr>
-		</table>
+		<?php
+			}?>
+				<?php if($_SESSION['log_ugroup'] != "members")
+					{?>
+						<tr>
+							<th>Cust. No.</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Memb. since</th>
+						</tr>
+						<?PHP
+						$count = 0;
+						while ($row_custact = mysqli_fetch_assoc($query_custact)){
+						array_push($_SESSION['members'], array(
+								"number" => $row_custact['cust_no'],
+								"name"   => $row_custact['cust_name'],
+								"email"  => $row_custact['cust_email']
+							));
+
+					echo '<tr>
+				                 
+									<td>
+									<a href="customer.php?cust='.$row_custact['cust_id'].'">'.$row_custact['cust_no'].'</a>
+								</td>
+							
+								<td>'.$row_custact['cust_name'].'</td>
+								
+								<td>'.$row_custact['cust_email'].'</td>
+								<td>'.date("d.m.Y",$row_custact['cust_since']).'</td>
+							</tr>';
+				
+				$count++;
+						}
+				?>
+				<tr class="balance">
+				<td colspan="8">
+				<?PHP
+				echo $count.' active customer';
+				if ($count != 1) echo 's';
+				?>
+				</td>
+			</tr>
+		
+			<?php }?>
+			 </table>
+			
 	</body>
 </html>

@@ -387,6 +387,7 @@ error_reporting(E_ALL);
 	function showMessage($text) {
 		echo '<script language=javascript>
 						alert(\''.$text.'\')
+						
 					</script>';
 	}
 	function checkMember($db_link)

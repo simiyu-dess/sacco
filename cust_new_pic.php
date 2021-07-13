@@ -1,10 +1,12 @@
 <?PHP
+session_start();
+checkLogin();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 	require 'functions.php';
 	require 'function_pic.php';
-	checkLogin();
+	
 	$db_link = connect();
 
 	//Check where Re-direct comes from
@@ -14,8 +16,8 @@ error_reporting(E_ALL);
 
 	//SKIP-Button
 	if (isset($_POST['skip'])){
-		if ($from == "new") header('Location: acc_share_buy.php?cust='.$_SESSION['cust_id'].'&rec='.$_SESSION['receipt_no']);
-		else header('Location: customer.php?cust='.$_SESSION['cust_id']);
+		if ($from == "new") header('Location: acc_share_buy.php?cust='.$_SESSION['member_id'].'&rec='.$_SESSION['receipt_no']);
+		else header('Location: customer.php?cust='.$_SESSION['member_id']);
 	}
 
 	//UPLOAD-Button
@@ -23,7 +25,7 @@ error_reporting(E_ALL);
 		//Settings
 		$max_file_size = 1024*2048; // 2048kb
 		$valid_exts = array('jpeg', 'jpg', 'png', 'tif', 'tiff');
-		$path = 'uploads/photos/customers/cust'.$_SESSION['cust_id'].'_';
+		$path = 'uploads/photos/customers/cust'.$_SESSION['member_id'].'_';
 
 		//Thumbnail Sizes
 		$sizes = array(100 => 130, 146 => 190, 230 => 300);
@@ -38,19 +40,20 @@ error_reporting(E_ALL);
 				foreach ($sizes as $width => $height) {
 					$files[] = resizeImage($width, $height, $path);
 				}
-				$sql_picpath = "UPDATE customer SET cust_pic = '$files[1]' WHERE cust_id = '$_SESSION[cust_id]'";
+				$sql_picpath = "UPDATE customer SET cust_pic = '$files[1]' 
+				WHERE cust_id = '$_SESSION[member_id]'";
 				$query_picpath = mysqli_query($db_link, $sql_picpath);
 				checkSQL($db_link, $query_picpath);
 
-				if ($from == "new")	header('Location: acc_share_buy.php?cust='.$_SESSION['cust_id'].'&rec='.$_SESSION['receipt_no']);
-				else header('Location:customer.php?cust='.$_SESSION['cust_id']);
+				if ($from == "new")	header('Location: acc_share_buy.php?cust='.$_SESSION['member_id'].'&rec='.$_SESSION['receipt_no']);
+				else header('Location:customer.php?cust='.$_SESSION['member_id']);
 			}
 			else $error_msg = 'Unsupported file';
 		}
 		else $error_msg = 'Please choose an image smaller than 2048kB.';
 	}
 
-	$result_customer = getCustomer($db_link, $_SESSION['cust_id']);
+	$result_customer = getCustomer($db_link, $_SESSION['member_id']);
 ?>
 
 <!DOCTYPE HTML>

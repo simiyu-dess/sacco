@@ -41,7 +41,10 @@ error_reporting(E_ALL);
 
 			<table id="tb_table">
 				<colgroup>
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{?>
 					<col width="7.5%">
+					<?php } ?>
 					<col width="30%">
 					<col width="10%">
 					<col width="15%">
@@ -58,7 +61,9 @@ error_reporting(E_ALL);
 					</form>
 				</tr>
 				<tr>
+				<?php if($_SESSION['log_ugroup'] != "members") {?>
 					<th>Loan No.</th>
+					<?php } ?>
 					<th>Customer</th>
 					<th>Loan Period</th>
 					<th>Principal</th>
@@ -84,25 +89,34 @@ error_reporting(E_ALL);
 							"dateout" => date("d.m.Y", $row_loans['loan_dateout'])
 						)
 					);
-                        
-					echo '<tr>
-									<td><a href="loan.php?lid='.$row_loans['loan_id'].'">'.$row_loans['loan_no'].'</a></td>
-									<td>'.$row_loans['cust_name'].' (<a href="customer.php?cust='.$row_loans['cust_id'].'">'.$row_loans['cust_no'].')</a></td>
-									<td>'.$row_loans['loan_period'].'</td>
-									<td>'.number_format($loan_balances['pdue']).' '.$_SESSION['set_cur'].'</td>
-									<td>'.number_format($loan_balances['idue']).' '.$_SESSION['set_cur'].'</td>
-									<td>'.number_format($loan_balances['balance']).' '.$_SESSION['set_cur'].'</td>
-									<td>'.date("d.m.Y", $row_loans['loan_dateout']).'</td>
+                        ?>
+					<tr>            <?php if($_SESSION['log_ugroup'] != "members") {?>
+									<td><a href="loan.php?lid=<?php echo $row_loans['loan_id']; ?>"><?php echo $row_loans['loan_no']; ?></a></td>
+									<?php } ?>
+									<td><?php echo $row_loans['cust_name']; ?></td>
+									<td><?php echo $row_loans['loan_period']; ?></td>
+									<td><?php echo number_format($loan_balances['pdue']).' '.$_SESSION['set_cur']; ?></td>
+									<td><?php echo number_format($loan_balances['idue']).' '.$_SESSION['set_cur']; ?></td>
+									<td><?php echo number_format($loan_balances['balance']).' '.$_SESSION['set_cur']; ?></td>
+									<td><?php echo date("d.m.Y", $row_loans['loan_dateout']); ?></td>
 								</tr>';
 
-					// Export Array
+					<?php
 					array_push($_SESSION['rep_export'], array("Loan No." => $row_loans['loan_no'], "Customer" => $row_loans['cust_name'].' ('.$row_loans['cust_no'].')', "Status" => $row_loans['loanstatus_status'],"Loan Period" => $row_loans['loan_period'], "Principal" => $loan_balances['pdue'], "Interest" => $loan_balances['idue'], "Remaining" => $loan_balances['balance'], "Issued on" => date("d.m.Y", $row_loans['loan_dateout'])));
 
 					$count++;
+					
 				}
 				?>
 				<tr class="balance">
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{?>
 					<td	colspan="7">
+					<?php } 
+					else
+					{?>
+					<td colspan="6">
+					<?php }?>
 					<?PHP
 					echo $count.' active loan';
 					if ($count != 1) echo 's';

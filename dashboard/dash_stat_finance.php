@@ -38,27 +38,60 @@ while($row_sav = mysqli_fetch_assoc($query_sav)){
 $sav_depos_percent = $sav_depos === 0 ? 0 : $sav_depos/($sav_depos+$sav_withd)*100;
 $sav_withd_percent = $sav_withd=== 0 ? 0 : $sav_withd/($sav_depos+$sav_withd)*100;
 ?>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Feed', 'Amount'],
+                <?php
+                    echo "['Deposits', " . $sav_depos. "],";
+                    echo "['Withdrawals', " . $sav_withd . "],";
+                ?>
+            ]);
+
+            var options = {
+                title: 'Deposits vs Withdrawals',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('bar'));
+            chart.draw(data, options);
+        }
+    </script>
+	 <script type="text/javascript">
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Expense', 'Income'],
+                <?php
+                    echo "['Expense', " . $exp_total. "],";
+                    echo "['Income', " . $inc_total . "],";
+                ?>
+            ]);
+
+            var options = {
+                title: 'Expense vs Income',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('bar__income'));
+            chart.draw(data, options);
+        }
+    </script>
+<!-- Income / Expense Ratio -->
+<p class="heading_narrow">Income / Expense Ratio</p>
+<div id="bar__income">
+</div>
 
 <!-- Income / Expense Ratio -->
-<p class="heading_narrow">Income / Expense Ratio (60 Days)</p>
-<div class="bar">
-	<p style="width:<?PHP echo $inc_percent; ?>%;"><?PHP echo number_format($inc_total).' '.$_SESSION['set_cur']; ?></p>
-	<p style="width:<?PHP echo $exp_percent; ?>%";><?PHP echo number_format($exp_total).' '.$_SESSION['set_cur']; ?></p>
-</div>
-<!-- Key -->
-<div class="key">
-	<p style="width:50%;">Income</p>
-	<p style="width:50%;">Expenses</p>
-</div>
+<p class="heading_narrow">Deposit / Withdraw Ratio</p>
 
-<!-- Income / Expense Ratio -->
-<p class="heading_narrow">Deposit / Withdraw Ratio (60 Days)</p>
-<div class="bar">
-	<p style="width:<?PHP echo $sav_depos_percent; ?>%;"><?PHP echo number_format($sav_depos).' '.$_SESSION['set_cur']; ?></p>
-	<p style="width:<?PHP echo $sav_withd_percent; ?>%";><?PHP echo number_format($sav_withd).' '.$_SESSION['set_cur']; ?></p>
-</div>
+<div id="bar"></div>
 <!-- Key -->
-<div class="key">
-	<p style="width:50%;">Deposits</p>
-	<p style="width:50%;">Withdrawals</p>
+
 </div>
+    
+

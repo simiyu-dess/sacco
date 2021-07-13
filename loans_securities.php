@@ -37,7 +37,10 @@ error_reporting(E_ALL);
 
 			<table id="tb_table">
 				<colgroup>
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{?>
 					<col width="20%">
+					<?php }?>
 					<col width="20%">
 					<col width="20%">
 					<col width="20%">
@@ -52,7 +55,10 @@ error_reporting(E_ALL);
 					</form>
 				</tr>
 				<tr>
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{?>
 					<th>Loan No.</th>
+					<?php } ?>
 					<th>Customer</th>
 					<th>Loan Status</th>
 					<th>Security 1</th>
@@ -68,26 +74,23 @@ error_reporting(E_ALL);
 						if ($s['sec_no'] == 1) $security1 = $s;
 						elseif ($s['sec_no'] == 2) $security2 = $s;
 					}
-					echo '<tr>
-									<td><a href="loan.php?lid='.$row_loans['loan_id'].'">'.$row_loans['loan_no'].'</a></td>
-									<td>'.$row_loans['cust_name'].' (<a href="customer.php?cust='.$row_loans['cust_id'].'">'.$row_loans['cust_no'].')</a></td>
-									<td>'.$row_loans['loanstatus_status'].'</td>
-									<td><a href="security.php?security='.$security1['sec_id'].'">'.$security1['sec_name'].'</a></td>
-									<td><a href="security.php?security='.$security2['sec_id'].'">'.$security2['sec_name'].'</a></td>
-									';
-				  /*
-					if ($security1['sec_path'] != "") {
-						echo '<td><a href="'.$security1['sec_path'].'" target="_blank">'.$security1['sec_name'].' <i class="fa fa-eye"></i></a></td>';
-					}
-					else echo '<td>'.$security1['sec_name'].'</td>';
-					if ($security2['sec_path'] != "") {
-						echo '<td><a href="'.$security2['sec_path'].'" target="_blank">'.$security2['sec_name'].' <i class="fa fa-eye"></i></a></td>';
-					}
-					else echo '<td>'.$security2['sec_name'].'</td>';
-					*/
-					echo '</tr>';
+					?>
+					   <tr>
+									<?php if($_SESSION['log_ugroup'] != "members")
+									{?>
+									<td><a href="loan.php?lid=<?php echo $row_loans['loan_id']; ?>"><?php echo $row_loans['loan_no']; ?></a></td>
+									<?php }?>
+									<td><?php echo $row_loans['cust_name']; ?></td>
+									<td><?php echo $row_loans['loanstatus_status']; ?></td>
+									<td><a href="security.php?security='<?php echo $security1['sec_id'];?>'"><?php echo $security1['sec_name']; ?></a></td>
+									<td><a href="security.php?security='<?php echo $security2['sec_id']; ?>'"><?php echo $security2['sec_name']; ?></a></td>
+									
+				  
 
-					// Export Array
+					
+					</tr>
+
+					<?php 
 					array_push($_SESSION['rep_export'], array("Loan No." => $row_loans['loan_no'], "Customer" => $row_loans['cust_name'].' ('.$row_loans['cust_no'].')', "Status" => $row_loans['loanstatus_status'],"Security 1" => $security1['sec_name'], "Security 2" => $security2['sec_name']));
 
 					$count++;
@@ -95,7 +98,14 @@ error_reporting(E_ALL);
 				?>
 
 				<tr class="balance">
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{?>
 					<td	colspan="5">
+					<?php } 
+					else{
+						?>
+						<td colspan="4">
+						<?php }?>
 					<?PHP
 					echo $count.' loans with securities';
 					?>

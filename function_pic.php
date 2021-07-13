@@ -44,6 +44,4 @@ error_reporting(E_ALL);
 		// Cleanup memory
 		imagedestroy($image);
 		imagedestroy($tmp_img);
-	}
-	
-?> 
+	}?> 

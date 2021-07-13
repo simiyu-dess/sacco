@@ -7,22 +7,24 @@ error_reporting(E_ALL);
 	$fingerprint = fingerprint();
     $db_link = connect();
     $users_id = 0;
-    
+    //password pepper to hash the password
     $pepper = 'g7NIiru!!8';
-    //get usernames from the database
-
+    
+    //checking if the register button has been clicked
     if(isset($_POST['member_register']))
     {
+        //getting the user input
     $member_id = sanitize($db_link, $_POST['member_id']);
     $user_name = sanitize($db_link, $_POST['username']);
     $password = password_hash(sanitize($db_link, $_POST['password']).$pepper, PASSWORD_DEFAULT);
     
 
-   
+   //getting the customer id and cuatomer number from the customer table
     $sql_select_user = "SELECT cust_no, cust_id FROM customer WHERE customer.cust_id > 0";
     $query_user = mysqli_query($db_link,$sql_select_user);
     checkSQL($db_link, $query_user);
-   
+   //checking if the member id exists in the system
+   //if the member id exists continue else throw message
    $user = [];
    $cust_id;
     while($user_id = mysqli_fetch_assoc($query_user))
@@ -33,6 +35,7 @@ error_reporting(E_ALL);
          $cust_id = $user_id['cust_id'];
 
         }
+        
    
     }
 
@@ -41,13 +44,14 @@ error_reporting(E_ALL);
    if(!empty($user))
    {
         $member=[];
-        $sql_select_user_names = "SELECT member_id FROM user WHERE user.user_id > 0";
-        $query_existing_member = mysqli_query($db_link, $sql_select_user_names);
+        $sql_userid = "SELECT cust_id FROM customer WHERE cust_id > 0
+        AND cust_id IN (SELECT member_id FROM user)";
+        $query_existing_member = mysqli_query($db_link, $sql_userid);
         checkSQL($db_link, $query_existing_member);
 
         while($member_user = mysqli_fetch_assoc($query_existing_member))
         {
-         if($member_user['member_id'] == strval($member_id)) $member[] = $member_user['member_id'];
+          $member[] = $member_user['cust_id'];
         }
 
         if(empty($member))
@@ -85,14 +89,20 @@ error_reporting(E_ALL);
                 header('Location:logins.php');
              }
              else{
-                 echo "Registration failed, Username already exits";
+                 showMessage("Username already exists, choose a unique name");
+               
              }
 
         }
         else
         {
-           echo "Registration failed"; 
+           showMessage("You already have an account!");
+         
         }
+   }
+   else
+   {
+       showMessage("invalid member number");
    }
 
     }
@@ -112,16 +122,10 @@ error_reporting(E_ALL);
 	<link rel="stylesheet" type="text/css" href="Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="Login/vendor/animate/animate.css">
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="Login/vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="Login/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="Login/vendor/daterangepicker/daterangepicker.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="Login/css/main.css">
@@ -174,24 +178,13 @@ error_reporting(E_ALL);
 		</div>
 	</div>
 	
-	
-
-	<div id="dropDownSelect1"></div>
-	
 <!--===============================================================================================-->
 	<script src="Login/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="Login/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
 	<script src="Login/vendor/bootstrap/js/popper.js"></script>
 	<script src="Login/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<script src="Login/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="Login/vendor/daterangepicker/moment.min.js"></script>
-	<script src="Login/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="Login/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="Login/js/main.js"></script>
 

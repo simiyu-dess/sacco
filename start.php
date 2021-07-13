@@ -34,12 +34,12 @@ error_reporting(E_ALL);
 		</div>
 
 		<!-- Left Side of Dashboard -->
-		<div class="content_left" style="width:50%;">
+		<div class="content_left" style="width:50%; Height:75%">
 			<?PHP include $_SESSION['set_dashl']; ?>
 		</div>
 
 		<!-- Right Side of Dashboard -->
-		<div  class="content_right" style="width:50%;">
+		<div  class="content_right" style="width:50%; Height:75%">
 			<?PHP include $_SESSION['set_dashr']; ?>
 		</div>
 

@@ -40,7 +40,11 @@ error_reporting(E_ALL);
 
 			<table id="tb_table">
 				<colgroup>
-					<col width="10%"/>
+				<?php if ($_SESSION['log_ugroup'] != "members")
+				{?>
+                   <col width="10%"/>
+				<?php } ?>
+					
 					<col width="30%"/>
 					<col width="10%"/>
 					<col width="10%"/>
@@ -57,7 +61,11 @@ error_reporting(E_ALL);
 					</form>
 				</tr>
 				<tr>
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{
+				?>
 					<th>Loan No.</th>
+					<?php } ?>
 					<th>Customer</th>
 					<th>Status</th>
 					<th>Loan Period</th>
@@ -82,16 +90,19 @@ error_reporting(E_ALL);
 							"date" => date("d.m.Y",$row_loanpend['loan_date'])
 						)
 					);
-					echo '<tr>
-									<td><a href="loan.php?lid='.$row_loanpend['loan_id'].'">'.$row_loanpend['loan_no'].'</a></td>
-									<td>'.$row_loanpend['cust_name'].' ('.$row_loanpend['cust_no'].')</td>
-									<td>'.$row_loanpend['loanstatus_status'].'</td>
-									<td>'.$row_loanpend['loan_period'].'</td>
-									<td>'.number_format($row_loanpend['loan_principal']).' '.$_SESSION['set_cur'].'</td>
-									<td>'.number_format(($row_loanpend['loan_repaytotal'] - $row_loanpend['loan_principal'])).' '.$_SESSION['set_cur'].'</td>
-									<td>'.date("d.m.Y",$row_loanpend['loan_date']).'</td>
-								</tr>';
-
+					?>
+				                  <?php if ($_SESSION['log_ugroup'] != "members")
+								  {?>
+									<td><a href="loan.php?lid=<?php $row_loanpend['loan_id']; ?>"><?php $row_loanpend['loan_no'] ?></a></td>
+									<?php } ?>
+									<td><?php echo $row_loanpend['cust_name'];?></td>
+									<td><?php echo $row_loanpend['loanstatus_status'] ?></td>
+									<td><?php echo $row_loanpend['loan_period'] ?></td>
+									<td><?php echo number_format($row_loanpend['loan_principal']).' '.$_SESSION['set_cur']; ?></td>
+									<td><?php echo number_format(($row_loanpend['loan_repaytotal'] - $row_loanpend['loan_principal'])).' '.$_SESSION['set_cur']; ?></td>
+									<td><?php echo date("d.m.Y",$row_loanpend['loan_date']); ?></td>
+								</tr>
+               <?php 
 					// Export Array
 					array_push($_SESSION['rep_export'], array("Loan No." => $row_loanpend['loan_no'], "Customer" => $row_loanpend['cust_name'].' ('.$row_loanpend['cust_no'].')', "Status" => $row_loanpend['loanstatus_status'], "Loan Period" => $row_loanpend['loan_period'], "Principal" => $row_loanpend['loan_principal'], "Interest" => ($row_loanpend['loan_repaytotal'] - $row_loanpend['loan_principal']), "Repay Total" => $row_loanpend['loan_repaytotal'], "Applied for on" => date("d.m.Y",$row_loanpend['loan_date'])));
 
@@ -99,7 +110,16 @@ error_reporting(E_ALL);
 				}
 				?>
 				<tr class="balance">
+				<?php if($_SESSION['log_ugroup'] != "members")
+				{?>
 					<td colspan="7">
+					<?php } 
+					else
+					{
+						?>
+						<td colspan="6">
+					<?php }
+					?>
 					<?PHP
 					echo $count.' pending loan';
 					if ($count != 1) echo 's';
