@@ -218,32 +218,32 @@
 
 	<body>
 		<!-- MENU -->
-		<?PHP if($_SESSION['log_ugroup'] == "members") 
-		{
-			includeuser();
-		}
-		else{
+		  <?php 
 			includesMenu(2);
-		}
-		?>
+			?>
+		
 		<div id="menu_main">
 		<?PHP
-			if ($result_cust['cust_active'] == 1 && $_SESSION['log_ugroup']== 'members') echo '
+			if ($result_cust['cust_active'] == 1 && $_SESSION['log_ugroup']== 'members'): ?>
+			    <a href="member.php">Home </a>
 				<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Deposit</a>
 				<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
 				<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
-				<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
-			if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
-				<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
-			?>
-			<?PHP if ($_SESSION['log_admin']==1) echo'
+				<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>
+				<?php endif ?>
+
+			<?php if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])): ?>
+				<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>
+			<?php endif ?>
+			<?PHP if ($_SESSION['log_admin']==1):?>
 			    <a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Deposit</a>
 				<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
 				<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
 				<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>
 				<a href="cust_new.php">New Customer</a>
 				<a href="cust_act.php">Active Members.</a>
-			    <a href="cust_inact.php">Inactive Members.</a>';
+			    <a href="cust_inact.php">Inactive Members.</a>
+				<?php endif ?>
 			?>
 		</div>
 

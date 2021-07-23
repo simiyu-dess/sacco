@@ -16,8 +16,10 @@ error_reporting(E_ALL);
 		<?PHP includeMenu(2); ?>
 		<div id="menu_main">
 			<a href="cust_search.php" id="item_selected">Search</a>
-		
+		    <?php if ($_SESSION['log_ugroup']=="admin"):?>
+
 			<a href="cust_new.php">New Member</a>
+			<?php endif ?>
 			<a href="cust_act.php">Active Members</a>
 			<a href="cust_inact.php">Inactive Members</a>
 		</div>

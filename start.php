@@ -27,13 +27,15 @@ error_reporting(E_ALL);
 		?>
 		<!-- MENU MAIN -->
 		<div id="menu_main">
+		<?php if($_SESSION['log_ugroup']  == "admin"): ?>
 			<a href="cust_search.php">Search Member</a>
 			<a href="cust_new.php">New Member</a>
 			<a href="loans_search.php">Search Loan</a>
-			<?php if ($_SESSION['log_ugroup'] == "members")
-			{?>
+			<?php endif ?>
+			<?php if ($_SESSION['log_ugroup'] == "members"):?>
+			
            <a href="member.php">MyAccount</a>
-			<?php }?>
+			<?php endif ?>
 			
 		</div>
 

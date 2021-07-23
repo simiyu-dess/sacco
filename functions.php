@@ -331,7 +331,7 @@ error_reporting(E_ALL);
 		echo '
 		<!-- MENU HEADER -->
 		<div id="menu_header">
-			<img src="" alt="CHENKEN WELFARE ASSOCIATION" style="margin: 1em 0 0 .75em;"/>
+			<h style="margin: 1em 0 0 .75em;">CHENKEN WELFARE ASSOCIATION</h>
 			<div id="menu_logout">
 				<ul>
 					<li>'.$_SESSION['log_user'].'

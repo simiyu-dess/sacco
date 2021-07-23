@@ -131,10 +131,13 @@ error_reporting(E_ALL);
 		{?>
 			
 			<a href="member.php">Back</a>
-			<a href="acc_sav_depos.php?cust="<?php echo $_SESSION['member_id'];?> id="item_selected">Deposit</a>
+			
+		    <a href="acc_sav_depos.php?cust="<?php echo $_SESSION['member_id'];?> id="item_selected">Deposit</a>
+		   <!--
 		    <a href="acc_sav_withd.php?cust=<?php echo $_SESSION['member_id'];?>">Withdrawal</a>
 		    <a href="acc_share_buy.php?cust=<?php echo $_SESSION['member_id'];?>">Share Buy</a>
 		    <a href="acc_share_sale.php?cust=<?php echo $_SESSION['member_id'];?>">Share Sale</a> 
+			-->
 		    <a href="loan_new.php?cust=<?php echo $_SESSION['member_id'];?>">New Loan</a>
 		<?php } ?>
 

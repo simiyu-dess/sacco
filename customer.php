@@ -124,14 +124,15 @@ error_reporting(E_ALL);
 		<!-- MENU -->
 		<?PHP includeMenu(2); ?>
 		<div id="menu_main">
-			<a href="cust_search.php">Search</a>
+			
 			<?PHP
-			if ($result_cust['cust_active'] == 1 && $_SESSION['log_ugroup']== 'members') echo '
+			if ($result_cust['cust_active'] == 1 && $_SESSION['log_ugroup']== 'members'): ?>
+			<a href="cust_search.php">Search</a>
+
 				<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Deposit</a>
-				<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
-				<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
-				<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
-			if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
+				
+				<?php endif ?>
+			<?php if ($result_cust['cust_active'] == 1 AND ($timestamp-$result_cust['cust_since']) > convertMonths($_SESSION['set_minmemb'])) echo '
 				<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
 			?>
 			<?PHP if ($_SESSION['log_admin']==1) echo'
