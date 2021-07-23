@@ -86,6 +86,7 @@ error_reporting(E_ALL);
 ?>
 <!DOCTYPE HTML>
 <html>
+
 	<?PHP includeHead('Savings Deposit',0) ?>
 		<script>
 			function validate(form){
@@ -98,64 +99,66 @@ error_reporting(E_ALL);
 		</script>
 		<script src="functions_validate.js"></script>
 		<script src="function_randCheck.js"></script>
-	</head>
+	
 
 	<body>
 		<!-- MENU -->
 		<?PHP includeMenu(2); ?>
-		<div id=menu_main>
-		<?php 
-		$content = "content_right";
-		if ($_SESSION['log_ugroup'] != "members")
-		{
+		<div id="menu_main">
+		<?php
+     if ($_SESSION['log_ugroup'] != "members")
+		{?>
 	 
-		echo '<a href="customer.php?cust='.$_SESSION['member_id'].'">Back</a>';
-		echo '<a href="cust_search.php">Search</a>';
-		echo '<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>';
-		echo '<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>';
-		echo '<a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>';
-		echo '<a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a>';
-		echo '<a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
-		echo '<a href="cust_act.php">Active Cust.</a>
-			<a href="cust_inact.php">Inactive Cust.</a>';
-		}
-		if ($_SESSION['log_delete'] == 1) 
-			{
+		<a href="customer.php?cust='<?php echo $_SESSION['member_id'];?>">Back</a>
+		<a href="cust_search.php">Search</a>
+		<a href="acc_sav_depos.php?cust=<?php echo $_SESSION['member_id'];?>" id="item_selected">Deposit</a>
+		<a href="acc_sav_withd.php?cust=<?php echo $_SESSION['member_id'];?>">Withdrawal</a>
+		<a href="acc_share_buy.php?cust=<?php echo $_SESSION['member_id'];?>">Share Buy</a>
+		<a href="acc_share_sale.php?cust=<?php echo $_SESSION['member_id'];?>">Share Sale</a>
+		<a href="loan_new.php?cust=<?php echo $_SESSION['member_id'];?>">New Loan</a>
+		<a href="cust_act.php">Active Memb.</a>
+		<a href="cust_inact.php">Inactive Memb.</a>
+		<?php } ?>
+		<?php if ($_SESSION['log_delete'] == 1) 
+			{?>
 			
-			echo '<a href="cust_new.php>New Customer</a>';
+			<a href="cust_new.php">New Member</a>
 			
-		}
-		
-	
-		
-		if($_SESSION['log_ugroup'] == "members")
-		{
-			$content = "content_center";
-			echo '
+		<?php }?>
+		<?php 
+       if($_SESSION['log_ugroup'] == "members")
+	   
+		{?>
+			
 			<a href="member.php">Back</a>
-			<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'" id="item_selected">Deposit</a>
-		    <a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>
-		    <a href="acc_share_buy.php?cust='.$_SESSION['member_id'].'">Share Buy</a>
-		    <a href="acc_share_sale.php?cust='.$_SESSION['member_id'].'">Share Sale</a> 
-		    <a href="loan_new.php?cust='.$_SESSION['member_id'].'">New Loan</a>';
-		}
-		?>
+			<a href="acc_sav_depos.php?cust="<?php echo $_SESSION['member_id'];?> id="item_selected">Deposit</a>
+		    <a href="acc_sav_withd.php?cust=<?php echo $_SESSION['member_id'];?>">Withdrawal</a>
+		    <a href="acc_share_buy.php?cust=<?php echo $_SESSION['member_id'];?>">Share Buy</a>
+		    <a href="acc_share_sale.php?cust=<?php echo $_SESSION['member_id'];?>">Share Sale</a> 
+		    <a href="loan_new.php?cust=<?php echo $_SESSION['member_id'];?>">New Loan</a>
+		<?php } ?>
+
 		</div>
+	
 
 		<!-- LEFT SIDE: Input for new Deposit -->
-		<div class="content_left" style="width:35%;">
-		<?PHP if ($_SESSION['log_delete'] == 1) 
-			{?>
+		<?php if ($_SESSION['log_delete'] == 1) 
+		{?>
+		
+		<div class = "content_left" style="width: 35%;">
+		
 			<p class="heading_narrow">Deposit for <?PHP echo $result_cust['cust_name'].' ('.$result_cust['cust_no'].')'; ?></p>
             
 			<form action="acc_sav_depos.php" method="post" onsubmit="return validate(this);">
 				<table id="tb_fields">
 					<tr>
 						<td>Date:</td>
-						<td><input type="text" id="datepicker" name="sav_date" value="<?PHP echo date("d.m.Y",$timestamp); ?>" placeholder="DD.MM.YYYY" tabindex="1" required="required" /></td>
+						<td><input type="text" id="datepicker" name="sav_date" value="<?PHP echo date("d.m.Y",$timestamp); ?>"
+						 placeholder="DD.MM.YYYY" tabindex="1" required="required" /></td>
 					</tr>
 					<?PHP
 					if ($_SESSION['set_sfx'] == 1)
+					{
 						echo '
 						<tr>
 							<td>Transaction Type:</td>
@@ -170,7 +173,11 @@ error_reporting(E_ALL);
 							<td>Fix Deposit until:</td>
 							<td><input type="text" id="datepicker2" name="sav_fixed" placeholder="DD.MM.YYYY" tabindex="2" /></td>
 						</tr>';
-					else echo '<input type="hidden" name="savtype_id" value="1" />';
+					}
+					if($_SESSION['set_sfx'] != 1)
+					{
+						echo  '<input type="hidden" name="savtype_id" value="1" />';
+					}
 					?>
 					<tr>
 						<td>Amount:</td>
@@ -195,11 +202,22 @@ error_reporting(E_ALL);
 					</tr>
 				</table>
 			</form>
-			<?php }?>
-		</div>
+			</div>
+			<?php } ?>
+		
+		
+		
 
 		<!-- RIGHT SIDE: Statement for Savings Account -->
-		<div class='<?php echo $content ?>' style="width:65%;">
+		<?php if ($_SESSION['log_delete'] == 1) 
+		{?>
+		<div class='content_right' style="width:65%;">
+		<?php } 
+
+            else
+			{?>
+				<div class='content_center' style="width:75%;">
+				<?php } ?>
 
 			<?PHP include 'acc_sav_list.php'; ?>
 

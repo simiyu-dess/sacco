@@ -17,9 +17,9 @@ error_reporting(E_ALL);
 		<div id="menu_main">
 			<a href="cust_search.php" id="item_selected">Search</a>
 		
-			<a href="cust_new.php">New Customer</a>
-			<a href="cust_act.php">Active Customers</a>
-			<a href="cust_inact.php">Inactive Customers</a>
+			<a href="cust_new.php">New Member</a>
+			<a href="cust_act.php">Active Members</a>
+			<a href="cust_inact.php">Inactive Members</a>
 		</div>
 					
 		<!-- CONTENT: Customer Search -->
@@ -36,7 +36,7 @@ error_reporting(E_ALL);
 			?>
 
 			<form action="cust_result.php" method="post">
-				<p class="heading">Detailed Customer Search</p>
+				<p class="heading">Detailed Member Search</p>
 				<input type="text" name="cust_search_no" placeholder="Number or number part" tabindex=1 />
 				<br/><br/>
 				<input type="text" name="cust_search_name" placeholder="Name or name part" tabindex=2 />

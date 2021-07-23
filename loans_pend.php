@@ -93,7 +93,7 @@ error_reporting(E_ALL);
 					?>
 				                  <?php if ($_SESSION['log_ugroup'] != "members")
 								  {?>
-									<td><a href="loan.php?lid=<?php $row_loanpend['loan_id']; ?>"><?php $row_loanpend['loan_no'] ?></a></td>
+									<td><a href="loan.php?lid=<?php $row_loanpend['loan_id']; ?>"><?php echo $row_loanpend['loan_no']; ?></a></td>
 									<?php } ?>
 									<td><?php echo $row_loanpend['cust_name'];?></td>
 									<td><?php echo $row_loanpend['loanstatus_status'] ?></td>

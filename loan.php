@@ -578,25 +578,54 @@ error_reporting(E_ALL);
 						</td>
 						<td>Status:</td>
 						<td>
+						<?php 
+						$sql_loanstatus = "SELECT * FROM loanstatus";
+						$query_loanstatus = mysqli_query($db_link, $sql_loanstatus);
+						?>
+						  <?php  if ($_SESSION['log_ugroup'] == "admin")
+						  {?>
+
 							<select name = "loan_status" id ="loan_status" size="1">
 								<?PHP
 								//Select Loanstatus from LOANSTATUS
-								$sql_loanstatus = "SELECT * FROM loanstatus";
-								$query_loanstatus = mysqli_query($db_link, $sql_loanstatus);
-								while ($row_status = mysqli_fetch_assoc($query_loanstatus)){
+								
+								while($row_status = mysqli_fetch_assoc($query_loanstatus)){
 									echo '<option value="'.$row_status['loanstatus_id'].'"';
 									if ($row_status['loanstatus_id'] == $result_loan['loanstatus_id']) echo ' selected="selected" ';
 									echo '>'.$row_status['loanstatus_status'].'</option>';
 								}
 								?>
 							</select>
+							<?php }
+							else
+							{
+								while( $row_status = mysqli_fetch_assoc($query_loanstatus))
+								{
+									if($row_status['loanstatus_id'] == $result_loan['loanstatus_id'])
+									{
+										echo '<input type="text" disabled="disabled" value='.$row_status['loanstatus_status'].'>'; 
+									}
+								}
+								?>
+							<?php } ?>
+								
 						</td>
 					</tr>
 					<tr>
 						<td colspan=4 style="text-align:center">
 							<input type="hidden" name="loan_issued" id="loan_issued" value="<?PHP echo $result_loan['loan_issued']?>" />
 							<input type="hidden" name="loan_fee_receipt" id="loan_fee_receipt" value="" />
+							<?php if($_SESSION['log_ugroup'] == "admin")
+							{?>
 							<input type="submit" name="updatestatus" value="Update" />
+							<?php
+							}
+							else
+							{
+								?>
+								<input type="hidden" name="updatestatus" value="Update" />
+							
+							<?php } ?>
 						</td>
 					</tr>
 				</table>
@@ -740,7 +769,7 @@ error_reporting(E_ALL);
 
 			<!-- MAKE REPAYMENT Form -->
 			<?PHP
-			if ($result_loan['loanstatus_id'] == 2 && $_SESSION['balance'] > 0) echo '
+			if ($result_loan['loanstatus_id'] == 2 && $_SESSION['balance'] > 0 && $_SESSION['log_ugroup'] == "admin") echo '
 			<form name="loan_repay" action="loan.php" method="post" onSubmit="return validate(this)">
 				<table id="tb_fields" style="width:75%">
 					<tr>
@@ -767,7 +796,7 @@ error_reporting(E_ALL);
 			<!-- CHARGE DEFAULT FINE Form -->
 			<form name="default_fine" method="post" action="loan.php" onSubmit="return validateFine(this)">
 				<?PHP
-				if ($result_loan['loanstatus_id'] == 2 && $loan_default != 0)
+				if ($result_loan['loanstatus_id'] == 2 && $loan_default != 0 && $_SESSION['log_ugroup'] == "admin")
 					echo '<table id="tb_fields" style="width:75%; background:#a7dbd8">
 									<tr>
 										<td>Date:</td>

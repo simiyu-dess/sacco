@@ -34,8 +34,10 @@ error_reporting(E_ALL);
 	* random string, and user agent
 	*/
 	function fingerprint(){
-		$tim = time();
-		return $fingerprint = md5($_SERVER['REMOTE_ADDR'].'jikI/20Y,!'.$_SERVER['HTTP_USER_AGENT']);
+		
+		//$fingerprint = md5($_SERVER['REMOTE_ADDR'].'jikI/20Y,!'.$_SERVER['HTTP_USER_AGENT']);
+		$fingerprint = md5('!@#$fjslkvmnfdkp&*()^%$#SDFGHJK*&^%$#@!7454454');
+		return $fingerprint;
 	}
 	function denyLogin()
 	{

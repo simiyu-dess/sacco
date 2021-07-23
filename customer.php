@@ -104,19 +104,13 @@ error_reporting(E_ALL);
 				else { alert(fail); return false }
 			}
 
-			//function validateSubscr(form){
-				//fail = validateDate(form.subscr_date.value)
-				//fail += validateReceipt(form.subscr_receipt.value)
-				//if (document.getElementById('subscr_from_sav').checked){
-				//	fail += validateOverdraft(
 					<?PHP echo $_SESSION['fee_subscr']; ?>, 
 					<?PHP
 						 echo $sav_balance; ?>, 0, 
 						 <?PHP //
 						 echo $_SESSION['set_msb']; ?>, <?PHP
 						 echo $sav_fixed; ?>)}
-				//if (fail == "") return true
-				//else { alert(fail); return false }
+			
 			
 
 			function setVisibility(id, visibility) {

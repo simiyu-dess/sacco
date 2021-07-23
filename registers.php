@@ -17,6 +17,7 @@ error_reporting(E_ALL);
     $member_id = sanitize($db_link, $_POST['member_id']);
     $user_name = sanitize($db_link, $_POST['username']);
     $password = password_hash(sanitize($db_link, $_POST['password']).$pepper, PASSWORD_DEFAULT);
+    $cust_no = strval($member_id);
     
 
    //getting the customer id and cuatomer number from the customer table
@@ -27,6 +28,7 @@ error_reporting(E_ALL);
    //if the member id exists continue else throw message
    $user = [];
    $cust_id;
+   
     while($user_id = mysqli_fetch_assoc($query_user))
     {
         if($user_id['cust_no'] == strval($member_id)) 
@@ -44,7 +46,7 @@ error_reporting(E_ALL);
    if(!empty($user))
    {
         $member=[];
-        $sql_userid = "SELECT cust_id FROM customer WHERE cust_id > 0
+        $sql_userid = "SELECT cust_id, cust_no FROM customer WHERE cust_no = '$member_id'
         AND cust_id IN (SELECT member_id FROM user)";
         $query_existing_member = mysqli_query($db_link, $sql_userid);
         checkSQL($db_link, $query_existing_member);
@@ -114,29 +116,38 @@ error_reporting(E_ALL);
 	<title>Register chenken</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="Login/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="Login/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="Login/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="Login/vendor/select2/select2.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="Login/css/main.css">
 <!--===============================================================================================-->
+<script type="text/javascript">
+function validate(form)
+{
+    fail = "";
+    fail += validatePw(form.password.value, form.conf_password.value);
+    if(fail = "") return true;
+    else
+    {
+        document.getElementById("error_div").innerHTML(fail);
+        return false;
+        
+    }
+
+    
+}
+</script>
 </head>
 <body>
 	
 	
 	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
-			<form class="login100-form validate-form" method="POST">
+			<form class="login100-form validate-form" method="POST" >
+            <div id = "error_div"></div>
 				<span class="login100-form-title p-b-37">
 					Sign In
 				</span>

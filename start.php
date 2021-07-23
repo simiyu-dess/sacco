@@ -27,10 +27,14 @@ error_reporting(E_ALL);
 		?>
 		<!-- MENU MAIN -->
 		<div id="menu_main">
-			<a href="cust_search.php">Search Customer</a>
-			<a href="cust_new.php">New Customer</a>
+			<a href="cust_search.php">Search Member</a>
+			<a href="cust_new.php">New Member</a>
 			<a href="loans_search.php">Search Loan</a>
-			<a href="member.php">MyAccount</a>
+			<?php if ($_SESSION['log_ugroup'] == "members")
+			{?>
+           <a href="member.php">MyAccount</a>
+			<?php }?>
+			
 		</div>
 
 		<!-- Left Side of Dashboard -->
