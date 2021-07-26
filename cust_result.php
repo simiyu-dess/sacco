@@ -73,7 +73,9 @@ error_reporting(E_ALL);
 
 			<table id="tb_table">
 				<colgroup>
+				<?php if($_SESSION['log_ugroup'] == "admin"): ?>
 					<col width="10%">
+					<?php endif ?>
 					<col width="20%">
 					<col width="10%">
 					<col width="10%">
@@ -90,7 +92,9 @@ error_reporting(E_ALL);
 					</form>
 				</tr>
 				<tr>
+				<?php if($_SESSION['log_ugroup'] == "admin"): ?>
 					<th>Cust. No.</th>
+					<?php endif ?>
 					<th>Name</th>
 					<th>DoB</th>
 					<th>Gender</th>
@@ -99,16 +103,21 @@ error_reporting(E_ALL);
 					<th>Phone No.</th>
 				</tr>
 				<?PHP
-				while ($row_custsearch = mysqli_fetch_assoc($query_custsearch)){
-					echo '<tr>
-									<td><a href="customer.php?cust='.$row_custsearch['cust_id'].'">'.$row_custsearch['cust_no'].'</a></td>
-									<td>'.$row_custsearch['cust_name'].'</td>
-									<td>'.date("d.m.Y",$row_custsearch['cust_dob']).'</td>
-									<td>'.$row_custsearch['custsex_name'].'</td>
-									<td>'.$row_custsearch['cust_occup'].'</td>
-									<td>'.$row_custsearch['cust_address'].'</td>
-									<td>'.$row_custsearch['cust_phone'].'</td>
-								</tr>';
+				while ($row_custsearch = mysqli_fetch_assoc($query_custsearch)): ?>
+
+					<tr>
+					<?php if($_SESSION['log_ugroup'] =="admin") : ?>
+									<td><a href="customer.php?cust=<?php echo $row_custsearch['cust_id'] ?>"><?php $row_custsearch['cust_no'] ?></a></td>
+									<?php endif ?>
+
+									<td> <?php echo $row_custsearch['cust_name'] ?></td>
+									<td> <?php echo date("d.m.Y",$row_custsearch['cust_dob']) ?></td>
+									<td> <?php echo $row_custsearch['custsex_name'] ?></td>
+									<td> <?php echo $row_custsearch['cust_occup'] ?></td>
+									<td> <?php $row_custsearch['cust_address'] ?></td>
+									<td> <?php $row_custsearch['cust_phone'] ?></td>
+								</tr>
+								<?php 
 
 					//Prepare data for export to Excel file
 					array_push($_SESSION['cust_export'],
@@ -120,7 +129,7 @@ error_reporting(E_ALL);
 						 "Occupation" => $row_custsearch['cust_occup'], 
 						 "Address" => $row_custsearch['cust_address'],
 						  "Phone No." => $row_custsearch['cust_phone']));
-				}
+			 endwhile
 				?>
 			</table>
 		</div>

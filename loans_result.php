@@ -42,7 +42,9 @@ error_reporting(E_ALL);
 			<!-- SEARCH RESULTS -->
 			<table id="tb_table">
 				<colgroup>
+				<?php if($_SESSION['log_ugroup'] == "admin"): ?>
 					<col width="7.5%" />
+					<?php endif ?>
 					<col width="25%" />
 					<col width="10%" />
 					<col width="7.5%" />
@@ -55,7 +57,9 @@ error_reporting(E_ALL);
 					<th class="title" colspan="8" >Loan Search Results</th>
 				</tr>
 				<tr>
+				<?php if($_SESSION['log_ugroup'] == "admin"): ?>
 					<th>Loan No.</th>
+					<?php endif ?>
 					<th>Customer</th>
 					<th>Status</th>
 					<th>Period</th>
@@ -65,22 +69,24 @@ error_reporting(E_ALL);
 					<th>Issued</th>
 				</tr>
 				<?PHP
-				while ($row_loansearch = mysqli_fetch_assoc($query_loansearch)){
-					echo '<tr>
-									<td><a href="loan.php?lid='.$row_loansearch['loan_id'].'">'.$row_loansearch['loan_no'].'</a></td>
-									<td>'.$row_loansearch['cust_name'].' (<a href="customer.php?cust='.$row_loansearch['cust_id'].'">'.$row_loansearch['cust_no'].'</a>)</td>
-									<td>'.$row_loansearch['loanstatus_status'].'</td>
-									<td>'.$row_loansearch['loan_period'].'</td>
-									<td>'.number_format($row_loansearch['loan_principal']).' '.$_SESSION['set_cur'].'</td>
-									<td>'.number_format(($row_loansearch['loan_repaytotal'] - $row_loansearch['loan_principal'])).' '.$_SESSION['set_cur'].'</td>
-									<td>'.date("d.m.Y",$row_loansearch['loan_date']).'</td>
-									<td>';
+				while ($row_loansearch = mysqli_fetch_assoc($query_loansearch)):?>
+					<tr>            <?php if($_SESSION['log_ugroup'] == "admin"):?>
+									<td><a href="loan.php?lid=<?php echo $row_loansearch['loan_id'];?>"><?php echo $row_loansearch['loan_no'];?></a></td>
+									<?php endif ?>
+									<td><?php echo $row_loansearch['cust_name']?></td>
+									<td><?php echo  $row_loansearch['loanstatus_status'] ?></td>
+									<td><?php echo $row_loansearch['loan_period'] ?></td>
+									<td><?php echo number_format($row_loansearch['loan_principal'])?></td>
+									<td><?php echo number_format(($row_loansearch['loan_repaytotal'] - $row_loansearch['loan_principal'])).' '.$_SESSION['set_cur']?></td>
+									<td><?php echo date("d.m.Y",$row_loansearch['loan_date']) ?></td>
+									<td>
+									<?php
 									if ($row_loansearch['loan_dateout'] == 0) echo "No";
-									else echo date("d.m.Y", $row_loansearch['loan_dateout']);
-						echo	'</td>
-								</tr>';
-				}
-				?>
+									else echo date("d.m.Y", $row_loansearch['loan_dateout']);?>
+							</td>
+								</tr>
+				<?php endwhile ?>
+				
 			</table>
 		</div>
 	</body>
