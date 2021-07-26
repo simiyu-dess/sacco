@@ -215,6 +215,11 @@ a:hover {
 	float:left; 
 	text-align:center;
 }
+#error_div
+{
+	background: #e0e4cc;
+	color: #fa6900;
+}
 .content_right {
 	width:60%; 
 	margin:auto;

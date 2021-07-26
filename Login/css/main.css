@@ -1,10 +1,4 @@
-
-
-
-
-/*//////////////////////////////////////////////////////////////////
-[ FONT ]*/
-
+ /*Fonts */
 @font-face {
   font-family: SourceSansPro-Regular;
   src: url('../fonts/source-sans-pro/SourceSansPro-Regular.ttf'); 
@@ -187,7 +181,7 @@ iframe {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  padding-top: 0%;
+  top: 0;
 
   box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
@@ -202,7 +196,7 @@ iframe {
 
 .login100-form {
   width: 100%;
-  padding-top: 0%;
+  top: 0;
 }
 
 .login100-form-title {
@@ -212,7 +206,7 @@ iframe {
   color: #4b2354;
   line-height: 1.2;
   text-align: center;
-  padding-top: 0px;
+  margin-top: 0;
 }
 
 /*------------------------------------------------------------------
@@ -236,6 +230,16 @@ iframe {
   height: 62px;
   background: transparent;
   padding: 0 20px 0 23px;
+}
+/*styling the error div */
+.error_div 
+{
+  background: #fff;
+ 
+}
+.error_div p
+{
+color: #ee0b0b;
 }
 
 

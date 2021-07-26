@@ -104,8 +104,8 @@ else
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="Login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="Login/css/main.css">
+	<link rel="stylesheet" type="text/css" href="Login/css/util.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -168,8 +168,6 @@ else
 <!--===============================================================================================-->
 	<script src="Login/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-
-	<script src="Login/vendor/bootstrap/js/popper.js"></script>
 	<script src="Login/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
 	<script src="Login/js/main.js"></script>
