@@ -26,7 +26,7 @@ error_reporting(E_ALL);
             exit();
         }
         //checking if the lenght of the password if greater than six characters
-        if(!strlen($_POST['password']>=6))
+        if(strlen($_POST['password']) < 6)
         {
             $_SESSION['error'] = "Passwords lenght must be atleast six characters";
             header('Location:registers.php');

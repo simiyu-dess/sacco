@@ -109,7 +109,7 @@ error_reporting(E_ALL);
 	}
 
 /**
-	* Check if an SQL statement has succeded
+	* Check if an SQL statement has succeeded
 	*/
 	function checkSQL($db_link, $sqlquery){
 		if (!$sqlquery) die ('SQL-Statement failed: '.mysqli_error($db_link));
@@ -407,14 +407,7 @@ error_reporting(E_ALL);
 	}
 	function getCustomerid($dblink,$log_id)
 	{
-		$sql_getId = "SELECT cust_id FROM customer WHERE customer.cust_id = '$_SESSION[gg]'";
-	}
-
-	function generateCustomerId($member_number)
-	{   $f = strval(mt_rand(1,50));
-		$string = str_replace('/', $f, $member_number);
-		$generic_id = bin2hex($member_number);
-		return $generic_id;
+		$sql_getId = "SELECT cust_id FROM customer WHERE customer.cust_id =$log_id'";
 	}
 
 /**
