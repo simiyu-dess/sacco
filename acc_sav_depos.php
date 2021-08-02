@@ -49,7 +49,7 @@ error_reporting(E_ALL);
 											 sav_created,
 											  user_id)
 											   VALUES (
-												  '$_SESSION[cust_id]',
+												  '$_SESSION[member_id]',
 												   '$sav_date',
 													$sav_month,
 													$sav_year,

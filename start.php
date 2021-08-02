@@ -3,12 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 	require 'functions.php';
-	//require_once 'cronjobs/fakecron.php';
 	checkLogin();
 	$db_link = connect();
 	getSettings($db_link);
 	getFees($db_link);
-	checkMember($db_link);
 	chargeOverdueLoans($db_link)
 ?>
 

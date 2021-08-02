@@ -755,7 +755,7 @@ error_reporting(E_ALL);
 			$myfile = fopen("cronjobs/cron.php", "w+");
 			$date = date("Y-m-d");
 			$txt = "<?php \$crondate = '$date' ?>";
-			if (flock($myfile,LOCK_SH)) {
+			if (flock($myfile,LOCK_EX)) {
 				fwrite($myfile,$txt);
 				flock($myfile,LOCK_UN);
 			 } else {
