@@ -275,8 +275,13 @@ error_reporting(E_ALL);
 	* If not, return to start page.
 	*/
 	function getCustID($db_link){
-		if (isset($_GET['cust'])) $_SESSION['member_id'] = sanitize($db_link, $_GET['cust']);
-		else header('Location: start.php');
+		if (isset($_GET['cust']))
+		{ $_SESSION['member_id'] = sanitize($db_link, $_GET['cust']);
+		}
+		else 
+		{
+		header('Location: start.php');
+		}
 	}
 
 	
