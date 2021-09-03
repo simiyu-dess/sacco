@@ -33,11 +33,11 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
                 <div class="main__cards">
                     <div class="card">
                         <div class="card_inner">
-                            <p class="text-primary-p">Total deposits</p>
+                            <p class="text-primary-p">Total deposits(Kshs)</p>
                             <!-- <span class="font-bold text-title">578</span> -->
                             <span class="font-bold text-title">
                                 <?php
-                                    echo "        ";
+                                    echo number_format($sav_depos);
                                 ?>
                             </span>
                         </div>
@@ -45,11 +45,11 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
 
                     <div class="card">
                         <div class="card_inner">
-                            <p class="text-primary-p">Total withdrawals</p>
+                            <p class="text-primary-p">Total withdrawals(kshs)</p>
                             <!-- <span class="font-bold text-title">578</span> -->
                             <span class="font-bold text-title">
                                 <?php
-                                    echo "   ";
+                                    echo number_format($sav_withd);
                                 ?>
                             </span>
                         </div>
@@ -61,7 +61,7 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
                             <!-- <span class="font-bold text-title">578</span> -->
                             <span class="font-bold text-title">
                                 <?php
-                                    echo "   ";
+                                    echo number_format($number_loans);
                                 ?>
                             </span>
                         </div>
@@ -73,7 +73,7 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
                             <!-- <span class="font-bold text-title">578</span> -->
                             <span class="font-bold text-title">
                                 <?php
-                                    echo "   ";
+                                    echo number_format($number_of_members);
                                 ?>
                             </span>
                         </div>
@@ -85,14 +85,14 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
                     <div class="charts__left">
                         <div class="charts__left__title">
                             <div>
-                                <h1>Payroll Visualtion</h1>
-                                <p>Job titles and their respective salaries</p>
+                                <h1>Finance Visualization</h1>
+                                <p>Income received and expenses</p>
                             </div>
                             <i class="fa fa-money" aria-hidden="true"></i>
                         </div>
                         <div id="piechart_3d" style="width: 95%; height: 95%;"></div>
                     </div>
-
+                   
                     <div class="charts__right">
                         <div class="charts__right__title">
                             <div>
@@ -103,26 +103,36 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
                         </div>
 
                         <div class="charts__right__cards">
-                            <div class="card1">
+                            <div class="card4">
                             <h1>Pending Loans</h1>
-                            <p><?php ?></p>
+                            <p><?php echo number_format($number_of_pendingLoans); ?></p>
+                        </div>
+                        <div class="card4">
+                            <h1>Amount Pending</h1>
+                            <p><?php echo number_format($sum_Pending); ?></p>
                         </div>
 
                         <div class="card2">
                             <h1>Issued Loans</h1>
-                            <p><?php echo "  " ?></p>
+                            <p><?php echo number_format($number_of_IssuedLoans); ?></p>
+                        </div>
+
+                        <div class="card2">
+                            <h1>Amount Issued</h1>
+                            <p><?php echo number_format($sum_Issued); ?></p>
                         </div>
 
                         <div class="card3">
                             <h1>Cleared Loans</h1>
                             <?php
+                          echo   number_format($number_of_clearedLoans);
                                 ?>
                         </div>
 
-                        <div class="card4">
-                            <h1>Defaulted Loans</h1>
+                        <div class="card3">
+                            <h1>Acrued Collected</h1>
                             <?php
-                               
+                               echo number_format($interest);
                                 ?>
                         </div>
                     </div>
