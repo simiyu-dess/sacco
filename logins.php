@@ -86,7 +86,10 @@ else
 			
 			header('Location: start.php');
 			}
-		else showMessage('Authentification failed!\nWrong Username and/or Password!');
+		else 
+		{
+			$error = "Invalid data";
+		}
 	}
 }
 ?>
@@ -113,6 +116,9 @@ else
 	
 	<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+		<div class="my-div-error">
+		<?php echo $error; ?>
+		</div>
 			<form class="login100-form validate-form" method="POST">
 				<span class="login100-form-title p-b-37">
 					Sign In
@@ -127,7 +133,7 @@ else
 					<input class="input100" type="password" name="password" placeholder="password">
 					<span class="focus-input100"></span>
 				</div>
-
+                <div class="my-div-error"></div>
 				<div class="container-login100-form-btn">
 					<button class="login100-form-btn" name="login">
 						Sign In
@@ -151,7 +157,61 @@ else
 		</div>
 	</div>
 	
-	
+	<script>
+    function validate()
+    {
+       //getting the form values    
+        var username = document.getElementById("username").value;
+        var memberId = document.getElementById("memberId").value;
+        var password = document.getElementById("password").value;
+        var confPassword = document.getElementById("conf_password");
+        var usernames = <?php echo json_encode($usernames); ?>;
+        var j_username = username;
+
+        //getting the error divs
+
+        var errorUsername = document.getElementById("errorUsername");
+        var errorMemberId = document.getElementById("errorMemberId");
+        var errorPassword = document.getElementById("errorPassword");
+        var errorConfPassword = document.getElementById("errorConfPassword");
+
+        thruth = false;
+        
+         for(i =0; i < usernames.length; i++)
+         {
+             if($usernames[i] == j_username)
+             {
+                 errorUsername.innerHTML = "The username is already taken";
+                 thruth = false;
+             }
+         }
+
+        if(username == "")
+        {
+            errorUsername.innerHTML = "Please enter a name";
+            thruth = false;
+        }
+
+
+        if(password.length < 6)
+        {
+            errorPassword = "Password must be atleast six characters long";
+            thruth = false;
+        }
+
+        if(password != confPassword)
+        {
+            errorConfPassword.innerHTML = "Password does not match";
+            truth = false;
+        }
+
+
+
+        return thruth;
+
+    }
+    
+    </script>
 
 
 	

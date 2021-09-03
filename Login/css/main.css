@@ -452,6 +452,9 @@ color: #ee0b0b;
   -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2);
   -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.2);
 }
+.my-div-error{
+  color: #e65061;
+}
 
 /*//////////////////////////////////////////////////////////////////
 [ Responsive ]*/

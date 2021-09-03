@@ -49,8 +49,8 @@ error_reporting(E_ALL);
 	//Set heading and variables according to selection
 	if(isset($_GET['user'])){
 		$user_id = sanitize($db_link, $_GET['user']);
-		foreach ($users as $row_user){
-			if ($row_user['user_id'] == $user_id){
+		foreach($users as $row_user){
+			if($row_user['user_id'] == $user_id){
 				$user_id = $row_user['user_id'];
 				$user_name = $row_user['user_name'];
 				$user_ugroup = $row_user['ugroup_id'];
@@ -129,7 +129,7 @@ error_reporting(E_ALL);
 			<?PHP if (strtoupper(substr(PHP_OS, 0, 5)) === 'LINUX') echo '<a href="set_dbbackup.php">Database Backup</a>' ?>
 		</div>
 
-		<!-- LEFT SIDE: Create New User Form -->g
+		<!-- LEFT SIDE: Create New User Form -->
 		<div class="content_left">
 			<div class="content_settings" style="text-align:left; width:80%;">
 
