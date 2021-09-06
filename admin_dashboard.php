@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
+include "includes/action.php";
 
 
 
@@ -12,11 +12,11 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
 <!DOCTYPE html>
 <html lang="en">
 <!-- head -->
-<?php include "{$_SERVER['DOCUMENT_ROOT']}/sacco/partials/_head.php";?>
+<?php include "partials/_head.php";?>
 <body id="body">
     <div class="container">
         <!-- top navbar -->
-        <?php include "{$_SERVER['DOCUMENT_ROOT']}/sacco/partials/_top_bar.php";?>
+        <?php include "partials/_top_bar_dashboard.php";?>
         <main>
             <div class="main__container">
                 <!-- dashboard title and greetings -->
@@ -141,7 +141,7 @@ include "{$_SERVER['DOCUMENT_ROOT']}/sacco/includes/action.php";
             </div>
         </main>
         <!-- sidebar nav -->
-        <?php include "{$_SERVER['DOCUMENT_ROOT']}/sacco/partials/_side_bar.php";?>
+        <?php include "partials/_side_bar.php";?>
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </script>

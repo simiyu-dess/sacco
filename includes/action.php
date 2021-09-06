@@ -1,5 +1,5 @@
 <?PHP
-include "{$_SERVER['DOCUMENT_ROOT']}/sacco/functions.php";
+include __DIR__ . "/../functions.php";
 $db_link = connect();
 $sixtydays = time() - convertDays(2555);
 

@@ -8,5 +8,5 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="./dashboard_styles.css" />
-    <title>EPMS</title>
+    <title>chenken sacco</title>
   </head>
