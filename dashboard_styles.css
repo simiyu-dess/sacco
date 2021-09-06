@@ -59,6 +59,7 @@
   .text-green {
     color: #3b9668;
   }
+
   
   .container {
     display: grid;
@@ -569,7 +570,7 @@
   
   @media only screen and (max-width: 978px) {
     .container {
-      grid-template-columns: 1fr;
+      grid-template-columns:0.1fr 1fr;
       grid-template-rows: 0.2fr 3fr;
       grid-template-areas:
         "nav"
@@ -579,6 +580,7 @@
     #sidebar {
       display: none;
     }
+    
   
     .sidebar__title > i {
       display: inline;
