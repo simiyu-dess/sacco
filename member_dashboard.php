@@ -13,8 +13,70 @@ include "includes/action.php";
 <html lang="en">
 <!-- head -->
 <?php include "partials/_head.php";?>
-<body id="body">
-    <div class="container">
+<body>
+<div class="offcanvas offcanvas-start w-25" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">CHENKEN SACCO</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+                    <i class="fa fa-home"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-truncate">
+                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Bootstrap</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-truncate">
+                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>
+            </li>
+            <li>
+                <a href="#" class="nav-link text-truncate">
+                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col min-vh-100 p-4">
+            <!-- 
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+                <i class="bi bi-arrow-right-square-fill" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
+            </button>
+            toggler 
+            <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" 
+            aria-controls="offcanvas">Toggle bottom offcanvas</button>
+            
+            <button class="navbar-toggler" type="button" aria-controls="offcanvas"
+             data-bs-toggle="offcanvas"  data-bs-target="#offcanvas">
+             <i class="fa fa-bars"></i>
+        </button>
+        -->
+     
+    <div class="containered">
         <!-- top navbar -->
         <?php include "partials/_top_bar_dashboard.php";?>
         <main>
@@ -43,9 +105,9 @@ include "includes/action.php";
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card_inner">
-                            <p class="text-primary-p">Total withdrawals(kshs)</p>
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-body">
+                            <p class="card-header">Total withdrawals(kshs)</p>
                             <!-- <span class="font-bold text-title">578</span> -->
                             <span class="font-bold text-title">
                                 <?php
@@ -54,12 +116,13 @@ include "includes/action.php";
                             </span>
                         </div>
                     </div>
+                    
 
-                    <div class="card">
-                        <div class="card_inner">
-                            <p class="text-primary-p">No. Of loans Issued</p>
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-body">
+                            <p class="card-header">No. Of loans Issued</p>
                             <!-- <span class="font-bold text-title">578</span> -->
-                            <span class="font-bold text-title">
+                            <span class="font-bold text-title text-body">
                                 <?php
                                     echo number_format($number_loans);
                                 ?>
@@ -67,7 +130,7 @@ include "includes/action.php";
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="card text-white bg-danger mb-3">
                         <div class="card_inner">
                             <p class="text-primary-p">No. Of Members</p>
                             <!-- <span class="font-bold text-title">578</span> -->
@@ -141,8 +204,11 @@ include "includes/action.php";
             </div>
         </main>
         <!-- sidebar nav -->
-        <?php include "partials/_side_bar.php";?>
-    </div>
+
+</div>
+</div>  
+ </div>
+</div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </script>
 	 <script type="text/javascript">
