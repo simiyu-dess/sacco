@@ -83,7 +83,7 @@
   
   .navbar {
     /* background: #fff; */
-    background: #e4e6eb;
+    background: #2d3f42;
     grid-area: nav;
     height: 60px;
     display: flex;
@@ -92,10 +92,12 @@
     padding: 0 30px 0 30px;
     border-bottom: 1px solid lightgray;
   }
-  
-  .nav_icon {
-    display: none;
+
+  .navbar > i{
+    font-size: 26px;
+    color: #fff;
   }
+  
   
   .nav_icon > i {
     font-size: 26px;
@@ -591,13 +593,10 @@
     }
     
   
-    .sidebar__title > i {
+    #offcanvas > i {
       display: inline;
     }
   
-    .nav_icon {
-      display: inline;
-    }
   }
   
   @media only screen and (max-width: 480px) {
@@ -614,7 +613,7 @@
     padding-left: 1rem;
     overflow-y: auto;
     visibility: hidden;
-    background-color: #343a40;
+    background-color: #2d3f42;
     transition: transform .3s ease-in-out, visibility .3s ease-in-out;
   }
   @media (max-width: 991.98px) {
@@ -622,6 +621,7 @@
       position: fixed;
       top: 0; /* Height of navbar */
       bottom: 0;
+      position: absolute;
       width: 100%;
       padding-right: 1rem;
       padding-left: 1rem;
@@ -630,9 +630,9 @@
       background-color: #343a40;
       transition: transform .3s ease-in-out, visibility .3s ease-in-out;
     }
-    .offcanvas.open {
-      visibility: visible;
-      transform: translateX(100%);
+    .offcanvas.dashboard
+    {
+      left: 100%;
     }
   }
   

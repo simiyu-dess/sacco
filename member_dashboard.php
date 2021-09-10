@@ -19,7 +19,7 @@ include "includes/action.php";
         <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">CHENKEN SACCO</h6>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body px-0">
+    <div class="offcanvas-body px-0 dashboard">
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="nav-item">
                 <a href="#" class="nav-link text-truncate">
@@ -35,17 +35,32 @@ include "includes/action.php";
                     <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Bootstrap</span>
+                <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Reports</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="#">New project...</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="rep_revenue.php">Revenue report</a></li>
+                    <li><a class="dropdown-item" href="rep_incomes.php">Income report</a></li>
+                    <li><a class="dropdown-item" href="rep_expenses.php">Expense report</a></li>
+                    <li><a class="dropdown-item" href="rep_loans.php">Loans report</li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
                     <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </li>
+            <li>
+            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+             role="button" aria-expanded="false" aria-controls="collapseExample">
+             Togle
+                 </a>
+                <ul data-bs-toggle="collapse" id="collapseExample">
+                    <li>Loans</li>
+                    <li>Loans</li>
+                    <li>Loans</li>
+                    <li>Loans</li>
+                    <li>Loans</li>
+
                 </ul>
             </li>
             <li>
@@ -54,7 +69,7 @@ include "includes/action.php";
             </li>
             <li>
                 <a href="#" class="nav-link text-truncate">
-                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Members</span> </a>
             </li>
         </ul>
     </div>
@@ -66,6 +81,7 @@ include "includes/action.php";
             <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
             </button>
+            
             toggler 
             <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" 
             aria-controls="offcanvas">Toggle bottom offcanvas</button>
