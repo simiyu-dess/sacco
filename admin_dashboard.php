@@ -14,7 +14,8 @@ include "includes/action.php";
 <!-- head -->
 <?php include "partials/_head.php";?>
 <body id="body">
-    <div class="container">
+    <?php include "partials/_side_bar_admin.php"?>
+    <div class="containered">
         <!-- top navbar -->
         <?php include "partials/_top_bar_dashboard.php";?>
         <main>
@@ -141,8 +142,11 @@ include "includes/action.php";
             </div>
         </main>
         <!-- sidebar nav -->
-        <?php include "partials/_side_bar.php";?>
+        
     </div>
+</div>
+</div>
+</div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </script>
 	 <script type="text/javascript">

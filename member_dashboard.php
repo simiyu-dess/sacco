@@ -22,54 +22,32 @@ include "includes/action.php";
     <div class="offcanvas-body px-0 dashboard">
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
             <li class="nav-item">
-                <a href="#" class="nav-link text-truncate">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                <a href="member_dashboard.php" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="d-sm-inline h5">Dashboard</span>
                 </a>
             </li>
+           
             <li>
-                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
-                    <i class="fa fa-home"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-truncate">
-                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Reports</span>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="rep_revenue.php">Revenue report</a></li>
-                    <li><a class="dropdown-item" href="rep_incomes.php">Income report</a></li>
-                    <li><a class="dropdown-item" href="rep_expenses.php">Expense report</a></li>
-                    <li><a class="dropdown-item" href="rep_loans.php">Loans report</li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Sign out</a></li>
-                </ul>
-            </li>
-            <li>
-            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+            <a class="nav-link text-truncate" data-bs-toggle="collapse" href="#collapseExample"
              role="button" aria-expanded="false" aria-controls="collapseExample">
-             Togle
+             <i class="fs-5 bi-people"></i><span class="ms-1  d-sm-inline h5">Members</span></a>
                  </a>
                 <ul data-bs-toggle="collapse" id="collapseExample">
-                    <li>Loans</li>
-                    <li>Loans</li>
-                    <li>Loans</li>
-                    <li>Loans</li>
-                    <li>Loans</li>
+                    <li><a class="nav-link text-truncate" href="rep_revenue.php">Active Members</a></li>
+
 
                 </ul>
-            </li>
+           </li>
             <li>
-                <a href="#" class="nav-link text-truncate">
-                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>
-            </li>
-            <li>
-                <a href="#" class="nav-link text-truncate">
-                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Members</span> </a>
+            <a class="nav-link text-truncate" data-bs-toggle="collapse" href="#collapseLoans"
+             role="button" aria-expanded="false" aria-controls="collapseLoans">
+             Loans
+                 </a>
+                <ul data-bs-toggle="collapse" id="collapseLoans">
+                    <li><a class="nav-link" href="rep_revenue.php">Active Loans</a></li>
+                    <li><a class="nav-link" href="" >Pending Loans</a></li>
+
+                </ul>
             </li>
         </ul>
     </div>
