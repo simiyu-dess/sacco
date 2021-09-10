@@ -622,7 +622,7 @@
       top: 0; /* Height of navbar */
       bottom: 0;
       position: absolute;
-      width: 100%;
+      width : 50% !important;
       padding-right: 1rem;
       padding-left: 1rem;
       overflow-y: auto;
@@ -630,9 +630,6 @@
       background-color: #343a40;
       transition: transform .3s ease-in-out, visibility .3s ease-in-out;
     }
-    .offcanvas.dashboard
-    {
-      left: 100%;
-    }
+    
   }
   
