@@ -26,14 +26,22 @@ include "includes/action.php";
                     <i class="fs-5 bi-house"></i><span class="d-sm-inline h5">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#collapseExample" data-bs-toggle="collapse" 
+                class="nav-link text-truncate" >
+                    <i class="fs-5 bi-house"></i><span class="d-sm-inline h5">Dashboard</span>
+                </a>
+            </li>
            
             <li>
-            <a class="nav-link text-truncate" data-bs-toggle="collapse" href="#collapseExample"
-             role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="nav-link" data-bs-toggle="collapse" href="rep_revenue.php"
+             role="button" aria-expanded="false">
              <i class="fs-5 bi-people"></i><span class="ms-1  d-sm-inline h5">Members</span></a>
                  </a>
-                <ul data-bs-toggle="collapse" id="collapseExample">
-                    <li><a class="nav-link text-truncate" href="rep_revenue.php">Active Members</a></li>
+                <ul id="collapseExample">
+                    <li class="nav-item">
+                    <a href="rep_revenue.php" class="nav-link text-truncate">Active Members</a>
+                    </li>
 
 
                 </ul>
