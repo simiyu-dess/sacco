@@ -1,5 +1,6 @@
 <?PHP
 include __DIR__ . "/../functions.php";
+checkLogin();
 $db_link = connect();
 $sixtydays = time() - convertDays(2555);
 

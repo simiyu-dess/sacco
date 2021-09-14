@@ -47,8 +47,5 @@ error_reporting(E_ALL);
 			<?PHP include $_SESSION['set_dashr']; ?>
 		</div>
 
-		<!-- Logout Reminder Message -->
-		<?PHP	checkLogout();	?>
-
 	</body>
 </html>
