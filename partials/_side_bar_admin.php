@@ -100,7 +100,5 @@
         </ul>
     </div>
 </div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col min-vh-100 p-4">
+
             
