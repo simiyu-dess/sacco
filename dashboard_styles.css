@@ -85,7 +85,10 @@
     /* background: #fff; */
     background: #2d3f42;
     grid-area: nav;
-    height: 60px;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    position:fixed;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -139,13 +142,15 @@
   }
   
   main {
-    background:#e0e4cc;;
+    background:#e0e4cc;
+    left: 0;
     grid-area: main;
     overflow-y: auto;
   }
   
   .main__container {
     padding: 20px 35px;
+    left: 0;
   }
   
   .main__title {

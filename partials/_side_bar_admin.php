@@ -103,17 +103,4 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col min-vh-100 p-4">
-            <!-- 
-            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
-                <i class="bi bi-arrow-right-square-fill" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"></i>
-            </button>
             
-            toggler 
-            <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" 
-            aria-controls="offcanvas">Toggle bottom offcanvas</button>
-            
-            <button class="navbar-toggler" type="button" aria-controls="offcanvas"
-             data-bs-toggle="offcanvas"  data-bs-target="#offcanvas">
-             <i class="fa fa-bars"></i>
-        </button>
-        -->
