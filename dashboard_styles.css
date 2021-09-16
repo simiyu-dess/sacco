@@ -161,12 +161,19 @@
     object-fit: contain;
     margin-right: 20px;
   }
+  .main__greeting
+  {
+    
+    justify-content: center;
+    margin: auto;
+  }
   
   .main__greeting > h1 {
     font-size: 24px;
     color: #2e4a66;
     margin-bottom: 5px;
   }
+
   
   .main__greeting > p {
     font-size: 14px;
@@ -176,7 +183,7 @@
   
   .main__cards {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
     gap: 30px;
     margin: 20px 0;
   }
@@ -573,11 +580,13 @@
     .main__cards {
       grid-template-columns: 1fr;
       gap: 10px;
+      width: auto;
       margin-bottom: 0;
     }
   
     .charts {
       grid-template-columns: 1fr;
+      width: auto;
       margin-top: 30px;
     }
   }
@@ -590,11 +599,6 @@
         "nav nav"
         "main main";
     }
-  
-    #sidebar {
-      display: none;
-    }
-    
   
     #offcanvas > i {
       display: inline;
