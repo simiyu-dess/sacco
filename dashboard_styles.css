@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
-/*  styling scrollbars  */
+/*  styling scrollbars  
  ::-webkit-scrollbar {
     width: 5px;
     height: 6px;
@@ -19,6 +19,7 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #a5aaad;
   }
+  */
   
   * {
     margin: 0;
@@ -29,6 +30,14 @@
     box-sizing: border-box;
     font-family: "Lato", sans-serif;
     background-color:#e0e4cc;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "nav"
+    "header"
+    "main"
+    "section"
+    ;
   }
   
   .text-primary-p {
@@ -92,6 +101,10 @@
     padding: 0 30px 0 30px;
     border-bottom: 1px solid lightgray;
   }
+  .dashboard_header
+  {
+    
+  }
 
   .navbar > i{
     font-size: 26px;
@@ -141,6 +154,7 @@
   main {
     background:#e0e4cc;
     left: 0;
+    margin-left: 0;
     width: 100%;
     grid-area: main;
     overflow-y: auto;
