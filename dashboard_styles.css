@@ -1,30 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
-
-/*  styling scrollbars  
- ::-webkit-scrollbar {
-    width: 5px;
-    height: 6px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #a5aaad;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #3ea175;
-    border-radius: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #a5aaad;
-  }
-  */
-  
-  * {
-    margin: 0;
-    padding: 0;
-  }
   
   body {
     box-sizing: border-box;
@@ -101,21 +75,7 @@
     padding: 0 30px 0 30px;
     border-bottom: 1px solid lightgray;
   }
-  .dashboard_header
-  {
-    
-  }
-
-  .navbar > i{
-    font-size: 26px;
-    color: #fff;
-  }
-  
-  
-  .nav_icon > i {
-    font-size: 26px;
-    color: #a5aaad;
-  }
+ 
   
   .navbar__left > a {
     margin-right: 30px;
@@ -352,95 +312,12 @@
   
   /*  SIDEBAR STARTS HERE  */
   
-  #sidebar {
-    background: #0a3f49;
-    grid-area: sidebar;
-    overflow-y: auto;
-    padding: 20px;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-  }
-  
-  .sidebar__title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #f3f4f6;
-    margin-bottom: 30px;
-    /* color: #E85B6B; */
-  }
-  
-  .sidebar__img {
-    display: flex;
-    align-items: center;
-  }
-  
-  .sidebar__title > div > img {
-    width: 75px;
-    object-fit: contain;
-  }
-  
-  .sidebar__title > div > h1 {
-    font-size: 18px;
-    display: inline;
-  }
-  
-  .sidebar__title > i {
-    font-size: 18px;
-    display: none;
-  }
-  
-  .sidebar__menu > h2 {
-    color: #3ea175;
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    padding: 0 10px;
-    font-weight: 700;
-  }
-  
-  .sidebar__link {
-    color: #f3f4f6;
-    padding: 10px;
-    border-radius: 3px;
-    margin-bottom: 5px;
-  }
-  
   .active_menu_link {
     background: rgba(62, 161, 117, 0.3);
     color: #4affae;
   }
   
-  .active_menu_link a {
-    color: #3ea175 !important;
-  }
-  
-  .sidebar__link > a {
-    text-decoration: none;
-    color: #a5aaad;
-    font-weight: 700;
-  }
-  .sidebar__heading
-  {
-    text-decoration: none;
-    color: #3ea175;
-    font-weight: 700;
-  }
-  .sidebar__heading > a
-  {
-    text-decoration: none;
-    color: #3ea175;
-    font-size: 16px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    padding: 0 10px;
-    font-weight: 700;
-  }
-  
-  .sidebar__link > i {
-    margin-right: 10px;
-    font-size: 18px;
-  }
+ 
   
   .sidebar__logout {
     margin-top: 20px;
@@ -460,84 +337,11 @@
     font-size: 18px;
   }
   
-  .sidebar_responsive {
-    display: inline !important;
-    z-index: 9999 !important;
-    left: 0 !important;
-    position: absolute;
-  }
+  
   
   /** START OF TABLE STYLING */
   
-  table{
-      width: 75%;
-      margin: 30px auto;
-      border-collapse: collapse;
-      text-align: left;
-  }
-  
-  tr{
-      border-bottom: 1px solid #cbcbcb;
-  }
-  
-  th, td{
-      border: none;
-      height: 30px;
-      padding: 2px;
-  }
-  
-  tr:hover{
-      background: #f5f5f5;
-  }
-  
-  form{
-      width: 70%;
-      margin: 50px auto;
-      text-align: left;
-      padding: 20px;
-      border: 1px solid #bbb;
-      border-radius: 5px;
-  }
-  
-  .input-group{
-      margin: 10px 0;
-  }
-  
-  .input-group label{
-      display: block;
-      text-align: left;
-      margin: 3px;
-  }
-  
-  .input-group input{
-      height: 30px;
-      width: 93%;
-      padding: 5px 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #333;
-  }
-  select{
-    height: 45px;
-    width: 96%;
-    padding: 5px 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #333;
-  }
-
-  .selectoptions{
-    margin: 10px 0;
-  }
-  .btn{
-      padding: 10px;
-      font-size: 15px;
-      color: #fff;
-      background:#3ea175;
-      border: none;
-      border-radius: 5px;
-  }
-  
+ 
   .msg{
       margin: 30px auto;
       padding: 10px;
@@ -549,27 +353,6 @@
       text-align: center;
   }
   
-  .edit_btn{
-      text-decoration: none;
-      padding: 2px 3px;
-      background: #3ea175;
-      color: #fff;
-      border-radius: 3px;
-  }
-  
-  .del_btn{
-      text-decoration: none;
-      padding: 2px 5px;
-      color: #fff;
-      border-radius: 3px;
-      background: #e65061;
-  }
-
-  /** STYLING DIVISION CONTAINING PIE CHARTS*/
-  #piechart_3d {
-    width: 900px;
-    height: 500px;
-  }
 
   /** STYLING DIV CONTAINING ERRORS */
 
@@ -625,6 +408,93 @@
       display: none;
     }
   }
+  @media only screen and (max-width: 390px) {
+    .navbar__left {
+      display: none;
+    }
+    .main__cards {
+      grid-template-columns: 0.9fr;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+    .charts__right__cards {
+      display: grid;
+      grid-template-columns: 0.4fr 0.4fr;
+      gap: 3px;
+      margin-top: 30px;
+    }
+  }
+    @media only screen and (max-width: 340px) {
+      .main__cards {
+        grid-template-columns:95%;
+        gap: 5px;
+      }
+      .charts__right__cards {
+        display: grid;
+        grid-template-columns:49.95% 49.95%;
+        gap: 0.1%;
+        margin-top:15px;
+      }
+  
+    .charts {
+      grid-template-columns: 95%;
+      margin-top: 30px;
+    }
+    .text-primary-p {
+      color: #a5aaad;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    
+    .font-bold {
+      font-weight: 600;
+    }
+    
+  }
+  @media only screen and (max-width: 390px) {
+    .main__cards {
+      grid-template-columns:95%;
+      gap: 5px;
+    }
+    .charts__right__cards {
+      display: grid;
+      grid-template-columns:49.95% 49.95%;
+      gap: 0.1%;
+      margin-top:15px;
+    }
+
+  .charts {
+    grid-template-columns: 95%;
+    margin-top: 30px;
+  }
+  .text-primary-p {
+    color: #a5aaad;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .font-bold {
+    font-weight: 500;
+  }
+  
+}
+@media only screen and (max-width: 290px) {
+  .main__cards {
+    grid-template-columns:85%;
+    gap: 5px;
+  }
+  .charts__right__cards {
+    display: grid;
+    grid-template-columns:49.95% 49.95%;
+    gap: 0.1%;
+    margin-top:15px;
+  }
+
+.charts {
+  grid-template-columns: 85%;
+  margin-top: 30px;
+}
+}
   #offcanvas{
     position: fixed;
     top: 0; /* Height of navbar */
@@ -653,4 +523,3 @@
     }
     
   }
-  

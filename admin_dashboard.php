@@ -97,7 +97,7 @@ include "includes/action.php";
                                 </div>
                                 <i class="fa fa-money" aria-hidden="true"></i>
                             </div>
-                            <div id="piechart_3d" style="Width: 95%; Height: 95%;"></div>
+                            <div id="piechart_3d" style="width: 95%; Height: 95%;"></div>
                         </div>
 
                         <div class="charts__right">
