@@ -38,6 +38,8 @@ $html .= '
 <th style="font-weight:bold;border: 1px solid black;">Member No.</th>
 <th style="font-weight:bold; border: 1px solid black;">Member name</th>
 <th style="font-weight:bold;border: 1px solid black;">Email</th>
+<th style="font-weight:bold;border: 1px solid black;">Phone</th>
+
 </tr>
 ';
 
@@ -46,12 +48,14 @@ foreach($_SESSION['members'] as $row_cust) {
            $number = $row_cust['number'];
            $name = $row_cust['name'];
            $email = $row_cust['email'];
+           $phone = $row_cust['phone'];
 
    $html .= '
    <tr>
    <td style="border: 1px solid black;">'.$number.'</td>
    <td style="border: 1px solid black;">'.$name.'</td>
    <td style="border: 1px solid black;">'.$email.'</td>
+   <td style="border: 1px solid black;">'.$phone.'</td>
    </tr>
    ';
 

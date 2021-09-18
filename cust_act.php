@@ -41,7 +41,7 @@ error_reporting(E_ALL);
 			</colgroup>
 			<tr>
 				<form class="export" action="cust_export_pdf.php" method="post">
-					<th class="title" colspan="8">Active Customers
+					<th class="title" colspan="9">Active Customers
 					<!-- Export Button -->
 					<input type="submit" name="export_rep" value="Export" />
 					</th>
@@ -53,6 +53,7 @@ error_reporting(E_ALL);
 				<th>Name</th>
 				
 				<th>Email</th>
+				<th>Phone</th>
 				<th>Memb. since</th>
 			</tr>
 			<?PHP
@@ -69,6 +70,7 @@ error_reporting(E_ALL);
 								<td>'.$row_custact['cust_name'].'</td>
 								
 								<td>'.$row_custact['cust_email'].'</td>
+								<td>'.$row_custact['cust_phone'].'</td>
 								<td>'.date("d.m.Y",$row_custact['cust_since']).'</td>
 							</tr>';
 				
@@ -91,6 +93,7 @@ error_reporting(E_ALL);
 							<th>Cust. No.</th>
 							<th>Name</th>
 							<th>Email</th>
+							<th>Phone</th>
 							<th>Memb. since</th>
 						</tr>
 						<?PHP
@@ -99,7 +102,8 @@ error_reporting(E_ALL);
 						array_push($_SESSION['members'], array(
 								"number" => $row_custact['cust_no'],
 								"name"   => $row_custact['cust_name'],
-								"email"  => $row_custact['cust_email']
+								"email"  => $row_custact['cust_email'],
+								"phone"  => $row_custact['cust_phone']
 							));
 
 					echo '<tr>
@@ -111,6 +115,7 @@ error_reporting(E_ALL);
 								<td>'.$row_custact['cust_name'].'</td>
 								
 								<td>'.$row_custact['cust_email'].'</td>
+								<td>'.$row_custact['cust_phone'].'</td>
 								<td>'.date("d.m.Y",$row_custact['cust_since']).'</td>
 							</tr>';
 				
@@ -118,7 +123,7 @@ error_reporting(E_ALL);
 						}
 				?>
 				<tr class="balance">
-				<td colspan="8">
+				<td colspan="9">
 				<?PHP
 				echo $count.' active customer';
 				if ($count != 1) echo 's';

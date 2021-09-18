@@ -45,6 +45,9 @@ $expense_total = 0;
 		<div class="row">
 			<div class="col min-vh-100 p-4">
 			<h1>header</h1>
+			<h1>header</h1>
+			<h1>header</h1>
+			<h1>header</h1>
 				<!-- top navbar -->
 				<nav>
 					<?php include "partials/_top_bar_dashboard.php"; ?>
@@ -70,27 +73,32 @@ $expense_total = 0;
 					$_SESSION['year']  = $rep_year;
 
 					//$_SESSION['rep_export'] = array();
+					
 					//$_SESSION['rep_exp_title'] = $rep_year.'_annual-report';
 
 
-					$sql_revenues = "SELECT cust_name, cust_email,c.cust_id as cust_id,sav_year,sav_amount,MONTHNAME(str_to_date(sav_month,'%m'))as sav_month,m_id,m_name
+					$sql_revenues = "SELECT cust_name,c.cust_id as cust_id,sav_year,sav_amount,
+					                  MONTHNAME(str_to_date(sav_month,'%m'))as sav_month,m_id,m_name
 			                    FROM customer c, savings s, months m WHERE c.cust_id = s.cust_id
 								AND sav_month = m.m_id 
 								AND sav_year = $_SESSION[year]
+								GROUP BY cust_name, cust_id, sav_year, sav_amount, sav_month, m_id, m_name
 								
-								GROUP BY c.cust_id,m.m_id
-								ORDER BY c.cust_id asc";
+					             ORDER BY cust_id asc
+								";
 
 					$query_revenues = mysqli_query($db_link, $sql_revenues);
 					checkSQL($db_link, $query_revenues);
 
 					$sql_totals = "SELECT c.cust_id as cust_id, sum(sav_amount) as total, sav_year FROM customer c, 
-			savings s WHERE c.cust_id = s.cust_id AND sav_year <= $_SESSION[year] GROUP BY c.cust_id";
+			                       savings s WHERE c.cust_id = s.cust_id AND sav_year <= $_SESSION[year]
+								GROUP BY cust_id, sav_year";
+			                           
 					$_SESSION['query_total'] = mysqli_query($db_link, $sql_totals);
 					checkSQL($db_link, $_SESSION['query_total']);
 
 					$sql_total_revenue = "SELECT SUM(sav_amount) as revenue_total,sav_year FROM savings
-			      WHERE sav_year = $_SESSION[year]";
+			      WHERE sav_year = $_SESSION[year] GROUP BY sav_year";
 					$query_total_revenue = mysqli_query($db_link, $sql_total_revenue);
 					checkSQL($db_link, $query_total_revenue);
 
@@ -100,12 +108,12 @@ $expense_total = 0;
 					checkSQL($db_link, $query_expense);
 
 					$sql_expense_bf = "SELECT SUM(exp_amount) AS exp_amount, exp_year FROM expenses e
-				  WHERE exp_year < $_SESSION[year]";
+				  WHERE exp_year < $_SESSION[year] GROUP BY exp_year";
 					$query_bf = mysqli_query($db_link, $sql_expense_bf);
 					checkSQL($db_link, $query_bf);
 
 					$sql_revenue_bf = "SELECT SUM(sav_amount) AS revenue_bf, sav_year FROM savings 
-			 WHERE sav_year < $_SESSION[year]";
+			      WHERE sav_year < $_SESSION[year] GROUP BY sav_year ";
 					$query_revenue_bf = mysqli_query($db_link, $sql_revenue_bf);
 					checkSQL($db_link, $query_revenue_bf);
 
@@ -118,7 +126,6 @@ $expense_total = 0;
 
 							"id" => $row_revenue['cust_id'],
 							"name" => $row_revenue['cust_name'],
-							"email" => $row_revenue['cust_email'],
 							"amount" => $row_revenue['sav_amount'],
 							"month" => $row_revenue['sav_month']
 

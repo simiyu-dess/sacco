@@ -14,7 +14,8 @@
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     
-	<link rel="stylesheet" href="./dashboard_styles.css" />
+	<link rel="stylesheet" href="./css/mangoo.css"/>
+  <link rel="stylesheet" href="./dashboard_styles.css" />
     <link rel="stylesheet" href="./jquery/jquery-ui-1.11.4/jquery-ui.min.css">
 		<script src="./jquery/jquery-2.2.1.min.js"></script>
 		<script src="./jquery/jquery-ui-1.11.4/jquery-ui.min.js"></script>
