@@ -541,7 +541,7 @@ error_reporting(E_ALL);
 		$query_custother = mysqli_query($db_link, $sql_custother);
 		checkSQL($db_link, $query_custother, $db_link);
 
-		return $query_custother;
+		return mysqli_query($db_link, $sql_custother);;
 	}
 
 /**

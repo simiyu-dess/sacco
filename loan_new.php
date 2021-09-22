@@ -131,6 +131,8 @@
 
 	//Select all customers except current one
 	$query_cust = getCustOther($db_link);
+	
+
 
 	$guarantors = array();
 	if ($_SESSION['set_maxguar'] == ""){
