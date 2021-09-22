@@ -90,9 +90,9 @@ $expense_total = 0;
 					$query_revenues = mysqli_query($db_link, $sql_revenues);
 					checkSQL($db_link, $query_revenues);
 
-					$sql_totals = "SELECT c.cust_id as cust_id, sum(sav_amount) as total, sav_year FROM customer c, 
-			                       savings s WHERE c.cust_id = s.cust_id AND sav_year <= $_SESSION[year]
-								GROUP BY cust_id, sav_year";
+					$sql_totals = "SELECT c.cust_id as cust_id, sum(sav_amount) as total FROM customer c, 
+			                       savings s WHERE c.cust_id = s.cust_id AND s.sav_year <= $_SESSION[year]
+								GROUP BY cust_id";
 			                           
 					$_SESSION['query_total'] = mysqli_query($db_link, $sql_totals);
 					checkSQL($db_link, $_SESSION['query_total']);
