@@ -29,10 +29,11 @@ $html .= '
 <colspan>
 <col width="15%">
 <col width="25%">
-<col width="50%">
+<col width="30%">
+<col width ="30%">
 </colspan>
 <tr>
-<th colspan="3" style="border: 1px solid black; text-align:center;">Chenken Welfare Association Members</th>
+<th colspan="4" style="border: 1px solid black; text-align:center;">Chenken Welfare Association Members</th>
 </tr>
 <tr>
 <th style="font-weight:bold;border: 1px solid black;">Member No.</th>
