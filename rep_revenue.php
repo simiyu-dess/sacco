@@ -77,12 +77,12 @@ $expense_total = 0;
 					//$_SESSION['rep_exp_title'] = $rep_year.'_annual-report';
 
 
-					$sql_revenues = "SELECT cust_name,c.cust_id as cust_id,sav_year,sav_amount,
-					                  MONTHNAME(str_to_date(sav_month,'%m'))as sav_month,m_id,m_name
+					$sql_revenues = "SELECT cust_name, c.cust_id as cust_id, sav_amount,
+					                  MONTHNAME(str_to_date(sav_month,'%m')) as sav_month
 			                    FROM customer c, savings s, months m WHERE c.cust_id = s.cust_id
 								AND sav_month = m.m_id 
-								AND sav_year = $_SESSION[year]
-								GROUP BY cust_name, cust_id, sav_year, sav_amount, sav_month, m_id, m_name
+								AND s.sav_year = $_SESSION[year]
+								GROUP BY cust_name, cust_id, sav_amount, sav_month
 								
 					             ORDER BY cust_id asc
 								";
@@ -97,8 +97,8 @@ $expense_total = 0;
 					$_SESSION['query_total'] = mysqli_query($db_link, $sql_totals);
 					checkSQL($db_link, $_SESSION['query_total']);
 
-					$sql_total_revenue = "SELECT SUM(sav_amount) as revenue_total,sav_year FROM savings
-			      WHERE sav_year = $_SESSION[year] GROUP BY sav_year";
+					$sql_total_revenue = "SELECT SUM(sav_amount) as revenue_total FROM savings s
+			      WHERE s.sav_year = $_SESSION[year]";
 					$query_total_revenue = mysqli_query($db_link, $sql_total_revenue);
 					checkSQL($db_link, $query_total_revenue);
 

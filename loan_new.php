@@ -224,7 +224,7 @@
 		
 		<div id="menu_main">
 		<?PHP
-			if ($result_cust['cust_active'] == 1 && $_SESSION['log_ugroup']== 'members'): ?>
+			if ($result_cust['cust_active'] == 1 && $_SESSION['log_ugroup']== 'admin'): ?>
 			    <a href="member.php">Home </a>
 				<a href="acc_sav_depos.php?cust='.$_SESSION['member_id'].'">Deposit</a>
 				<a href="acc_sav_withd.php?cust='.$_SESSION['member_id'].'">Withdrawal</a>

@@ -83,18 +83,8 @@ else
 
 			// Forward to start.php
 			
-                $header = '';
-			if($_SESSION['log_ugroup'] == "members")
-			{
-				$header += 'Location: member_dashboard.php';
-			}
-			if($_SESSION['log_ugroup'] == "admin")
-			{
-				$header += 'Location: admin_dasboard.php';
-			}
-
-			header($header);
-			
+            
+			header('Location: start.php');
 			
 			}
 		else 
